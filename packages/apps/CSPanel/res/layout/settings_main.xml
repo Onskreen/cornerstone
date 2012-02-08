@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    android:id="@+id/layout_root"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+	<LinearLayout
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:orientation="vertical"
+		android:id="@+id/layout_controls_root">
+
+		<RelativeLayout
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/layout_header_root">
+			<ImageView android:id="@+id/cs_settings_header"
+				android:src="@drawable/cs_app_header_unfocused"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:scaleType="fitXY"/>
+			<TextView android:id="@+id/cssettings"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dp"
+				android:textColor="#cccccc"
+				android:background="@drawable/cs_app_header_unfocused"
+				android:textStyle="bold"
+				android:textSize="16sp"
+				android:text="@string/cs_settings"/>
+		</RelativeLayout>
+
+		<RelativeLayout
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/layout_title_root">
+			<ImageView android:id="@+id/panel_title_header"
+				android:src="@drawable/activity_title_bar"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:scaleType="fitXY"/>
+			<TextView android:id="@+id/panelTitle"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dp"
+				android:textColor="#ffffff"
+				android:gravity="center_vertical"
+				android:textStyle="bold"
+				android:textSize="14sp"
+				android:text="@string/panel_title"/>
+		</RelativeLayout>
+
+		<Spinner android:id="@+id/viewSpin1"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="5dp"
+				android:prompt="@string/Select_CS_0"/>
+
+		<TextView android:id="@+id/text1"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dp"
+				android:text="@string/panel_0"/>
+
+		<View   android:id="@+id/separator1"
+				android:layout_width="fill_parent"
+				android:layout_height="1dip"
+				android:layout_marginTop="5dp"
+				android:background="#404040" />
+
+		<Spinner android:id="@+id/viewSpin2"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="5dp"
+				android:prompt="@string/Select_CS_1"/>
+
+		<TextView android:id="@+id/text2"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dp"
+				android:text="@string/panel_1"/>
+
+		<View  android:id="@+id/separator2"
+				android:layout_width="fill_parent"
+				android:layout_height="1dip"
+				android:layout_marginTop="5dp"
+				android:background="#404040" />
+	</LinearLayout>
+</ScrollView>
