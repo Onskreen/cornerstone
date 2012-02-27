@@ -25,6 +25,10 @@ import static android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
 import static android.view.WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
 import static android.view.WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM;
 import static android.view.WindowManager.LayoutParams.FLAG_SHOW_WALLPAPER;
+import static android.view.WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
+import static android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN;
+import static android.view.WindowManager.LayoutParams.FLAG_LAYOUT_INSET_DECOR;
+import static android.view.WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS;
 import static android.view.WindowManager.LayoutParams.LAST_APPLICATION_WINDOW;
 import static android.view.WindowManager.LayoutParams.LAST_SUB_WINDOW;
 import static android.view.WindowManager.LayoutParams.TYPE_APPLICATION_STARTING;
@@ -7590,6 +7594,41 @@ public class WindowManagerService extends IWindowManager.Stub
 
     /**
      * Author: Onskreen
+     * Date: 14/02/2012
+     *
+     * Manage cornerstone panel dialog window.
+     * - Hides the dialog window when cornerstone is closed.
+     * - Shows the dialog window when cornerstone is opened.
+     *
+     */
+    private void handleCSPanelDialogWindows(Cornerstone_State csState) {
+		for(int i=mWindowPanels.size()-1; i>=0; i--) {
+			WindowPanel wp = mWindowPanels.get(i);
+			if(wp.isCornerstonePanel()) {
+				AppWindowToken csPanelToken = wp.getVisibleToken();
+				int N = csPanelToken.allAppWindows.size();
+					for (int k = 0; k < N; k++) {
+						WindowState win = csPanelToken.allAppWindows.get(k);
+						WindowManager.LayoutParams attrs = win.mAttrs;
+						if(attrs.type == WindowManager.LayoutParams.TYPE_APPLICATION) {
+						try {
+							if(csState == Cornerstone_State.RUNNING_CLOSED) {
+								win.mSurface.hide();
+							} else if(csState == Cornerstone_State.RUNNING_OPEN) {
+								win.mSurface.show();
+								handleFocusChange(win.getToken());
+							}
+						} catch (RuntimeException e) {
+							Slog.w(WindowManagerService.TAG, "Error hiding surface in " + this, e);
+						}
+					}
+				}
+			}
+		}
+	}
+
+    /**
+     * Author: Onskreen
      * Date: 25/02/2011
      *
      * Manage cornerstone state: open or closed. The implementation is functional but not optimal.
@@ -7693,6 +7732,16 @@ public class WindowManagerService extends IWindowManager.Stub
             long origId = Binder.clearCallingIdentity();
 
             if(csState == Cornerstone_State.RUNNING_CLOSED) { 											//Close Cornerstone
+				/**
+                 * Author: Onskreen
+                 * Date: 14/02/2012
+                 *
+                 * Close any dialog window visible on screen before
+                 * closing animation played on cornerstone and its
+                 * panel applications.
+                 */
+				handleCSPanelDialogWindows(csState);
+
                 //Cornerstone Animation
                 AppWindowToken csToken = cornerstoneWP.getVisibleToken();
                 csToken.willBeHidden = false;
@@ -7859,6 +7908,18 @@ public class WindowManagerService extends IWindowManager.Stub
                 //Set layout flag so that frames are set appropriately after animations complete
                 mCornerstoneStateChangeAnimating = true;
                 performLayoutAndPlaceSurfacesLocked();
+				/**
+                 * Author: Onskreen
+                 * Date: 14/02/2012
+                 *
+                 * Show any hidden dialog window(s) on screen after
+                 * opening animation played on cornerstone and its
+                 * panel applications.
+                 */
+				mH.removeMessages(H.SHOW_HIDDEN_DIALOG_WINDOWS);
+				mH.sendMessageDelayed(mH.obtainMessage(H.SHOW_HIDDEN_DIALOG_WINDOWS),
+						animDuration + 20);
+
             }
             Binder.restoreCallingIdentity(origId);
         }
@@ -9253,6 +9314,7 @@ public class WindowManagerService extends IWindowManager.Stub
          * associated with this Window Panel.
          */
         public void updateFrames() {
+			boolean updateFrame = false;
             for (int i = 0; i < mAppTokens.size(); i++) {
                 AppWindowToken appToken = mAppTokens.get(i);
                 if (contains(appToken.groupId)) {
@@ -9260,6 +9322,42 @@ public class WindowManagerService extends IWindowManager.Stub
                     for (int k = 0; k < N; k++) {
                         WindowState win = appToken.allAppWindows.get(k);
 						WindowManager.LayoutParams attrs = win.mAttrs;
+						final int fl = attrs.flags;
+						/**
+						 * Author: Onskreen
+						 * Date: 23/02/2012
+						 *
+						 * Determines when to allow TYPE_APPLICATION window to update
+						 * its mFrame from mWPPos rect.
+						 */
+						if(isMainPanel()) {
+							Cornerstone_State csState;
+							if(mCornerstoneStateChangeProcessing) {
+								if(mCornerstoneState == Cornerstone_State.RUNNING_CLOSED)
+									csState = Cornerstone_State.RUNNING_OPEN;
+								else
+									csState = Cornerstone_State.RUNNING_CLOSED;
+							} else {
+								csState = mCornerstoneState;
+							}
+
+							if(mCurConfiguration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+								if(csState == Cornerstone_State.RUNNING_CLOSED) {
+									updateFrame = ((win.mFrame.width() + mCornerstonePanelLandscapeWidth) == mWPPos.width()) || win.mOrientationChanging;
+								} else if(csState == Cornerstone_State.RUNNING_OPEN) {
+									updateFrame = ((win.mFrame.width() - mCornerstonePanelLandscapeWidth) == mWPPos.width()) || win.mOrientationChanging;
+								}
+							} else if(mCurConfiguration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+								if(csState == Cornerstone_State.RUNNING_CLOSED) {
+									updateFrame = ((win.mFrame.height() + mCornerstonePanelPortraitHeight + mCornerstoneAppHeaderPortraitHeight) == mWPPos.height()) || win.mOrientationChanging;
+								} else if(csState == Cornerstone_State.RUNNING_OPEN) {
+									updateFrame = ((win.mFrame.height() - mCornerstonePanelPortraitHeight - mCornerstoneAppHeaderPortraitHeight) == mWPPos.height()) || win.mOrientationChanging;
+								}
+							}
+						} else if (isCornerstonePanel()) {
+							updateFrame = false;
+						}
+
 						/**
 						 * Author: Onskreen
 						 * Date: 20/01/2012
@@ -9272,11 +9370,33 @@ public class WindowManagerService extends IWindowManager.Stub
 						 * cs panel to main panel and finally centrally aligned. Hence, we should
 						 * skip resetting WindowState.mFrame of such windows.
 						 */
-						if(attrs.type == WindowManager.LayoutParams.TYPE_APPLICATION) {
+						if((attrs.type == WindowManager.LayoutParams.TYPE_APPLICATION) && !updateFrame) {
 							if (DEBUG_WP_POSITIONS)
 								Log.v(TAG, "Skip resetting mFrame for:" + win + " of type: WindowManager.LayoutParams.TYPE_APPLICATION");
-								continue;
-					}
+							updateFrame = false;
+							continue;
+						/**
+						 * Author: Onskreen
+						 * Date: 21/02/2012
+						 *
+						 * Identify the window of type TYPE_BASE_APPLICATION
+						 * which looks like a dialog window despite having
+						 * valid AppWindowToken, WindowState and the entry in
+						 * to WIndowPanel class. ResolverActivity is such kind
+						 * of window. We just skip updating mFrame of such
+						 * windows.
+						 */
+						} else if(attrs.type == TYPE_BASE_APPLICATION &&
+								((fl & (FLAG_LAYOUT_IN_SCREEN | FLAG_FULLSCREEN | FLAG_LAYOUT_INSET_DECOR))
+								!= (FLAG_LAYOUT_IN_SCREEN | FLAG_LAYOUT_INSET_DECOR))
+							&& ((fl & FLAG_LAYOUT_IN_SCREEN) == 0)
+							&& (win.mAttachedWindow == null)
+							&& ((fl & FLAG_LAYOUT_NO_LIMITS) == 0)) {
+							  //normal window and returns the original mFrame value.
+							if (DEBUG_WP_POSITIONS)
+								Log.v(TAG, "Skip resetting mFrame for:" + win + " of type: WindowManager.LayoutParams.TYPE_BASE_APPLICATION");
+							continue;
+						}
 
                         if (DEBUG_WP_POSITIONS) {
 							if(attrs.type == WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG) {
@@ -9532,6 +9652,14 @@ public class WindowManagerService extends IWindowManager.Stub
         public static final int REPORT_HARD_KEYBOARD_STATUS_CHANGE = 22;
         public static final int BOOT_TIMEOUT = 23;
         public static final int WAITING_FOR_DRAWN_TIMEOUT = 24;
+        /**
+         * Author: Onskreen
+         * Date: 14/02/2012
+         *
+         * Async handler message for showing hidden dialog windows
+         * when cornerstone is opened by the user.
+         */
+		public static final int SHOW_HIDDEN_DIALOG_WINDOWS = 25;
 
         private Session mLastReportedHold;
 
@@ -9940,6 +10068,18 @@ public class WindowManagerService extends IWindowManager.Stub
                     }
                     break;
                 }
+
+                /**
+                 * Author: Onskreen
+                 * Date: 14/02/2012
+                 *
+                 * Shows hidden dialog window(s) when user opens
+                 * cornerstone after closing it.
+                 */
+				case SHOW_HIDDEN_DIALOG_WINDOWS: {
+					handleCSPanelDialogWindows(mCornerstoneState);
+					break;
+				}
             }
         }
     }

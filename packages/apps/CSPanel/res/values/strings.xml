@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Cornerstone</string>
-    <string name="Launch_CS_0">Launch CS0 App</string>
-    <string name="Launch_CS_1">Launch CS1 App</string>
-    <string name="Select_CS_0">Select Panel 1 App</string>
-    <string name="Select_CS_1">Select Panel 2 App</string>
-    <string name="panel_0">Top Application</string>
-    <string name="panel_1">Bottom Application</string>
-    <string name="panel_title">Set Default Applications</string>
     <string name="cs_settings">Cornerstone Settings</string>
 	<string name="empty_str"></string>
+    <string-array
+        name="cs_settings_names">
+        <item>Top Default Application</item>
+        <item>Bottom Default Application</item>
+        <item>Startup</item>
+    </string-array>
+    <string-array
+        name="cs_settings_icons">
+        <item>@drawable/select_top_app</item>
+        <item>@drawable/select_bottom_app</item>
+        <item>@drawable/launch_cs_on_boot</item>
+    </string-array>
+    <string name="cs_boot_radio_yes">Yes</string>
+    <string name="cs_boot_radio_no">No</string>
+    <string name="cs_boot_description">Launch Cornerstone at startup?</string>
 </resources>

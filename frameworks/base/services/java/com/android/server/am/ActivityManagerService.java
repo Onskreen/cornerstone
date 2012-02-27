@@ -2455,6 +2455,34 @@ public final class ActivityManagerService extends ActivityManagerNative
 
     /**
      * Author: Onskreen
+     * Date: 23/02/2012
+     *
+     * Determines if the requested Activity is HOME app and returns
+     * boolean value. HOME app shouldn't be allowed to run in
+     * Cornerstone Panels. They are allowed only in main panel.
+     */
+    private boolean checkActivityIsHomeApp(ActivityInfo appInfo) {
+		boolean isHomeActivity = false;
+		PackageManager pm = mContext.getPackageManager();
+		if(DEBUG_CORNERSTONE||DEBUG_PROCESSES) Slog.v(TAG, "appInfo.packageName: " + appInfo.packageName);
+
+		final Intent intent = new Intent(Intent.ACTION_MAIN);
+		intent.addCategory(Intent.CATEGORY_HOME);
+		List<ResolveInfo> list = pm.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+		for(int i = 0; i < list.size(); i++) {
+			ResolveInfo info = (ResolveInfo)list.get(i);
+			String pkg = info.activityInfo.packageName;
+			if(DEBUG_CORNERSTONE||DEBUG_PROCESSES) Slog.v(TAG, "i: " + i + " Home App->" + pkg);
+			if(appInfo.packageName.equals(pkg)) {
+				isHomeActivity = true;
+				return isHomeActivity;
+			}
+		}
+		return isHomeActivity;
+    }
+
+    /**
+     * Author: Onskreen
      * Date: 07/01/2012
      *
      * Determine if the activity is permitted to start. An activity is permitted to launch if:
@@ -2471,6 +2499,7 @@ public final class ActivityManagerService extends ActivityManagerNative
 		String titleMsg = "Sorry!";
 		String activityConflictMsg = "In this version of Cornerstone, only one instance of this application can be active at any time. This capability will be refined to allow multiple instances of Applications that don't share resources, and launch those that do into separate processes.";
 		String orientationsNotSupportedMsg = "This application does not support all the possible configurations, so cannot be opened in the Cornerstone";
+		String homeActivityMsg = "This application is a Launcher application, so cannot be opened in the Cornerstone";
 
 		if(DEBUG_CORNERSTONE||DEBUG_PROCESSES) Slog.v(TAG, "Cornerstone permitting to start: " + appInfo + " in: " + stack.mStackName);
 		//No check for Cornerstone Stack
@@ -2489,6 +2518,14 @@ public final class ActivityManagerService extends ActivityManagerNative
 				msg.what = SHOW_APP_ERROR_MSG;
 				msg.getData().putCharSequence("title", titleMsg);
 				msg.getData().putCharSequence("body", orientationsNotSupportedMsg);
+				mHandler.sendMessage(msg);
+				return false;
+			} else if(checkActivityIsHomeApp(appInfo)) {
+				if(DEBUG_CORNERSTONE||DEBUG_PROCESSES) Slog.v(TAG, "\tResult: Banned\tReason: Launcher app can't be opened in Cornerstone");
+				Message msg = Message.obtain();
+				msg.what = SHOW_APP_ERROR_MSG;
+				msg.getData().putCharSequence("title", titleMsg);
+				msg.getData().putCharSequence("body", homeActivityMsg);
 				mHandler.sendMessage(msg);
 				return false;
 			}
@@ -2699,29 +2736,6 @@ public final class ActivityManagerService extends ActivityManagerNative
 			//System.out.println("Found in Main Stack");
 			//Main stack or Unknown
 			targetStack = mMainStack;
-		}
-
-		/**
-		 * Author: Onskreen
-		 * Date: 21/02/2011
-		 *
-		 * Handle specific case of launching home app in main stack when. This
-		 * can occur when user presses home key while cs panel app is focused.
-		 */
-		if(targetStack == mMainStack &&
-			intent.getAction() != null &&
-			intent.getAction().equalsIgnoreCase("android.intent.action.MAIN") &&
-			intent.getCategories() != null &&
-			intent.getCategories().contains("android.intent.category.HOME")) {
-			ActivityRecord r = mMainStack.topRunningActivityLocked(null);
-			if(r !=null && r.isHomeActivity) {
-				if(DEBUG_CORNERSTONE) {
-					Log.v(TAG, "Home Intent while already at front. Bringing Main Panel to front");
-				}
-
-				mWindowManager.handleFocusChange(r.appToken.asBinder());
-				return IActivityManager.START_TASK_TO_FRONT;
-			}
 		}
 
 		/**

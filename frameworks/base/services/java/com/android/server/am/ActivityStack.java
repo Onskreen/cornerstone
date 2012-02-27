@@ -1399,6 +1399,16 @@ final class ActivityStack {
                 // else to do here.
                 if (DEBUG_VISBILITY) Slog.v(
                         TAG, "Skipping: already visible at " + r);
+				/**
+				 * Author: Onskreen
+				 * Date: 20/02/2012
+				 *
+				 * Ensure the visible Activity has the current focus.
+				 */
+				if (r.intent.hasCategory(Intent.CATEGORY_HOME)) {
+					mService.mWindowManager.handleFocusChange(r.appToken.asBinder());
+				}
+
                 r.stopFreezingScreenLocked(false);
 
             } else if (onlyThisProcess == null) {

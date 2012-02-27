@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+	android:background="@drawable/settings_details_bg">
+
+    <ViewStub
+        android:id="@+id/cs_top_app"
+        android:inflatedId="@+id/show_top_app"
+        android:layout="@layout/cs_top_app_view_stub"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:visibility="visible" />
+
+    <ViewStub
+        android:id="@+id/cs_bottom_app"
+        android:inflatedId="@+id/show_bottom_app"
+        android:layout="@layout/cs_bottom_app_view_stub"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:visibility="invisible" />
+
+    <ViewStub
+        android:id="@+id/cs_launch"
+        android:inflatedId="@+id/show_cs_launch"
+        android:layout="@layout/cs_launch_view_stub"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:visibility="invisible" />
+</RelativeLayout>
