@@ -74,6 +74,31 @@
 			<gutter>4</gutter>
 		</portrait>
 	</layout>
+## Added support for 1024x768 screen resolution.  Width in landcape mode and height in portrait mode are  moderately adjustable, as long as it does not change the main window's Android scaling size (i.e. change the main window's size from large (640dp x 480dp) to medium (470dp x 320dp).
+
+	<layout width="1024" height="768">
+		<landscape>
+			<width>341</width>
+			<height>330</height>
+			<handler>
+				<width>38</width>
+			</handler>
+			<appheader>
+				<height>30</height>
+			</appheader>
+		</landscape>
+		<portrait>
+			<width>382</width>
+			<height>314</height>
+			<handler>
+				<width>38</width>
+			</handler>
+			<appheader>
+				<height>30</height>
+			</appheader>
+			<gutter>4</gutter>
+		</portrait>
+	</layout>
 	<layout width="1280" height="768">
 		<landscape>
 			<width>450</width>
