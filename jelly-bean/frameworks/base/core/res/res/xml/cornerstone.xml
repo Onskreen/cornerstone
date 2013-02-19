@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+**
+** Copyright 2011, The Android Open Source Project
+**
+** Licensed under the Apache License, Version 2.0 (the "License");
+** you may not use this file except in compliance with the License.
+** You may obtain a copy of the License at
+**
+**     http://www.apache.org/licenses/LICENSE-2.0
+**
+** Unless required by applicable law or agreed to in writing, software
+** distributed under the License is distributed on an "AS IS" BASIS,
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+** See the License for the specific language governing permissions and
+** limitations under the License.
+*/
+
+**
+** Author: Onskreen
+** Date: 21/07/2011
+** Cornerstone specific static values
+*/
+-->
+<cornerstone>
+	<pkg>com.onskreen.cornerstone.panel</pkg>
+	<launcher>
+		<pkg>com.onskreen.cornerstone.launcher</pkg>
+		<class>com.onskreen.cornerstone.launcher.CSLauncher</class>
+	</launcher>
+	<layout width="1024" height="600">
+		<landscape>
+			<width>450</width>
+			<height>257</height>
+			<handler>
+				<width>38</width>
+			</handler>
+			<appheader>
+				<height>30</height>
+			</appheader>
+		</landscape>
+		<portrait>
+			<width>298</width>
+			<height>330</height>
+			<handler>
+				<width>38</width>
+			</handler>
+			<appheader>
+				<height>30</height>
+			</appheader>
+			<gutter>4</gutter>
+		</portrait>
+	</layout>
+	<layout width="1366" height="768">
+		<landscape>
+			<width>450</width>
+			<height>341</height>
+			<handler>
+				<width>38</width>
+			</handler>
+			<appheader>
+				<height>30</height>
+			</appheader>
+		</landscape>
+		<portrait>
+			<width>382</width>
+			<height>330</height>
+			<handler>
+				<width>38</width>
+			</handler>
+			<appheader>
+				<height>30</height>
+			</appheader>
+			<gutter>4</gutter>
+		</portrait>
+	</layout>
+	<layout width="1280" height="768">
+		<landscape>
+			<width>450</width>
+			<height>330</height>
+			<handler>
+				<width>38</width>
+			</handler>
+			<appheader>
+				<height>30</height>
+			</appheader>
+		</landscape>
+		<portrait>
+			<width>382</width>
+			<height>330</height>
+			<handler>
+				<width>38</width>
+			</handler>
+			<appheader>
+				<height>30</height>
+			</appheader>
+			<gutter>4</gutter>
+		</portrait>
+	</layout>
+	<layout width="1280" height="800">
+		<landscape>
+			<width>450</width>
+			<height>346</height>
+			<handler>
+				<width>38</width>
+			</handler>
+			<appheader>
+				<height>30</height>
+			</appheader>
+		</landscape>
+		<portrait>
+			<width>398</width>
+			<height>330</height>
+			<handler>
+				<width>38</width>
+			</handler>
+			<appheader>
+				<height>30</height>
+			</appheader>
+			<gutter>4</gutter>
+		</portrait>
+	</layout>
+</cornerstone>

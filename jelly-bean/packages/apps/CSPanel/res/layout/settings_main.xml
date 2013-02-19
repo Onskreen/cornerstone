@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+    <fragment
+        android:name="com.onskreen.cornerstone.panel.CSSettingsList"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:id="@+id/cs_settings_list_fragment"
+		android:layout_marginTop="15dp"
+		android:layout_marginLeft="20dp"
+        android:layout_weight="25">
+    </fragment>
+    <fragment
+        android:name="com.onskreen.cornerstone.panel.CSSettingsViewer"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:id="@+id/cs_settings_viewer_fragment"
+        android:layout_marginTop="15dp"
+        android:layout_weight="75">
+    </fragment>
+</LinearLayout>
