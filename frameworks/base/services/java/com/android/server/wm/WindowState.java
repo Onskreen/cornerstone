@@ -532,7 +532,14 @@ final class WindowState implements WindowManagerPolicy.WindowState {
 					&& frame.left > container.left) {
 					frame.left = container.right - w;
 					frame.right = container.right;
-					if(frame.bottom > container.bottom) {
+                    /**
+                     * Author: Onskreen
+                     * Date: 04/01/2013
+                     *
+                     * Resetting frame's top and bottom positions
+                     * of Action bar window.
+                     */
+					if(frame.bottom > container.bottom) { 
 						frame.top = container.top + 44;
 						int diff = 0;
 						if(mRequestedHeight > ph) {
@@ -541,6 +548,18 @@ final class WindowState implements WindowManagerPolicy.WindowState {
 							diff = ph - mRequestedHeight;
 						}
 						frame.bottom = container.bottom + diff + 44;
+					}
+                    /**
+                     * Author: Onskreen
+                     * Date: 04/01/2013
+                     *
+                     * Resetting frame's top and bottom positions
+                     * of attached windows such as Browser app's
+                     * auto-complete PopupWindow.
+                     */
+					if(frame.top < container.top) {
+						frame.top = container.top + 50;
+						frame.bottom = mRequestedHeight + container.top + 50;
 					}
 					//mRequestedHeight = frame.bottom - frame.top;
 					//h = mRequestedHeight;

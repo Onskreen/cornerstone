@@ -32,6 +32,7 @@ import static android.view.WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS;
 import static android.view.WindowManager.LayoutParams.LAST_APPLICATION_WINDOW;
 import static android.view.WindowManager.LayoutParams.LAST_SUB_WINDOW;
 import static android.view.WindowManager.LayoutParams.TYPE_APPLICATION_STARTING;
+import static android.view.WindowManager.LayoutParams.TYPE_APPLICATION_PANEL;
 import static android.view.WindowManager.LayoutParams.TYPE_BASE_APPLICATION;
 import static android.view.WindowManager.LayoutParams.TYPE_INPUT_METHOD;
 import static android.view.WindowManager.LayoutParams.TYPE_INPUT_METHOD_DIALOG;
@@ -9176,9 +9177,9 @@ public class WindowManagerService extends IWindowManager.Stub
         }
 
 		/**Window Panel Queries**/
-	    public boolean isInitalized() {
-	        return mPosInitatlized;
-	    }
+		public boolean isInitalized() {
+			return mPosInitatlized;
+		}
 
         public boolean isWindowPanelEmpty() {
             return mGroupIds.isEmpty();
@@ -9196,7 +9197,7 @@ public class WindowManagerService extends IWindowManager.Stub
 			return contains(appToken.groupId);
         }
 
-	    public boolean isMainPanel() {
+		public boolean isMainPanel() {
 			return mMainPanel;
 		}
 
@@ -9395,6 +9396,33 @@ public class WindowManagerService extends IWindowManager.Stub
 							  //normal window and returns the original mFrame value.
 							if (DEBUG_WP_POSITIONS)
 								Log.v(TAG, "Skip resetting mFrame for:" + win + " of type: WindowManager.LayoutParams.TYPE_BASE_APPLICATION");
+							continue;
+                        /**
+                         * Author: Onskreen
+                         * Date: 04/01/2013
+                         *
+                         * If Window is visible, focused and obstructed by keyboard, then
+                         * PhoneWindowManager class has already shifted the Window to appropriate
+                         * visible location on screen above the keyboard. Don't reset its layout
+                         * rect with the generic layout rect of overall WindowPanel.
+                         */
+						} else if(win.isObstructedByKeyboard() && win.isFocused() && win.isVisibleLw()) {
+							if (DEBUG_WP_POSITIONS)
+								Log.v(TAG, "Skip resetting mFrame for:" + win + " which is currently focused, visible and obstructed by keyboard.");
+							continue;
+                        /**
+                         * Author: Onskreen
+                         * Date: 01/02/2013
+                         *
+                         * If Window is of type LayoutParams.TYPE_APPLICATION_PANEL, then
+                         * framework sets the mFrame of such window which looks like dropdown
+                         * window in case of Browser app (when user types something in
+                         * search/address bar). Don't reset its layout rect with the generic
+                         * layout rect of overall WindowPanel.
+                         */
+						} else if(attrs.type == TYPE_APPLICATION_PANEL && !updateFrame) {
+							if (DEBUG_WP_POSITIONS)
+								Log.v(TAG, "Skip resetting mFrame for:" + win + " of type: WindowManager.LayoutParams.TYPE_APPLICATION_PANEL");
 							continue;
 						}
 

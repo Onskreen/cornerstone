@@ -2575,20 +2575,55 @@ public class PhoneWindowManager implements WindowManagerPolicy {
 
                        if(pf.bottom!=mContentBottom) {
                            int modifiedTop = desiredRect.top - mWindowShiftAmount;
+                           /**
+                            * Author: Onskreen
+                            * Date: 23/01/2013
+                            *
+                            * The modifiedTop position shouldn't be negative or shouldn't be
+                            * less than the desired layout rect's top position. If we don't
+                            * check for these conditions then Window size goes out of screen
+                            * area in landscape mode and Window size of app goes out of layout
+                            * rect in portrait mode.
+                            */
+                           if(modifiedTop < 0) { // In landscape mode
+								modifiedTop = desiredRect.top;
+                           } else if(modifiedTop < desiredRect.top) { // In portrait mode
+								modifiedTop = desiredRect.top;
+                           }
                            pf.top = df.top = cf.top = vf.top = modifiedTop;
                            pf.bottom = df.bottom = mContentBottom;
                            cf.bottom = mContentBottom;
                            vf.bottom = mCurBottom;
                        }
                    } else {
-                       mWindowsShifted.add(win);
                        mWindowShiftAmount = desiredRect.bottom - mContentBottom;
                        if (DEBUG_LAYOUT) Log.v(TAG, "\tAction: Shift up " + mWindowShiftAmount + " pixels");
-                       int modifiedTop = desiredRect.top - mWindowShiftAmount;
-                       pf.top = df.top = cf.top = vf.top = modifiedTop;
-                       pf.bottom = df.bottom = mContentBottom;
-                       cf.bottom = mContentBottom;
-                       vf.bottom = mCurBottom;
+                       /*
+                        * Author: Onskreen
+                        * Date: 12/12/2012
+                        *
+                        * Sometimes Framework wrongly calculates the virtual keyboard
+                        * rect in WindowState.computeFrameLw() and mContentBottom,
+                        * mCurBottom variables initialized with wrong values in
+                        * offsetInputMethodWindowLw method. The height of virtual keyboard
+                        * in landscape orientation is apprx. 342 pixels and in portrait mode it is
+                        * apprx. 288 pixels. If mWindowShiftAmount variable has any value lesser
+                        * than 280 pixels considered as incorrect rect of virtual keyboard window
+                        * and CS Panel app shouldn't be shifted to incorrect position on
+                        * screen in either orientations.
+                        */
+                       if(mWindowShiftAmount < 280) {
+							pf.top = df.top = cf.top = vf.top = desiredRect.top;
+							vf.bottom = cf.bottom = desiredRect.bottom;
+							pf.bottom = df.bottom = desiredRect.bottom;
+                       } else {
+                           mWindowsShifted.add(win);
+                           int modifiedTop = desiredRect.top - mWindowShiftAmount;
+                           pf.top = df.top = cf.top = vf.top = modifiedTop;
+                           pf.bottom = df.bottom = mContentBottom;
+                           cf.bottom = mContentBottom;
+                           vf.bottom = mCurBottom;
+                       }
                    }
                } else {
                    //Squeeze the window in the visible area above the keyboard

@@ -2617,8 +2617,24 @@ public final class ActivityManagerService extends ActivityManagerNative
     private boolean checkActivityCausesConflict(ActivityRecord ar, ActivityStack as) {
 		if(ar.state != ActivityState.RESUMED) {		//Not running
 			if(as == mMainStack) {			//Main Stack
-				if(DEBUG_CORNERSTONE||DEBUG_PROCESSES) Slog.v(TAG, "\tResult: Permitted\tReason: In main stack, but not running");
-				return true;
+                /**
+                 * Author: Onskreen
+                 * Date: 24/01/2013
+                 *
+                 * If requested ActivityRecord's state is not running but
+                 * top ActivityRecord of requested ActivityStack belongs to
+                 * same task as requested ActivityRecord, then we shouldn't
+                 * allow multiple instances of same app opening in main stack
+                 * or panel.
+                 */
+				ActivityRecord arTop = as.topRunningActivityLocked(null);
+				if(arTop.task == ar.task) {
+					if(DEBUG_CORNERSTONE||DEBUG_PROCESSES) Slog.v(TAG, "\tResult: Banned\tReason: CS Opened, In main panel stack, at top");
+					return false;
+				} else {
+					if(DEBUG_CORNERSTONE||DEBUG_PROCESSES) Slog.v(TAG, "\tResult: Permitted\tReason: In main stack, but not running");
+					return true;
+				}
 			} else if(mCornerstonePanelStacks.contains(as)) {		//CS Panel Stack
 				//If the CS Panel is minimized, the Activity can be in the paused state but
 				// will immediately be resumed when the user opens the CS. So don't allow the
@@ -2631,6 +2647,25 @@ public final class ActivityManagerService extends ActivityManagerNative
 					} else {
 						if(DEBUG_CORNERSTONE||DEBUG_PROCESSES) Slog.v(TAG, "\tResult: Banned\tReason: CS Closed, In cs panel stack, at top");
 						return false;
+					}
+                /**
+                 * Author: Onskreen
+                 * Date: 24/01/2013
+                 *
+                 * If requested ActivityRecord's state is not running but
+                 * top ActivityRecord of requested ActivityStack belongs to
+                 * same task as requested ActivityRecord, then we shouldn't
+                 * allow multiple instances of same app opening in Cornerstone
+                 * stacks or panels.
+                 */
+				} else if(mWindowManager.mCornerstoneState == WindowManagerService.Cornerstone_State.RUNNING_OPEN) {
+					ActivityRecord arTop = as.topRunningActivityLocked(null);
+					if(arTop.task == ar.task) {
+						if(DEBUG_CORNERSTONE||DEBUG_PROCESSES) Slog.v(TAG, "\tResult: Banned\tReason: CS Opened, In cs panel stack, at top");
+						return false;
+					} else {
+						if(DEBUG_CORNERSTONE||DEBUG_PROCESSES) Slog.v(TAG, "\tResult: Permitted\tReason: CS Opened, In cs panel stack, but not at top");
+						return true;
 					}
 				} else {																									//Any Other CS State
 					if(DEBUG_CORNERSTONE||DEBUG_PROCESSES) Slog.v(TAG, "\tResult: Permitted\tReason: In cs panel stack, but not running");
@@ -5203,6 +5238,98 @@ public final class ActivityManagerService extends ActivityManagerNative
         } else if(isCornerstone(resultToActivityRecord)) {
 			return mCornerstonePanelsCreated++;
         }
+
+        /**
+         * Author: Onskreen
+         * Date: 26/12/2012
+         *
+         * In some cases, framework passes 'resultTo' as null and NO_STACK is
+         * being returned by getActivityStack. In such cases, getActivityStack
+         * method must consider the Intent.getPackage() and if that matches with
+         * any of the Activities running in Activity Stacks (Main or Cornerstone
+         * Panels), then appropriate Activity Stack is returned and calling
+         * Activity is not launched in Main Activity if it is suppose to be
+         * launched in Cornerstone Panel stacks.
+         */
+        if(resultToActivityRecord == null && resultTo == null && intent != null) {
+            String pkg = intent.getPackage();
+            /**
+             * Author: Onskreen
+             * Date: 25/01/2013
+             *
+             * Sometimes developers don't set the packageName while constructing
+             * Intent object but instead they set the packageName as ComponentName
+             * object. In such case, Intent.getPackage() is returned NULL. We should
+             * also check for ComponentName.getPackageName() and return the appropriate
+             * stack to the calling method.
+             */
+            if(pkg == null) {
+                ComponentName cp = intent.getComponent();
+                String data = intent.getDataString();
+                if(cp != null) {
+                    pkg = cp.getPackageName();
+                } else if(data != null) {
+                    /**
+                     * Author: Onskreen
+                     * Date: 01/02/2013
+                     *
+                     * When packageName can't be determined from Intent object
+                     * or from ComponentName, then it can be extracted from the
+                     * data string of Intent object. The data string normally
+                     * looks like as:
+                     *
+                     * file:///storage/sdcard0/Android/data/com.dropbox.android/
+                     * files/scratch/Getting%20Started.pdf
+                     */
+					int index = data.indexOf('.');
+					if(index != -1) {
+						String str1 = data.substring(0, index + 1);
+						String str2 = data.substring(index + 1);
+						if(str1 != null && str2 != null) {
+							index = str1.lastIndexOf('/');
+							if(index != -1) {
+								str1 = str1.substring(index+1);
+								index = str2.indexOf('/');
+								if(index != -1) {
+									str2 = str2.substring(0, index);
+									pkg = str1 + str2;
+								}
+							}
+						}
+					}
+                }
+            }
+
+            if(pkg != null) {
+				//search the cornerstone panels
+				for (int k=0; k<mCornerstonePanelStacks.size(); k++) {
+					ActivityStack currStack = mCornerstonePanelStacks.get(k);
+					for (int i=currStack.mHistory.size()-1; i>=0; i--) {
+						ActivityRecord r = (ActivityRecord)currStack.mHistory.get(i);
+						String intentPkg = r.packageName;
+						if (intentPkg != null && intentPkg.equals(pkg) && r.visible) {
+								if(DEBUG_CORNERSTONE) {
+									Log.v(TAG, "\tpackage found in cornerstone panel: " + k);
+								}
+							return k;
+						}
+					}
+				}
+
+				//Check the mainstack history
+				for (int i=mMainStack.mHistory.size()-1; i>=0; i--) {
+					ActivityRecord r = (ActivityRecord)mMainStack.mHistory.get(i);
+					String intentPkg = r.packageName;
+					if (intentPkg != null && intentPkg.equals(pkg) && r.visible) {
+						if(DEBUG_CORNERSTONE) {
+							Log.v(TAG, "\tpackage found in main stack");
+						}
+						return MAIN_STACK;
+					}
+				}
+			}
+        }
+
 		if(DEBUG_CORNERSTONE) {
 			Log.v(TAG, "\tresultTo found nowhere, default to main stack");
 		}
