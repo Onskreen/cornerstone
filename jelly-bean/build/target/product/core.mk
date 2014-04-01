@@ -14,89 +14,45 @@
 # limitations under the License.
 #
 
-PRODUCT_BRAND := generic
-PRODUCT_DEVICE := generic
-PRODUCT_NAME := core
+# Base configuration for communication-oriented android devices
+# (phones, tablets, etc.).  If you want a change to apply to ALL
+# devices (including non-phones and non-tablets), modify
+# core_minimal.mk instead.
 
 PRODUCT_PROPERTY_OVERRIDES := \
     ro.config.notification_sound=OnTheHunt.ogg \
     ro.config.alarm_alert=Alarm_Classic.ogg
 
-PRODUCT_PACKAGES := \
-    ApplicationsProvider \
-    BackupRestoreConfirmation \
+PRODUCT_PACKAGES += \
+    BasicDreams \
     Browser \
     Contacts \
     ContactsProvider \
     CSLauncher \
     CSPanel \
     DefaultContainerService \
-    DownloadProvider \
-    DownloadProviderUi \
-    HTMLViewer \
     Home \
     KeyChain \
-    MediaProvider \
-    PackageInstaller \
     PicoTts \
-    SettingsProvider \
     SharedStorageBackup \
     TelephonyProvider \
     UserDictionaryProvider \
     VpnDialogs \
-    apache-xml \
+    abcc \
     atrace \
-    bouncycastle \
-    bu \
-    cacerts \
-    com.android.location.provider \
-    com.android.location.provider.xml \
-    core \
-    core-junit \
-    dalvikvm \
-    dexdeps \
-    dexdump \
-    dexlist \
-    dexopt \
-    dmtracedump \
-    drmserver \
-    dx \
-    ext \
-    framework-res \
-    hprof-conv \
-    icu.dat \
-    installd \
-    ip \
-    ip-up-vpn \
-    ip6tables \
-    iptables \
-    keystore \
-    keystore.default \
     libandroidfw \
-    libOpenMAXAL \
-    libOpenSLES \
     libaudiopreprocessing \
     libaudioutils \
-    libcrypto \
-    libdownmix \
-    libdvm \
-    libdrmframework \
-    libdrmframework_jni \
-    libexpat \
-    libfilterfw \
+    libbcc \
     libfilterpack_imageproc \
     libgabi++ \
-    libicui18n \
-    libicuuc \
-    libjavacore \
     libkeystore \
     libmdnssd \
-    libnativehelper \
     libnfc_ndef \
+    libportable \
     libpowermanager \
     libspeexresampler \
-    libsqlite_jni \
-    libssl \
+    libstagefright_chromium_http \
     libstagefright_soft_aacdec \
     libstagefright_soft_aacenc \
     libstagefright_soft_amrdec \
@@ -104,28 +60,23 @@ PRODUCT_PACKAGES := \
     libstagefright_soft_amrwbenc \
     libstagefright_soft_flacenc \
     libstagefright_soft_g711dec \
+    libstagefright_soft_gsmdec \
     libstagefright_soft_h264dec \
     libstagefright_soft_h264enc \
     libstagefright_soft_mp3dec \
     libstagefright_soft_mpeg4dec \
     libstagefright_soft_mpeg4enc \
+    libstagefright_soft_rawdec \
     libstagefright_soft_vorbisdec \
     libstagefright_soft_vpxdec \
-    libstagefright_soft_rawdec \
+    libstagefright_soft_vpxenc \
     libvariablespeed \
     libwebrtc_audio_preprocessing \
-    libwilhelm \
-    libz \
     mdnsd \
+    mms-common \
     requestsync \
-    screencap \
-    sensorservice \
-    lint \
-    uiautomator
-
-PRODUCT_COPY_FILES += \
-    system/core/rootdir/init.usb.rc:root/init.usb.rc \
-    system/core/rootdir/init.trace.rc:root/init.trace.rc \
+    telephony-common \
+    voip-common
 
 # host-only dependencies
 ifeq ($(WITH_HOST_DALVIK),true)
@@ -142,3 +93,5 @@ ifeq ($(WITH_HOST_DALVIK),true)
         libz-host \
         dalvik
 endif
+
+$(call inherit-product, $(SRC_TARGET_DIR)/product/core_minimal.mk)

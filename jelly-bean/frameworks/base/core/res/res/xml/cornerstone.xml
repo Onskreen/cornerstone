@@ -98,7 +98,7 @@
 			<gutter>4</gutter>
 		</portrait>
 	</layout>
-	<layout width="1280" height="800">
+	<!--<layout width="1280" height="800">
 		<landscape>
 			<width>450</width>
 			<height>346</height>
@@ -114,6 +114,52 @@
 			<height>330</height>
 			<handler>
 				<width>38</width>
+			</handler>
+			<appheader>
+				<height>30</height>
+			</appheader>
+			<gutter>4</gutter>
+		</portrait>
+	</layout>-->
+	<layout width="1280" height="800">
+		<landscape>
+			<width>450</width>
+			<height>330</height>
+			<handler>
+				<width>38</width>
+			</handler>
+			<appheader>
+				<height>30</height>
+			</appheader>
+		</landscape>
+		<portrait>
+			<width>398</width>
+			<height>315</height>
+			<handler>
+				<width>38</width>
+			</handler>
+			<appheader>
+				<height>30</height>
+			</appheader>
+			<gutter>4</gutter>
+		</portrait>
+	</layout>
+	<layout width="800" height="1280">
+		<landscape>
+			<width>450</width>
+			<height>321</height>
+			<handler>
+				<width>40</width>
+			</handler>
+			<appheader>
+				<height>30</height>
+			</appheader>
+		</landscape>
+		<portrait>
+			<width>398</width>
+			<height>322</height>
+			<handler>
+				<width>40</width>
 			</handler>
 			<appheader>
 				<height>30</height>

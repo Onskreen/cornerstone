@@ -165,6 +165,8 @@ struct InputTarget {
  * Input dispatcher configuration.
  *
  * Specifies various options that modify the behavior of the input dispatcher.
+ * The values provided here are merely defaults. The actual values will come from ViewConfiguration
+ * and are passed into the dispatcher during initialization.
  */
 struct InputDispatcherConfiguration {
     // The key repeat initial timeout.
@@ -248,7 +250,7 @@ public:
     /* Notifies the policy about switch events.
      */
     virtual void notifySwitch(nsecs_t when,
-            int32_t switchCode, int32_t switchValue, uint32_t policyFlags) = 0;
+            uint32_t switchValues, uint32_t switchMask, uint32_t policyFlags) = 0;
 
     /* Poke user activity for an event dispatched to a window. */
     virtual void pokeUserActivity(nsecs_t eventTime, int32_t eventType) = 0;
@@ -519,15 +521,17 @@ private:
         float xPrecision;
         float yPrecision;
         nsecs_t downTime;
+        int32_t displayId;
         uint32_t pointerCount;
         PointerProperties pointerProperties[MAX_POINTERS];
         PointerCoords pointerCoords[MAX_POINTERS];
 
         MotionEntry(nsecs_t eventTime,
-                int32_t deviceId, uint32_t source, uint32_t policyFlags, int32_t action,
-                int32_t flags, int32_t metaState, int32_t buttonState, int32_t edgeFlags,
+                int32_t deviceId, uint32_t source, uint32_t policyFlags,
+                int32_t action, int32_t flags,
+                int32_t metaState, int32_t buttonState, int32_t edgeFlags,
                 float xPrecision, float yPrecision,
-                nsecs_t downTime, uint32_t pointerCount,
+                nsecs_t downTime, int32_t displayId, uint32_t pointerCount,
                 const PointerProperties* pointerProperties, const PointerCoords* pointerCoords);
         virtual void appendDescription(String8& msg) const;
 
@@ -704,7 +708,7 @@ private:
 
         // Returns true if the specified source is known to have received a hover enter
         // motion event.
-        bool isHovering(int32_t deviceId, uint32_t source) const;
+        bool isHovering(int32_t deviceId, uint32_t source, int32_t displayId) const;
 
         // Records tracking information for a key event that has just been published.
         // Returns true if the event should be delivered, false if it is inconsistent
@@ -760,6 +764,7 @@ private:
             float xPrecision;
             float yPrecision;
             nsecs_t downTime;
+            int32_t displayId;
             uint32_t pointerCount;
             PointerProperties pointerProperties[MAX_POINTERS];
             PointerCoords pointerCoords[MAX_POINTERS];
@@ -875,7 +880,7 @@ private:
     // to transfer focus to a new application.
     EventEntry* mNextUnblockedEvent;
 
-    sp<InputWindowHandle> findTouchedWindowAtLocked(int32_t x, int32_t y);
+    sp<InputWindowHandle> findTouchedWindowAtLocked(int32_t displayId, int32_t x, int32_t y);
 
     // All registered connections mapped by channel file descriptor.
     KeyedVector<int, sp<Connection> > mConnectionsByFd;
@@ -904,8 +909,13 @@ private:
     KeyEntry* synthesizeKeyRepeatLocked(nsecs_t currentTime);
 
     // Deferred command processing.
+    bool haveCommandsLocked() const;
     bool runCommandsLockedInterruptible();
     CommandEntry* postCommandLocked(Command command);
+
+    // Input filter processing.
+    bool shouldSendKeyToInputFilterLocked(const NotifyKeyArgs* args);
+    bool shouldSendMotionToInputFilterLocked(const NotifyMotionArgs* args);
 
     // Inbound event processing.
     void drainInboundQueueLocked();
@@ -936,6 +946,7 @@ private:
         bool split;
         int32_t deviceId; // id of the device that is currently down, others are rejected
         uint32_t source;  // source of the device that is current down, others are rejected
+        int32_t displayId; // id to the display that currently has a touch, others are rejected
         Vector<TouchedWindow> windows;
 
         TouchState();

@@ -83,8 +83,6 @@ public class CSPanel extends Activity {
     private ImageButton csAppHeader1;
     private ImageButton csAppHeader2;
     private ImageButton csHandler;
-    private ImageButton csAppSwap1;
-    private ImageButton csAppSwap2;
     private ImageButton csAppLaunch1;
     private ImageButton csAppLaunch2;
     private ImageView csClose;
@@ -173,11 +171,15 @@ public class CSPanel extends Activity {
         String panel1 = settings.getString("panel1", null);
         if(panel0 == null && panel1 == null){
             SharedPreferences.Editor editor = settings.edit();
-            editor.putString("panel0", "com.android.email");
+            //editor.putString("panel0", "com.android.email");
+            //editor.putString("panel0", "com.android.mms");
+            editor.putString("panel0", "com.android.calendar");
             editor.putString("panel1", "com.android.browser");
             // Commit the edits!
             editor.commit();
-            panel0 = "com.android.email";
+            //panel0 = "com.android.email";
+            //panel0 = "com.android.mms";
+    	    panel0 = "com.android.calendar";
             panel1 = "com.android.browser";
         }
 
@@ -434,29 +436,7 @@ public class CSPanel extends Activity {
             }
         };
         csHandler.setOnClickListener(handleListener);
-        /**
-         * Author: Onskreen
-         * Date: 07/01/2012
-         *
-         * Deactivated swap controls.
-         */
-        /*csAppSwap1 = (ImageButton) findViewById(R.id.swap_0_button);
-        OnClickListener appSwap1Listener = new OnClickListener(){
-            @Override
-            public void onClick(View v) {
-               swapPanels(v);
-            }
-        };
-        csAppSwap1.setOnClickListener(appSwap1Listener);
 
-        csAppSwap2 = (ImageButton) findViewById(R.id.swap_1_button);
-        OnClickListener appSwap2Listener = new OnClickListener(){
-            @Override
-            public void onClick(View v) {
-               swapPanels(v);
-            }
-        };
-        csAppSwap2.setOnClickListener(appSwap2Listener);*/
         csAppLaunch1 = (ImageButton) findViewById(R.id.launch_0_button);
         OnClickListener appLaunch1Listener = new OnClickListener(){
             @Override
@@ -480,35 +460,6 @@ public class CSPanel extends Activity {
         csAppTitle2 = (TextView)findViewById(R.id.cs_app2_title);
 
         mPkgManager = getApplicationContext().getPackageManager();
-    }
-
-    public void swapPanels(View view) {
-       Context context = getApplicationContext();
-
-       /**
-        * Author: Onskreen
-        * Date: 12/04/2011
-        *
-        * Sets the swap click resource to cornerstone swap control.
-        */
-       switch(view.getId()) {
-            /*case R.id.swap_0_button:
-				csAppSwap1.setBackgroundResource(R.drawable.control_swap_click);
-				try {
-					ActivityManagerNative.getDefault().swapPanels(0);
-				} catch (RemoteException e) {
-					e.printStackTrace();
-				}
-			break;
-			case R.id.swap_1_button:
-				csAppSwap2.setBackgroundResource(R.drawable.control_swap_click);
-				try {
-					ActivityManagerNative.getDefault().swapPanels(1);
-				} catch (RemoteException e) {
-					e.printStackTrace();
-				}
-				break;*/
-       }
     }
 
     public void launchApp(View view) {
@@ -667,15 +618,6 @@ public class CSPanel extends Activity {
 			csAppLaunch1.setBackgroundResource(R.drawable.control_applaunch_focused);
 			csAppTitle1.setTextColor(Color.WHITE);
 
-			/**
-			 * Author: Onskreen
-			 * Date: 07/01/2012
-			 *
-			 * Deactivated swap controls.
-			 */
-			/*csAppSwap1.setBackgroundResource(R.drawable.control_swap_focused);
-			csAppSwap2.setBackgroundResource(R.drawable.control_swap_unfocused);*/
-
 			csAppHeader2.setBackgroundResource(R.drawable.cs_app_header_unfocused);
 			csAppHeader2.setTag("unfocused");
 			csAppLaunch2.setBackgroundResource(R.drawable.control_applaunch_unfocused);
@@ -687,15 +629,6 @@ public class CSPanel extends Activity {
 			csAppLaunch2.setBackgroundResource(R.drawable.control_applaunch_focused);
 			csAppTitle2.setTextColor(Color.WHITE);
 
-			/**
-			 * Author: Onskreen
-			 * Date: 07/01/2012
-			 *
-			 * Deactivated swap controls.
-			 */
-			/*csAppSwap2.setBackgroundResource(R.drawable.control_swap_focused);
-			csAppSwap1.setBackgroundResource(R.drawable.control_swap_unfocused);*/
-
 			csAppHeader1.setBackgroundResource(R.drawable.cs_app_header_unfocused);
 			csAppHeader1.setTag("unfocused");
 			csAppLaunch1.setBackgroundResource(R.drawable.control_applaunch_unfocused);
@@ -706,15 +639,6 @@ public class CSPanel extends Activity {
 			csAppHeader1.setTag("unfocused");
 			csAppLaunch1.setBackgroundResource(R.drawable.control_applaunch_unfocused);
 			csAppTitle1.setTextColor(Color.LTGRAY);
-
-			/**
-			 * Author: Onskreen
-			 * Date: 07/01/2012
-			 *
-			 * Deactivated swap controls.
-			 */
-			/*csAppSwap1.setBackgroundResource(R.drawable.control_swap_unfocused);
-			csAppSwap2.setBackgroundResource(R.drawable.control_swap_unfocused);*/
 
 			csAppHeader2.setBackgroundResource(R.drawable.cs_app_header_unfocused);
 			csAppHeader2.setTag("unfocused");

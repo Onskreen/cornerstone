@@ -4,9 +4,9 @@
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
      You may obtain a copy of the License at
-
+  
           http://www.apache.org/licenses/LICENSE-2.0
-
+  
      Unless required by applicable law or agreed to in writing, software
      distributed under the License is distributed on an "AS IS" BASIS,
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,11 +27,11 @@ please see styles_device_defaults.xml.
 ===============================================================
                         PLEASE READ
 ===============================================================
--->
+ -->
 <resources>
     <!-- Global Theme Styles -->
     <eat-comment />
-
+    
 
     <style name="WindowTitleBackground">
         <item name="android:background">@android:drawable/title_bar</item>
@@ -105,7 +105,7 @@ please see styles_device_defaults.xml.
         <item name="taskOpenExitAnimation_cornerstone">@anim/task_open_exit_cornerstone</item>
         <item name="taskCloseEnterAnimation_cornerstone">@anim/task_close_enter_cornerstone</item>
         <item name="taskCloseExitAnimation_cornerstone">@anim/task_close_enter_cornerstone</item>
-		<item name="taskToFrontEnterAnimation_cornerstone">@anim/task_open_enter_cornerstone</item>
+	<item name="taskToFrontEnterAnimation_cornerstone">@anim/task_open_enter_cornerstone</item>
         <item name="taskToFrontExitAnimation_cornerstone">@anim/task_open_exit_cornerstone</item>
         <item name="taskToBackEnterAnimation_cornerstone">@anim/task_close_enter_cornerstone</item>
         <item name="taskToBackExitAnimation_cornerstone">@anim/task_close_exit_cornerstone</item>
@@ -175,7 +175,7 @@ please see styles_device_defaults.xml.
         <item name="windowEnterAnimation">@anim/grow_fade_in_center</item>
         <item name="windowExitAnimation">@anim/shrink_fade_out_center</item>
     </style>
-
+    
     <style name="Animation.TypingFilterRestore">
         <item name="windowEnterAnimation">@null</item>
         <item name="windowExitAnimation">@anim/shrink_fade_out_center</item>
@@ -372,21 +372,18 @@ please see styles_device_defaults.xml.
         <item name="android:clickable">true</item>
         <item name="android:textAppearance">?android:attr/textAppearance</item>
         <item name="android:textColor">?android:attr/textColorPrimaryDisableOnly</item>
-        <item name="android:gravity">center_vertical|left</item>
+        <item name="android:gravity">center_vertical|start</item>
     </style>
 
     <style name="Widget.CompoundButton.CheckBox">
-        <item name="android:background">@android:drawable/btn_check_label_background</item>
         <item name="android:button">?android:attr/listChoiceIndicatorMultiple</item>
     </style>
 
     <style name="Widget.CompoundButton.RadioButton">
-        <item name="android:background">@android:drawable/btn_radio_label_background</item>
         <item name="android:button">?android:attr/listChoiceIndicatorSingle</item>
     </style>
 
     <style name="Widget.CompoundButton.Star">
-        <item name="android:background">@android:drawable/btn_star_label_background</item>
         <item name="android:button">@android:drawable/btn_star</item>
     </style>
 
@@ -406,6 +403,7 @@ please see styles_device_defaults.xml.
         <item name="android:maxWidth">48dip</item>
         <item name="android:minHeight">48dip</item>
         <item name="android:maxHeight">48dip</item>
+        <item name="android:mirrorForRtl">false</item>
     </style>
 
     <style name="Widget.ProgressBar.Large">
@@ -415,7 +413,7 @@ please see styles_device_defaults.xml.
         <item name="android:minHeight">76dip</item>
         <item name="android:maxHeight">76dip</item>
     </style>
-
+    
     <style name="Widget.ProgressBar.Small">
         <item name="android:indeterminateDrawable">@android:drawable/progress_small_white</item>
         <item name="android:minWidth">16dip</item>
@@ -434,8 +432,8 @@ please see styles_device_defaults.xml.
 
     <style name="Widget.ProgressBar.Small.Inverse">
         <item name="android:indeterminateDrawable">@android:drawable/progress_small</item>
-    </style>
-
+    </style> 
+    
     <style name="Widget.ProgressBar.Small.Title">
         <item name="android:indeterminateDrawable">@android:drawable/progress_small_titlebar</item>
     </style>
@@ -446,6 +444,7 @@ please see styles_device_defaults.xml.
         <item name="android:indeterminateDrawable">@android:drawable/progress_indeterminate_horizontal</item>
         <item name="android:minHeight">20dip</item>
         <item name="android:maxHeight">20dip</item>
+        <item name="android:mirrorForRtl">true</item>
     </style>
 
     <style name="Widget.SeekBar">
@@ -457,6 +456,7 @@ please see styles_device_defaults.xml.
         <item name="android:thumb">@android:drawable/seek_thumb</item>
         <item name="android:thumbOffset">8dip</item>
         <item name="android:focusable">true</item>
+        <item name="android:mirrorForRtl">true</item>
     </style>
 
     <style name="Widget.RatingBar">
@@ -466,6 +466,7 @@ please see styles_device_defaults.xml.
         <item name="android:minHeight">57dip</item>
         <item name="android:maxHeight">57dip</item>
         <item name="android:thumb">@null</item>
+        <item name="android:mirrorForRtl">true</item>
     </style>
 
     <style name="Widget.RatingBar.Indicator">
@@ -501,6 +502,10 @@ please see styles_device_defaults.xml.
         <item name="android:textCursorDrawable">?android:attr/textCursorDrawable</item>
     </style>
 
+    <style name="Widget.CheckedTextView">
+        <item name="android:textAlignment">viewStart</item>
+    </style>
+
     <style name="Widget.TextView.ListSeparator">
         <item name="android:background">@android:drawable/dark_header_dither</item>
         <item name="android:layout_width">match_parent</item>
@@ -509,7 +514,7 @@ please see styles_device_defaults.xml.
         <item name="android:textColor">?textColorSecondary</item>
         <item name="android:textSize">14sp</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:paddingLeft">8dip</item>
+        <item name="android:paddingStart">8dip</item>
     </style>
 
     <style name="Widget.TextView.ListSeparator.White">
@@ -526,7 +531,7 @@ please see styles_device_defaults.xml.
         <item name="android:textColor">?android:attr/editTextColor</item>
         <item name="android:gravity">center_vertical</item>
     </style>
-
+    
     <style name="Widget.ExpandableListView" parent="Widget.ListView">
         <item name="android:groupIndicator">@android:drawable/expander_group</item>
         <item name="android:indicatorLeft">?android:attr/expandableListPreferredItemIndicatorLeft</item>
@@ -620,11 +625,11 @@ please see styles_device_defaults.xml.
 
     <style name="Widget.DropDownItem">
         <item name="android:textAppearance">@style/TextAppearance.Widget.DropDownItem</item>
-        <item name="android:paddingLeft">@dimen/dropdownitem_text_padding_left</item>
-        <item name="android:paddingRight">@dimen/dropdownitem_text_padding_right</item>
+        <item name="android:paddingStart">@dimen/dropdownitem_text_padding_left</item>
+        <item name="android:paddingEnd">@dimen/dropdownitem_text_padding_right</item>
         <item name="android:gravity">center_vertical</item>
     </style>
-
+    
     <style name="Widget.DropDownItem.Spinner">
         <item name="android:checkMark">?android:attr/listChoiceIndicatorSingle</item>
     </style>
@@ -644,15 +649,15 @@ please see styles_device_defaults.xml.
         <item name="android:cacheColorHint">?android:attr/colorBackgroundCacheHint</item>
         <item name="android:divider">@android:drawable/divider_horizontal_dark_opaque</item>
     </style>
-
+    
     <style name="Widget.ListView.White" parent="Widget.AbsListView">
         <item name="android:listSelector">@android:drawable/list_selector_background</item>
         <item name="android:cacheColorHint">?android:attr/colorBackgroundCacheHint</item>
         <item name="android:divider">@android:drawable/divider_horizontal_bright_opaque</item>
-    </style>
+    </style>    
 
     <style name="Widget.ListView.DropDown">
-		<item name="android:cacheColorHint">@null</item>
+    	<item name="android:cacheColorHint">@null</item>
         <item name="android:divider">@android:drawable/divider_horizontal_bright_opaque</item>
     </style>
 
@@ -704,7 +709,7 @@ please see styles_device_defaults.xml.
         <item name="android:spacing">-20dip</item>
         <item name="android:unselectedAlpha">0.85</item>
     </style>
-
+    
     <style name="Widget.PopupWindow">
         <item name="android:popupBackground">@android:drawable/editbox_dropdown_background_dark</item>
         <item name="android:popupAnimationStyle">@android:style/Animation.PopupWindow</item>
@@ -742,7 +747,7 @@ please see styles_device_defaults.xml.
         <item name="android:layout_width">64dip</item>
         <item name="android:layout_height">64dip</item>
     </style>
-
+    
     <style name="Widget.QuickContactBadgeSmall" parent="Widget.GenericQuickContactBadge">
         <item name="android:layout_width">40dip</item>
         <item name="android:layout_height">40dip</item>
@@ -759,7 +764,7 @@ please see styles_device_defaults.xml.
     <style name="Widget.QuickContactBadge.WindowLarge">
         <item name="android:quickContactWindowSize">modeLarge</item>
     </style>
-
+    
     <style name="Widget.QuickContactBadgeSmall.WindowSmall">
         <item name="android:quickContactWindowSize">modeSmall</item>
     </style>
@@ -869,7 +874,7 @@ please see styles_device_defaults.xml.
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@android:color/tab_indicator_text</item>
     </style>
-
+    
     <style name="TextAppearance.Widget.TextView">
         <item name="android:textColor">?textColorPrimaryDisableOnly</item>
         <item name="android:textColorHint">?textColorHint</item>
@@ -895,7 +900,7 @@ please see styles_device_defaults.xml.
     </style>
 
     <!-- @hide -->
-    <style name="TextAppearance.SlidingTabNormal"
+    <style name="TextAppearance.SlidingTabNormal" 
         parent="@android:attr/textAppearanceMedium">
         <item name="android:textColor">?android:attr/textColorTertiary</item>
         <item name="android:textSize">28sp</item>
@@ -906,7 +911,7 @@ please see styles_device_defaults.xml.
     </style>
 
     <!-- @hide -->
-    <style name="TextAppearance.SlidingTabActive"
+    <style name="TextAppearance.SlidingTabActive" 
         parent="@android:attr/textAppearanceMedium">
         <item name="android:textColor">@android:color/sliding_tab_text_color_active</item>
         <item name="android:textSize">28sp</item>
@@ -917,7 +922,7 @@ please see styles_device_defaults.xml.
          <item name="android:textStyle">normal</item>
          <item name="android:textColor">?textColorPrimaryInverse</item>
          <item name="android:textColorHint">?textColorHintInverse</item>
-     </style>
+     </style>	
 
      <!-- @hide -->
      <style name="TextAppearance.SearchResult.Title">
@@ -961,8 +966,8 @@ please see styles_device_defaults.xml.
     </style>
 
     <style name="PreferenceFragment">
-        <item name="android:paddingLeft">0dp</item>
-        <item name="android:paddingRight">0dp</item>
+        <item name="android:paddingStart">0dp</item>
+        <item name="android:paddingEnd">0dp</item>
     </style>
 
     <style name="Preference.Information">
@@ -970,7 +975,7 @@ please see styles_device_defaults.xml.
         <item name="android:enabled">false</item>
         <item name="android:shouldDisableView">false</item>
     </style>
-
+    
     <style name="Preference.Category">
         <item name="android:layout">@android:layout/preference_category</item>
         <!-- The title should not dim if the category is disabled, instead only the preference children should dim. -->
@@ -1016,8 +1021,8 @@ please see styles_device_defaults.xml.
     </style>
 
     <style name="PreferenceFragment.Holo">
-        <item name="android:paddingLeft">@dimen/preference_fragment_padding_side</item>
-        <item name="android:paddingRight">@dimen/preference_fragment_padding_side</item>
+        <item name="android:paddingStart">@dimen/preference_fragment_padding_side</item>
+        <item name="android:paddingEnd">@dimen/preference_fragment_padding_side</item>
     </style>
 
     <style name="Preference.Holo.Information">
@@ -1073,8 +1078,8 @@ please see styles_device_defaults.xml.
     <!-- The attributes are overridden here because the x-large or large resources may have
          changed the margins and background in the parent PreferencePanel style. -->
     <style name="PreferencePanel.Dialog">
-        <item name="android:layout_marginLeft">0dip</item>
-        <item name="android:layout_marginRight">0dip</item>
+        <item name="android:layout_marginStart">0dip</item>
+        <item name="android:layout_marginEnd">0dip</item>
         <item name="android:layout_marginTop">0dip</item>
         <item name="android:layout_marginBottom">0dip</item>
         <item name="android:background">@null</item>
@@ -1115,17 +1120,17 @@ please see styles_device_defaults.xml.
 
     <style name="ZoomControls">
         <item name="android:gravity">bottom</item>
-        <item name="android:paddingLeft">15dip</item>
-        <item name="android:paddingRight">15dip</item>
+        <item name="android:paddingStart">15dip</item>
+        <item name="android:paddingEnd">15dip</item>
     </style>
-
+    
     <!-- Style you can use with a container (typically a horizontal
          LinearLayout) to get the standard "button bar" background and
          spacing. @hide -->
     <style name="ButtonBar">
         <item name="android:paddingTop">5dip</item>
-        <item name="android:paddingLeft">4dip</item>
-        <item name="android:paddingRight">4dip</item>
+        <item name="android:paddingStart">4dip</item>
+        <item name="android:paddingEnd">4dip</item>
         <item name="android:paddingBottom">1dip</item>
         <item name="android:background">@android:drawable/bottom_bar</item>
     </style>
@@ -1161,9 +1166,9 @@ please see styles_device_defaults.xml.
         <item name="android:displayOptions">useLogo|showHome|showTitle</item>
         <item name="android:divider">@android:drawable/action_bar_divider</item>
         <item name="android:height">?android:attr/actionBarSize</item>
-        <item name="android:paddingLeft">0dip</item>
+        <item name="android:paddingStart">0dip</item>
         <item name="android:paddingTop">0dip</item>
-        <item name="android:paddingRight">0dip</item>
+        <item name="android:paddingEnd">0dip</item>
         <item name="android:paddingBottom">0dip</item>
         <item name="android:titleTextStyle">@android:style/TextAppearance.Widget.ActionBar.Title</item>
         <item name="android:subtitleTextStyle">@android:style/TextAppearance.Widget.ActionBar.Subtitle</item>
@@ -1199,8 +1204,8 @@ please see styles_device_defaults.xml.
 
     <style name="Widget.ActionButton">
         <item name="android:background">?android:attr/actionBarItemBackground</item>
-        <item name="android:paddingLeft">12dip</item>
-        <item name="android:paddingRight">12dip</item>
+        <item name="android:paddingStart">12dip</item>
+        <item name="android:paddingEnd">12dip</item>
         <item name="android:minWidth">@android:dimen/action_button_min_width</item>
         <item name="android:minHeight">?android:attr/actionBarSize</item>
         <item name="android:gravity">center</item>
@@ -1218,8 +1223,8 @@ please see styles_device_defaults.xml.
     <style name="Widget.ActionBar.TabView" parent="Widget">
         <item name="android:gravity">center_horizontal</item>
         <item name="android:background">@drawable/minitab_lt</item>
-        <item name="android:paddingLeft">4dip</item>
-        <item name="android:paddingRight">4dip</item>
+        <item name="android:paddingStart">4dip</item>
+        <item name="android:paddingEnd">4dip</item>
     </style>
 
     <style name="Widget.ActionBar.TabBar" parent="Widget">
@@ -1236,7 +1241,7 @@ please see styles_device_defaults.xml.
         <item name="android:popupBackground">@android:drawable/spinner_dropdown_background</item>
         <item name="android:dropDownVerticalOffset">-10dip</item>
         <item name="android:dropDownHorizontalOffset">0dip</item>
-        <item name="android:dropDownWidth">wrap_content</item>
+        <item name="android:dropDownWidth">wrap_content</item>        
     </style>
 
     <style name="Widget.PopupMenu" parent="Widget.ListPopupWindow">
@@ -1295,7 +1300,7 @@ please see styles_device_defaults.xml.
     </style>
 
     <style name="TextAppearance.Holo.Small.Inverse">
-        <item name="android:textColor">?textColorPrimaryInverse</item>
+        <item name="android:textColor">?textColorSecondaryInverse</item>
         <item name="android:textColorHint">?textColorHintInverse</item>
         <item name="android:textColorHighlight">?textColorHighlightInverse</item>
         <item name="android:textColorLink">?textColorLinkInverse</item>
@@ -1334,7 +1339,7 @@ please see styles_device_defaults.xml.
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@android:color/tab_indicator_text</item>
     </style>
-
+    
     <style name="TextAppearance.Holo.Widget.TextView">
         <item name="android:textColor">?textColorPrimaryDisableOnly</item>
         <item name="android:textColorHint">?textColorHint</item>
@@ -1428,6 +1433,13 @@ please see styles_device_defaults.xml.
     </style>
 
     <style name="TextAppearance.Holo.Widget.Switch" parent="TextAppearance.Holo.Small">
+        <!-- Switch thumb asset presents a dark background. -->
+        <item name="android:textColor">@android:color/secondary_text_holo_dark</item>
+    </style>
+
+    <style name="TextAppearance.Holo.Light.Widget.Switch" parent="TextAppearance.Holo.Small">
+        <!-- Switch thumb asset presents a dark background. -->
+        <item name="android:textColor">@android:color/primary_text_holo_dark</item>
     </style>
 
     <style name="TextAppearance.Holo.WindowTitle">
@@ -1464,7 +1476,7 @@ please see styles_device_defaults.xml.
 
     <style name="TextAppearance.Holo.Light.Small" parent="TextAppearance.Holo.Small">
     </style>
-
+ 
    <style name="TextAppearance.Holo.Light.Large.Inverse">
         <item name="android:textColor">?textColorPrimaryInverse</item>
         <item name="android:textColorHint">?textColorHintInverse</item>
@@ -1566,8 +1578,8 @@ please see styles_device_defaults.xml.
 
     <style name="Widget.Holo.Button.Borderless">
         <item name="android:background">?android:attr/selectableItemBackground</item>
-        <item name="android:paddingLeft">4dip</item>
-        <item name="android:paddingRight">4dip</item>
+        <item name="android:paddingStart">4dip</item>
+        <item name="android:paddingEnd">4dip</item>
     </style>
 
     <style name="Widget.Holo.Button.Borderless.Small">
@@ -1597,8 +1609,8 @@ please see styles_device_defaults.xml.
 
     <style name="Holo.ButtonBar" parent="ButtonBar">
         <item name="android:paddingTop">0dip</item>
-        <item name="android:paddingLeft">0dip</item>
-        <item name="android:paddingRight">0dip</item>
+        <item name="android:paddingStart">0dip</item>
+        <item name="android:paddingEnd">0dip</item>
         <item name="android:paddingBottom">0dip</item>
         <item name="divider">?android:attr/dividerVertical</item>
         <item name="showDividers">middle</item>
@@ -1616,6 +1628,9 @@ please see styles_device_defaults.xml.
     </style>
 
     <style name="Widget.Holo.TextView" parent="Widget.TextView">
+    </style>
+
+    <style name="Widget.Holo.CheckedTextView" parent="Widget.CheckedTextView">
     </style>
 
     <style name="Widget.Holo.TextView.ListSeparator" parent="Widget.TextView.ListSeparator">
@@ -1765,8 +1780,9 @@ please see styles_device_defaults.xml.
         <item name="android:thumb">@android:drawable/scrubber_control_selector_holo</item>
         <item name="android:thumbOffset">16dip</item>
         <item name="android:focusable">true</item>
-        <item name="android:paddingLeft">16dip</item>
-        <item name="android:paddingRight">16dip</item>
+        <item name="android:paddingStart">16dip</item>
+        <item name="android:paddingEnd">16dip</item>
+        <item name="android:mirrorForRtl">true</item>
     </style>
 
     <style name="Widget.Holo.RatingBar" parent="Widget.RatingBar">
@@ -1805,7 +1821,7 @@ please see styles_device_defaults.xml.
         <item name="android:dropDownHorizontalOffset">0dip</item>
         <item name="android:dropDownWidth">wrap_content</item>
         <item name="android:popupPromptView">@android:layout/simple_dropdown_hint</item>
-        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:gravity">start|center_vertical</item>
         <item name="android:disableChildrenWhenDisabled">true</item>
     </style>
 
@@ -1850,8 +1866,8 @@ please see styles_device_defaults.xml.
 
     <style name="Widget.Holo.DropDownItem" parent="Widget.DropDownItem">
         <item name="android:textAppearance">@style/TextAppearance.Holo.Widget.DropDownItem</item>
-        <item name="android:paddingLeft">8dp</item>
-        <item name="android:paddingRight">8dp</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
     </style>
 
     <style name="Widget.Holo.DropDownItem.Spinner">
@@ -1859,8 +1875,8 @@ please see styles_device_defaults.xml.
 
     <style name="Widget.Holo.TextView.SpinnerItem" parent="Widget.TextView.SpinnerItem">
         <item name="android:textAppearance">@style/TextAppearance.Holo.Widget.TextView.SpinnerItem</item>
-        <item name="android:paddingLeft">8dp</item>
-        <item name="android:paddingRight">8dp</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
     </style>
 
     <style name="Widget.Holo.KeyboardView" parent="Widget.KeyboardView">
@@ -1886,7 +1902,7 @@ please see styles_device_defaults.xml.
 
     <style name="Widget.Holo.ListPopupWindow" parent="Widget.ListPopupWindow">
         <item name="android:dropDownSelector">@android:drawable/list_selector_holo_dark</item>
-        <item name="android:popupBackground">@android:drawable/menu_dropdown_panel_holo_dark</item>
+        <item name="android:popupBackground">@android:drawable/menu_panel_holo_dark</item>
         <item name="android:dropDownVerticalOffset">0dip</item>
         <item name="android:dropDownHorizontalOffset">0dip</item>
         <item name="android:dropDownWidth">wrap_content</item>
@@ -1905,8 +1921,8 @@ please see styles_device_defaults.xml.
     <style name="Widget.Holo.ActionButton" parent="Widget.ActionButton">
         <item name="android:minWidth">@android:dimen/action_button_min_width</item>
         <item name="android:gravity">center</item>
-        <item name="android:paddingLeft">12dip</item>
-        <item name="android:paddingRight">12dip</item>
+        <item name="android:paddingStart">12dip</item>
+        <item name="android:paddingEnd">12dip</item>
         <item name="android:scaleType">center</item>
         <item name="android:maxLines">2</item>
     </style>
@@ -1922,8 +1938,8 @@ please see styles_device_defaults.xml.
 
     <style name="Widget.Holo.ActionBar.TabView" parent="Widget.ActionBar.TabView">
         <item name="android:background">@drawable/tab_indicator_ab_holo</item>
-        <item name="android:paddingLeft">16dip</item>
-        <item name="android:paddingRight">16dip</item>
+        <item name="android:paddingStart">16dip</item>
+        <item name="android:paddingEnd">16dip</item>
     </style>
 
     <style name="Widget.Holo.ActionBar.TabBar" parent="Widget.ActionBar.TabBar">
@@ -2003,8 +2019,8 @@ please see styles_device_defaults.xml.
 
     <style name="Widget.Holo.Light.Button.Borderless">
         <item name="android:background">?android:attr/selectableItemBackground</item>
-        <item name="android:paddingLeft">4dip</item>
-        <item name="android:paddingRight">4dip</item>
+        <item name="android:paddingStart">4dip</item>
+        <item name="android:paddingEnd">4dip</item>
     </style>
 
     <style name="Widget.Holo.Light.Button.Borderless.Small">
@@ -2044,6 +2060,9 @@ please see styles_device_defaults.xml.
     </style>
 
     <style name="Widget.Holo.Light.TextView" parent="Widget.TextView">
+    </style>
+
+    <style name="Widget.Holo.Light.CheckedTextView" parent="Widget.CheckedTextView">
     </style>
 
     <style name="Widget.Holo.Light.TextView.ListSeparator" parent="Widget.TextView.ListSeparator">
@@ -2256,7 +2275,7 @@ please see styles_device_defaults.xml.
 
     <style name="Widget.Holo.Light.ListPopupWindow" parent="Widget.ListPopupWindow">
         <item name="android:dropDownSelector">@android:drawable/list_selector_holo_light</item>
-        <item name="android:popupBackground">@android:drawable/menu_dropdown_panel_holo_light</item>
+        <item name="android:popupBackground">@android:drawable/menu_panel_holo_light</item>
         <item name="android:dropDownVerticalOffset">0dip</item>
         <item name="android:dropDownHorizontalOffset">0dip</item>
         <item name="android:dropDownWidth">wrap_content</item>
@@ -2353,7 +2372,7 @@ please see styles_device_defaults.xml.
     <style name="Widget.Holo.Light.CompoundButton.Switch" parent="Widget.CompoundButton.Switch">
         <item name="android:track">@android:drawable/switch_track_holo_light</item>
         <item name="android:thumb">@android:drawable/switch_inner_holo_light</item>
-        <item name="android:switchTextAppearance">@android:style/TextAppearance.Holo.Widget.Switch</item>
+        <item name="android:switchTextAppearance">@android:style/TextAppearance.Holo.Light.Widget.Switch</item>
         <item name="android:textOn">@android:string/capital_on</item>
         <item name="android:textOff">@android:string/capital_off</item>
         <item name="android:thumbTextPadding">12dip</item>
@@ -2452,10 +2471,10 @@ please see styles_device_defaults.xml.
         <item name="android:layout_width">200dip</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">8dip</item>
-        <item name="android:layout_marginLeft">16dip</item>
-        <item name="android:layout_marginRight">16dip</item>
+        <item name="android:layout_marginStart">16dip</item>
+        <item name="android:layout_marginEnd">16dip</item>
         <item name="android:orientation">vertical</item>
-        <item name="android:gravity">left</item>
+        <item name="android:gravity">start</item>
     </style>
 
     <!-- @hide -->
@@ -2484,6 +2503,8 @@ please see styles_device_defaults.xml.
         <item name="android:externalRouteEnabledDrawable">@drawable/ic_media_route_holo_dark</item>
         <item name="android:minWidth">56dp</item>
         <item name="android:minHeight">48dp</item>
+        <item name="android:focusable">true</item>
+        <item name="android:contentDescription">@android:string/media_route_button_content_description</item>
     </style>
 
     <style name="Widget.Holo.Light.MediaRouteButton">
@@ -2491,6 +2512,35 @@ please see styles_device_defaults.xml.
         <item name="android:externalRouteEnabledDrawable">@drawable/ic_media_route_holo_light</item>
         <item name="android:minWidth">56dp</item>
         <item name="android:minHeight">48dp</item>
+        <item name="android:focusable">true</item>
+        <item name="android:contentDescription">@android:string/media_route_button_content_description</item>
+    </style>
+
+    <!-- Keyguard PIN pad styles -->
+    <style name="Widget.Button.NumPadKey"
+            parent="@android:style/Widget.Button">
+        <item name="android:singleLine">true</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:textSize">34dp</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingLeft">20dp</item>
+    </style>
+    <style name="TextAppearance.NumPadKey"
+            parent="@android:style/TextAppearance">
+        <item name="android:textSize">34dp</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">#ffffff</item>
+    </style>
+    <style name="TextAppearance.NumPadKey.Klondike">
+        <item name="android:textSize">20dp</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">#80ffffff</item>
     </style>
 
 </resources>

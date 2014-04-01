@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.view.IWindow;
+import android.view.IWindowId;
 import android.view.IWindowSession;
 import android.view.InputChannel;
 import android.view.Surface;
@@ -45,7 +46,24 @@ public final class BridgeWindowSession implements IWindowSession {
     }
 
     @Override
-    public int addWithoutInputChannel(IWindow arg0, int seq, LayoutParams arg1, int arg2, Rect arg3)
+    public int addToDisplay(IWindow arg0, int seq, LayoutParams arg1, int arg2, int displayId,
+                            Rect arg3, InputChannel outInputchannel)
+            throws RemoteException {
+        // pass for now.
+        return 0;
+    }
+
+    @Override
+    public int addWithoutInputChannel(IWindow arg0, int seq, LayoutParams arg1, int arg2,
+                                      Rect arg3)
+            throws RemoteException {
+        // pass for now.
+        return 0;
+    }
+
+    @Override
+    public int addToDisplayWithoutInputChannel(IWindow arg0, int seq, LayoutParams arg1, int arg2,
+                                               int displayId, Rect arg3)
             throws RemoteException {
         // pass for now.
         return 0;
@@ -67,10 +85,9 @@ public final class BridgeWindowSession implements IWindowSession {
         // pass for now.
         return false;
     }
-
     @Override
     public int relayout(IWindow arg0, int seq, LayoutParams arg1, int arg2, int arg3, int arg4,
-            int arg4_5, Rect arg5, Rect arg6, Rect arg7, Configuration arg7b,
+            int arg4_5, Rect arg5Z, Rect arg5, Rect arg6, Rect arg7, Configuration arg7b,
             Surface arg8) throws RemoteException {
         // pass for now.
         return 0;
@@ -168,7 +185,24 @@ public final class BridgeWindowSession implements IWindowSession {
     }
 
     @Override
+    public void setUniverseTransform(IBinder window, float alpha, float offx, float offy,
+            float dsdx, float dtdx, float dsdy, float dtdy) {
+        // pass for now.
+    }
+
+    @Override
     public IBinder asBinder() {
+        // pass for now.
+        return null;
+    }
+
+    @Override
+    public void onRectangleOnScreenRequested(IBinder window, Rect rectangle, boolean immediate) {
+        // pass for now.
+    }
+
+    @Override
+    public IWindowId getWindowId(IBinder window) throws RemoteException {
         // pass for now.
         return null;
     }
