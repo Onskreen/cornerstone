@@ -23,7 +23,7 @@
     <string name="menu_wallpaper">Wallpaper</string>
     <string name="menu_search">Search</string>
     <string name="menu_settings">Settings</string>
-	<string name="app_name">Select Application</string>
+    <string name="app_name">Select Application</string>
     <!-- Wallpaper -->
     <string name="wallpaper_instructions">Tap picture to set portrait wallpaper</string>
 </resources>

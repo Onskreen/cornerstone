@@ -1057,43 +1057,43 @@ class WindowStateAnimator {
          * mWindows, so not unsetting mCornerstoneStateChange flag until we encounter it
          * after the animation is complete.
          */
-        if(mService.mCornerstoneState != Cornerstone_State.TERMINATED &&			//Cornerstone is active
+        if(mService.mCornerstoneState != Cornerstone_State.TERMINATED &&            //Cornerstone is active
              mService.mCornerstoneStateChangeAnimating &&//In the midst of a cornerstone state change
-             mWin.mAppToken!=null) {			//Ignore non app tokens
+             mWin.mAppToken!=null) {            //Ignore non app tokens
 
-			WindowPanel wp = mService.findWindowPanel(mWin.mAppToken.token);
-			if(wp!=null) {					//just in case...
-				if(WindowManagerService.DEBUG_CORNERSTONE) {
-					Slog.v(WindowManagerService.TAG, "WindowState.computeShownFrameLocked for: " + this);
-					Slog.v(WindowManagerService.TAG, "mCornerstoneStateChangeProcessing: " + mService.mCornerstoneStateChangeProcessing);
-					Slog.v(WindowManagerService.TAG, "mCornerstoneStateChangeAnimating: " + mService.mCornerstoneStateChangeAnimating);
-					Slog.v(WindowManagerService.TAG, "WP: " + wp);
-					Slog.v(WindowManagerService.TAG, "mFrame: " + mWin.mFrame);
-					Slog.v(WindowManagerService.TAG, "mShownFrame: " + mWin.mShownFrame);
-				}
+            WindowPanel wp = mService.findWindowPanel(mWin.mAppToken.token);
+            if(wp!=null) {                  //just in case...
+                if(WindowManagerService.DEBUG_CORNERSTONE) {
+                    Slog.v(WindowManagerService.TAG, "WindowState.computeShownFrameLocked for: " + this);
+                    Slog.v(WindowManagerService.TAG, "mCornerstoneStateChangeProcessing: " + mService.mCornerstoneStateChangeProcessing);
+                    Slog.v(WindowManagerService.TAG, "mCornerstoneStateChangeAnimating: " + mService.mCornerstoneStateChangeAnimating);
+                    Slog.v(WindowManagerService.TAG, "WP: " + wp);
+                    Slog.v(WindowManagerService.TAG, "mFrame: " + mWin.mFrame);
+                    Slog.v(WindowManagerService.TAG, "mShownFrame: " + mWin.mShownFrame);
+                }
 
-				/**
-				 * Cornerstone and panels should be locked to their final
-				 * animated position.
-				 */
-				if(wp.isCornerstone() || wp.isCornerstonePanel() &&
-						mAnimating == false) {						//Only lock the frame at the end of the animation
-					if(WindowManagerService.DEBUG_CORNERSTONE) {
-						Slog.v(WindowManagerService.TAG, "Animation complete, locking frames");
-					}
+                /**
+                 * Cornerstone and panels should be locked to their final
+                 * animated position.
+                 */
+                if(wp.isCornerstone() || wp.isCornerstonePanel() &&
+                        mAnimating == false) {                      //Only lock the frame at the end of the animation
+                    if(WindowManagerService.DEBUG_CORNERSTONE) {
+                        Slog.v(WindowManagerService.TAG, "Animation complete, locking frames");
+                    }
 
-					Rect rect = mService.computeWindowPanelRect(wp, mService.mCurConfiguration.orientation, mService.mCornerstoneState);
-					if(WindowManagerService.DEBUG_CORNERSTONE) {
-						Slog.v(WindowManagerService.TAG, "Updating " + wp + " to: " + rect);
-					}
-					wp.setFrame(rect);
+                    Rect rect = mService.computeWindowPanelRect(wp, mService.mCurConfiguration.orientation, mService.mCornerstoneState);
+                    if(WindowManagerService.DEBUG_CORNERSTONE) {
+                        Slog.v(WindowManagerService.TAG, "Updating " + wp + " to: " + rect);
+                    }
+                    wp.setFrame(rect);
 
-					if(wp.isCornerstone()) {
-						if(WindowManagerService.DEBUG_CORNERSTONE) Slog.v(WindowManagerService.TAG, "Setting mCornerstoneStateChangeAnimating to False");
-						mService.mCornerstoneStateChangeAnimating = false;
-					}
-				}
-			}
+                    if(wp.isCornerstone()) {
+                        if(WindowManagerService.DEBUG_CORNERSTONE) Slog.v(WindowManagerService.TAG, "Setting mCornerstoneStateChangeAnimating to False");
+                        mService.mCornerstoneStateChangeAnimating = false;
+                    }
+                }
+            }
         }
             mWin.mShownFrame.set(mWin.mFrame);
             if (mWin.mXOffset != 0 || mWin.mYOffset != 0) {

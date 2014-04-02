@@ -119,7 +119,7 @@ class AppWindowToken extends WindowToken {
         mInputApplicationHandle = new InputApplicationHandle(this);
         mAnimator = service.mAnimator;
         mAppAnimator = new AppWindowAnimator(this);
-	mService = _service;
+    mService = _service;
     }
 
     void sendAppVisibilityToClients() {
@@ -318,18 +318,18 @@ class AppWindowToken extends WindowToken {
      * if can't figure out which panel it is in
      */
      public boolean isInMainPanelWindowPanel() {
-		final ArrayList<WindowPanel> WindowPanels = mService.getWindowPanels();
-		for(int i=0; i<WindowPanels.size(); i++) {
-			WindowPanel wp = WindowPanels.get(i);
-			if(wp.isMainPanel()) {
-				if(wp.contains(token)) {
-					return true;
-				} else {
-					break;
-				}
-			}
-		}
-		return false;
+        final ArrayList<WindowPanel> WindowPanels = mService.getWindowPanels();
+        for(int i=0; i<WindowPanels.size(); i++) {
+            WindowPanel wp = WindowPanels.get(i);
+            if(wp.isMainPanel()) {
+                if(wp.contains(token)) {
+                    return true;
+                } else {
+                    break;
+                }
+            }
+        }
+        return false;
      }
 
     /**
@@ -340,15 +340,15 @@ class AppWindowToken extends WindowToken {
      * Returns true if it's in cornerstone panel else false.
      */
     public boolean isInCornerstonePanelWindowPanel() {
-		final ArrayList<WindowPanel> WindowPanels = mService.getWindowPanels();
-		for(int i=0; i<WindowPanels.size(); i++) {
-			WindowPanel wp = WindowPanels.get(i);
-			if(wp.isCornerstonePanel()) {
-				if(wp.contains(groupId)) {
-					return true;
-				}
-			}
-		}
-		return false;
+        final ArrayList<WindowPanel> WindowPanels = mService.getWindowPanels();
+        for(int i=0; i<WindowPanels.size(); i++) {
+            WindowPanel wp = WindowPanels.get(i);
+            if(wp.isCornerstonePanel()) {
+                if(wp.contains(groupId)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

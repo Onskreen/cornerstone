@@ -22,8 +22,8 @@ public class CSSettingsList  extends ListFragment {
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-		getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-		getListView().setItemChecked(position, true);
+        getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        getListView().setItemChecked(position, true);
 
         index = position;
         selectedListener.onListItemSelected(position);
@@ -35,11 +35,11 @@ public class CSSettingsList  extends ListFragment {
 
         Context ctx = this.getActivity().getApplicationContext();
         Log.v(TAG, "onActivityCreated called");
-		Resources res = this.getResources();
+        Resources res = this.getResources();
 
-		String[] options = res.getStringArray(R.array.cs_settings_names);
-		TypedArray icons = res.obtainTypedArray(R.array.cs_settings_icons);
-		setListAdapter(new ImageAndTextAdapter(ctx, R.layout.cs_settings_list_item, options, icons));
+        String[] options = res.getStringArray(R.array.cs_settings_names);
+        TypedArray icons = res.obtainTypedArray(R.array.cs_settings_icons);
+        setListAdapter(new ImageAndTextAdapter(ctx, R.layout.cs_settings_list_item, options, icons));
 
         if (savedInstanceState != null) {
             index = savedInstanceState.getInt("index", 0);
@@ -70,52 +70,52 @@ public class CSSettingsList  extends ListFragment {
 
     public class ImageAndTextAdapter extends ArrayAdapter<String> {
 
-		private LayoutInflater mInflater;
+        private LayoutInflater mInflater;
 
-		private String[] mStrings;
-		private TypedArray mIcons;
+        private String[] mStrings;
+        private TypedArray mIcons;
 
-		private int mViewResourceId;
+        private int mViewResourceId;
 
-		public ImageAndTextAdapter(Context ctx, int viewResourceId,
-				String[] strings, TypedArray icons) {
-			super(ctx, viewResourceId, strings);
+        public ImageAndTextAdapter(Context ctx, int viewResourceId,
+                String[] strings, TypedArray icons) {
+            super(ctx, viewResourceId, strings);
 
-			mInflater = (LayoutInflater)ctx.getSystemService(
-					Context.LAYOUT_INFLATER_SERVICE);
+            mInflater = (LayoutInflater)ctx.getSystemService(
+                    Context.LAYOUT_INFLATER_SERVICE);
 
-			mStrings = strings;
-			mIcons = icons;
+            mStrings = strings;
+            mIcons = icons;
 
-			mViewResourceId = viewResourceId;
+            mViewResourceId = viewResourceId;
 
-		}
+        }
 
-		@Override
-		public int getCount() {
-			return mStrings.length;
-		}
+        @Override
+        public int getCount() {
+            return mStrings.length;
+        }
 
-		@Override
-		public String getItem(int position) {
-			return mStrings[position];
-		}
+        @Override
+        public String getItem(int position) {
+            return mStrings[position];
+        }
 
-		@Override
-		public long getItemId(int position) {
-			return 0;
-		}
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
 
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			convertView = mInflater.inflate(mViewResourceId, null);
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            convertView = mInflater.inflate(mViewResourceId, null);
 
-			ImageView iv = (ImageView)convertView.findViewById(R.id.option_icon);
-			iv.setImageDrawable(mIcons.getDrawable(position));
+            ImageView iv = (ImageView)convertView.findViewById(R.id.option_icon);
+            iv.setImageDrawable(mIcons.getDrawable(position));
 
-			TextView tv = (TextView)convertView.findViewById(R.id.option_text);
-			tv.setText(mStrings[position]);
-			return convertView;
-		}
-	}
+            TextView tv = (TextView)convertView.findViewById(R.id.option_text);
+            tv.setText(mStrings[position]);
+            return convertView;
+        }
+    }
 }

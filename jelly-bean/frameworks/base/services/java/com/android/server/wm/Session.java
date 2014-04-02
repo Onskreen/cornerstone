@@ -514,6 +514,6 @@ final class Session extends IWindowSession.Stub
     * is the top of the mWindows z-order.
     */
     public void handleFocusChange(IBinder token) {
-	  mService.handleFocusChangeLocked(token);
+      mService.handleFocusChangeLocked(token);
     }
 }

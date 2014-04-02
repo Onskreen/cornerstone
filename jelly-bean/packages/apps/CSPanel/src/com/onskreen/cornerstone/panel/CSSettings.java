@@ -16,15 +16,15 @@ CSSettingsList.ListItemSelectedListener{
 
     @Override
     public void onListItemSelected(int index) {
-		CSSettingsViewer settingsViewer = (CSSettingsViewer) getSupportFragmentManager()
+        CSSettingsViewer settingsViewer = (CSSettingsViewer) getSupportFragmentManager()
         .findFragmentById(R.id.cs_settings_viewer_fragment);
 
-		if (settingsViewer == null || !settingsViewer.isInLayout()) {
-			Intent svIntent = new Intent(getApplicationContext(),CSSettingsViewerActivity.class);
-			svIntent.putExtra("index", index);
-			startActivity(svIntent);
-		} else {
-			settingsViewer.update(index);
-		}
+        if (settingsViewer == null || !settingsViewer.isInLayout()) {
+            Intent svIntent = new Intent(getApplicationContext(),CSSettingsViewerActivity.class);
+            svIntent.putExtra("index", index);
+            startActivity(svIntent);
+        } else {
+            settingsViewer.update(index);
+        }
     }
 }

@@ -4,9 +4,9 @@
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
      You may obtain a copy of the License at
-  
+
           http://www.apache.org/licenses/LICENSE-2.0
-  
+
      Unless required by applicable law or agreed to in writing, software
      distributed under the License is distributed on an "AS IS" BASIS,
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,7 +31,7 @@ please see styles_device_defaults.xml.
 <resources>
     <!-- Global Theme Styles -->
     <eat-comment />
-    
+
 
     <style name="WindowTitleBackground">
         <item name="android:background">@android:drawable/title_bar</item>
@@ -78,11 +78,11 @@ please see styles_device_defaults.xml.
     <!-- Standard animations for a full-screen window or activity. -->
     <style name="Animation.Activity">
 
-		<!--
-			Author: Onskreen
-			Date: 16/03/2011
-			Cornerstone open/close animation styles
-		-->
+        <!--
+            Author: Onskreen
+            Date: 16/03/2011
+            Cornerstone open/close animation styles
+        -->
         <item name="activityOpenEnterAnimation_reverse">@anim/activity_open_enter_reverse</item>
         <item name="activityOpenExitAnimation_reverse">@anim/activity_open_exit_reverse</item>
         <item name="activityCloseEnterAnimation_reverse">@anim/activity_close_enter_reverse</item>
@@ -97,15 +97,15 @@ please see styles_device_defaults.xml.
         <item name="taskToBackExitAnimation_reverse">@anim/task_close_exit_reverse</item>
 
         <!--
-			Author: Onskreen
-			Date: 11/01/2013
-			Cornerstone open/close animation styles
-		-->
+            Author: Onskreen
+            Date: 11/01/2013
+            Cornerstone open/close animation styles
+        -->
         <item name="taskOpenEnterAnimation_cornerstone">@anim/task_open_enter_cornerstone</item>
         <item name="taskOpenExitAnimation_cornerstone">@anim/task_open_exit_cornerstone</item>
         <item name="taskCloseEnterAnimation_cornerstone">@anim/task_close_enter_cornerstone</item>
         <item name="taskCloseExitAnimation_cornerstone">@anim/task_close_enter_cornerstone</item>
-	<item name="taskToFrontEnterAnimation_cornerstone">@anim/task_open_enter_cornerstone</item>
+    <item name="taskToFrontEnterAnimation_cornerstone">@anim/task_open_enter_cornerstone</item>
         <item name="taskToFrontExitAnimation_cornerstone">@anim/task_open_exit_cornerstone</item>
         <item name="taskToBackEnterAnimation_cornerstone">@anim/task_close_enter_cornerstone</item>
         <item name="taskToBackExitAnimation_cornerstone">@anim/task_close_exit_cornerstone</item>
@@ -175,7 +175,7 @@ please see styles_device_defaults.xml.
         <item name="windowEnterAnimation">@anim/grow_fade_in_center</item>
         <item name="windowExitAnimation">@anim/shrink_fade_out_center</item>
     </style>
-    
+
     <style name="Animation.TypingFilterRestore">
         <item name="windowEnterAnimation">@null</item>
         <item name="windowExitAnimation">@anim/shrink_fade_out_center</item>
@@ -209,7 +209,7 @@ please see styles_device_defaults.xml.
     </style>
 
     <!-- Window animations that are applied to the search bar overlay window.
-	Previously used, but currently unused.
+    Previously used, but currently unused.
          {@hide Pending API council approval} -->
     <style name="Animation.SearchBar">
         <item name="windowEnterAnimation">@anim/search_bar_enter</item>
@@ -413,7 +413,7 @@ please see styles_device_defaults.xml.
         <item name="android:minHeight">76dip</item>
         <item name="android:maxHeight">76dip</item>
     </style>
-    
+
     <style name="Widget.ProgressBar.Small">
         <item name="android:indeterminateDrawable">@android:drawable/progress_small_white</item>
         <item name="android:minWidth">16dip</item>
@@ -432,8 +432,8 @@ please see styles_device_defaults.xml.
 
     <style name="Widget.ProgressBar.Small.Inverse">
         <item name="android:indeterminateDrawable">@android:drawable/progress_small</item>
-    </style> 
-    
+    </style>
+
     <style name="Widget.ProgressBar.Small.Title">
         <item name="android:indeterminateDrawable">@android:drawable/progress_small_titlebar</item>
     </style>
@@ -531,7 +531,7 @@ please see styles_device_defaults.xml.
         <item name="android:textColor">?android:attr/editTextColor</item>
         <item name="android:gravity">center_vertical</item>
     </style>
-    
+
     <style name="Widget.ExpandableListView" parent="Widget.ListView">
         <item name="android:groupIndicator">@android:drawable/expander_group</item>
         <item name="android:indicatorLeft">?android:attr/expandableListPreferredItemIndicatorLeft</item>
@@ -629,7 +629,7 @@ please see styles_device_defaults.xml.
         <item name="android:paddingEnd">@dimen/dropdownitem_text_padding_right</item>
         <item name="android:gravity">center_vertical</item>
     </style>
-    
+
     <style name="Widget.DropDownItem.Spinner">
         <item name="android:checkMark">?android:attr/listChoiceIndicatorSingle</item>
     </style>
@@ -649,20 +649,20 @@ please see styles_device_defaults.xml.
         <item name="android:cacheColorHint">?android:attr/colorBackgroundCacheHint</item>
         <item name="android:divider">@android:drawable/divider_horizontal_dark_opaque</item>
     </style>
-    
+
     <style name="Widget.ListView.White" parent="Widget.AbsListView">
         <item name="android:listSelector">@android:drawable/list_selector_background</item>
         <item name="android:cacheColorHint">?android:attr/colorBackgroundCacheHint</item>
         <item name="android:divider">@android:drawable/divider_horizontal_bright_opaque</item>
-    </style>    
+    </style>
 
     <style name="Widget.ListView.DropDown">
-    	<item name="android:cacheColorHint">@null</item>
+        <item name="android:cacheColorHint">@null</item>
         <item name="android:divider">@android:drawable/divider_horizontal_bright_opaque</item>
     </style>
 
     <style name="Widget.ListView.Menu" parent="Widget.Holo.ListView">
-		<item name="android:cacheColorHint">@null</item>
+        <item name="android:cacheColorHint">@null</item>
         <item name="android:scrollbars">vertical</item>
         <item name="android:fadingEdge">none</item>
         <!-- Light background for the list in menus, so the divider for bright themes -->
@@ -709,7 +709,7 @@ please see styles_device_defaults.xml.
         <item name="android:spacing">-20dip</item>
         <item name="android:unselectedAlpha">0.85</item>
     </style>
-    
+
     <style name="Widget.PopupWindow">
         <item name="android:popupBackground">@android:drawable/editbox_dropdown_background_dark</item>
         <item name="android:popupAnimationStyle">@android:style/Animation.PopupWindow</item>
@@ -747,7 +747,7 @@ please see styles_device_defaults.xml.
         <item name="android:layout_width">64dip</item>
         <item name="android:layout_height">64dip</item>
     </style>
-    
+
     <style name="Widget.QuickContactBadgeSmall" parent="Widget.GenericQuickContactBadge">
         <item name="android:layout_width">40dip</item>
         <item name="android:layout_height">40dip</item>
@@ -764,7 +764,7 @@ please see styles_device_defaults.xml.
     <style name="Widget.QuickContactBadge.WindowLarge">
         <item name="android:quickContactWindowSize">modeLarge</item>
     </style>
-    
+
     <style name="Widget.QuickContactBadgeSmall.WindowSmall">
         <item name="android:quickContactWindowSize">modeSmall</item>
     </style>
@@ -874,7 +874,7 @@ please see styles_device_defaults.xml.
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@android:color/tab_indicator_text</item>
     </style>
-    
+
     <style name="TextAppearance.Widget.TextView">
         <item name="android:textColor">?textColorPrimaryDisableOnly</item>
         <item name="android:textColorHint">?textColorHint</item>
@@ -900,7 +900,7 @@ please see styles_device_defaults.xml.
     </style>
 
     <!-- @hide -->
-    <style name="TextAppearance.SlidingTabNormal" 
+    <style name="TextAppearance.SlidingTabNormal"
         parent="@android:attr/textAppearanceMedium">
         <item name="android:textColor">?android:attr/textColorTertiary</item>
         <item name="android:textSize">28sp</item>
@@ -911,7 +911,7 @@ please see styles_device_defaults.xml.
     </style>
 
     <!-- @hide -->
-    <style name="TextAppearance.SlidingTabActive" 
+    <style name="TextAppearance.SlidingTabActive"
         parent="@android:attr/textAppearanceMedium">
         <item name="android:textColor">@android:color/sliding_tab_text_color_active</item>
         <item name="android:textSize">28sp</item>
@@ -922,7 +922,7 @@ please see styles_device_defaults.xml.
          <item name="android:textStyle">normal</item>
          <item name="android:textColor">?textColorPrimaryInverse</item>
          <item name="android:textColorHint">?textColorHintInverse</item>
-     </style>	
+     </style>
 
      <!-- @hide -->
      <style name="TextAppearance.SearchResult.Title">
@@ -975,7 +975,7 @@ please see styles_device_defaults.xml.
         <item name="android:enabled">false</item>
         <item name="android:shouldDisableView">false</item>
     </style>
-    
+
     <style name="Preference.Category">
         <item name="android:layout">@android:layout/preference_category</item>
         <!-- The title should not dim if the category is disabled, instead only the preference children should dim. -->
@@ -1123,7 +1123,7 @@ please see styles_device_defaults.xml.
         <item name="android:paddingStart">15dip</item>
         <item name="android:paddingEnd">15dip</item>
     </style>
-    
+
     <!-- Style you can use with a container (typically a horizontal
          LinearLayout) to get the standard "button bar" background and
          spacing. @hide -->
@@ -1241,7 +1241,7 @@ please see styles_device_defaults.xml.
         <item name="android:popupBackground">@android:drawable/spinner_dropdown_background</item>
         <item name="android:dropDownVerticalOffset">-10dip</item>
         <item name="android:dropDownHorizontalOffset">0dip</item>
-        <item name="android:dropDownWidth">wrap_content</item>        
+        <item name="android:dropDownWidth">wrap_content</item>
     </style>
 
     <style name="Widget.PopupMenu" parent="Widget.ListPopupWindow">
@@ -1339,7 +1339,7 @@ please see styles_device_defaults.xml.
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@android:color/tab_indicator_text</item>
     </style>
-    
+
     <style name="TextAppearance.Holo.Widget.TextView">
         <item name="android:textColor">?textColorPrimaryDisableOnly</item>
         <item name="android:textColorHint">?textColorHint</item>
@@ -1476,7 +1476,7 @@ please see styles_device_defaults.xml.
 
     <style name="TextAppearance.Holo.Light.Small" parent="TextAppearance.Holo.Small">
     </style>
- 
+
    <style name="TextAppearance.Holo.Light.Large.Inverse">
         <item name="android:textColor">?textColorPrimaryInverse</item>
         <item name="android:textColorHint">?textColorHintInverse</item>

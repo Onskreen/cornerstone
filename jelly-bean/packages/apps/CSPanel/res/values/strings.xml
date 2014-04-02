@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">Cornerstone</string>
     <string name="cs_settings">Cornerstone Settings</string>
-	<string name="empty_str"></string>
+    <string name="empty_str"></string>
     <string-array
         name="cs_settings_names">
         <item>Top Default Application</item>

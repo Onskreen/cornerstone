@@ -69,10 +69,10 @@ final class WindowState implements WindowManagerPolicy.WindowState {
     /**
      * Author: Onskreen
      * Date: 11.13.2013
-     * Added additional debug flag for layout computation . 
+     * Added additional debug flag for layout computation .
      */
-    static final boolean DEBUG_LAYOUT = true;
-    
+    static final boolean DEBUG_LAYOUT = false;
+
     static final boolean DEBUG_VISIBILITY = WindowManagerService.DEBUG_VISIBILITY;
     static final boolean SHOW_TRANSACTIONS = WindowManagerService.SHOW_TRANSACTIONS;
     static final boolean SHOW_LIGHT_TRANSACTIONS = WindowManagerService.SHOW_LIGHT_TRANSACTIONS;
@@ -445,26 +445,26 @@ final class WindowState implements WindowManagerPolicy.WindowState {
         /**
          * Author: Onskreen
          * Date: 11.13.2013
-         * 
+         *
          * Setup for specific window when focusing on layout of a specific win
          */
         boolean testWin =  true;
-/*        		this.toString()!=null &&
-        		(this.toString().contains("Input")/* ||
-        				this.toString().contains("chrome"));*/
+/*              this.toString()!=null &&
+                (this.toString().contains("Input")/* ||
+                        this.toString().contains("chrome"));*/
         if(DEBUG_LAYOUT && testWin) {
             Slog.v(TAG, "Window " + this +"\n"
-            		+ "\tpf: " + pf 
-            		+ "\tdf: " + df 
-            		+ "\tvf: " + vf 
-            		+ "\tcf: " + cf 
-            		+ "\tof: " + of 
-            		+ "\tmframe: " + mFrame 
-            		+ "\tmContainingFrame: " + mContainingFrame
-            		+ "\tmDisplayFrame: " + mDisplayFrame
-            		+ "\tmRequestedWidth "+ mRequestedWidth 
-            		+ "\tmRequestedHeight "+ mRequestedHeight
-            		+ "\tmAttrs.wxh= " + mAttrs.width + " x " + mAttrs.height);
+                    + "\tpf: " + pf
+                    + "\tdf: " + df
+                    + "\tvf: " + vf
+                    + "\tcf: " + cf
+                    + "\tof: " + of
+                    + "\tmframe: " + mFrame
+                    + "\tmContainingFrame: " + mContainingFrame
+                    + "\tmDisplayFrame: " + mDisplayFrame
+                    + "\tmRequestedWidth "+ mRequestedWidth
+                    + "\tmRequestedHeight "+ mRequestedHeight
+                    + "\tmAttrs.wxh= " + mAttrs.width + " x " + mAttrs.height);
         }
 
         final Rect container = mContainingFrame;
@@ -478,28 +478,28 @@ final class WindowState implements WindowManagerPolicy.WindowState {
 
         if(DEBUG_LAYOUT&& testWin) {
             Slog.v(TAG, "Window " + this +"\n"
-            		+ "\tpw: " + pw 
-            		+ "\tph " + ph 
-            		+ "\tmAttrs: " + mAttrs);
+                    + "\tpw: " + pw
+                    + "\tph " + ph
+                    + "\tmAttrs: " + mAttrs);
         }
 
         int w,h;
         if ((mAttrs.flags & WindowManager.LayoutParams.FLAG_SCALED) != 0) {
             if(DEBUG_LAYOUT&& testWin) {
                 Slog.v(TAG, "Window " + this +"\n"
-                		+ "\tWindowManager.LayoutParams.FLAG_SCALED SET");
+                        + "\tWindowManager.LayoutParams.FLAG_SCALED SET");
             }
 
             if (mAttrs.width < 0) {
                 if(DEBUG_LAYOUT&& testWin) {
                     Slog.v(TAG, "Window " + this +"\n"
-                    		+ "\tmAttrs.width: < 0");
+                            + "\tmAttrs.width: < 0");
                 }
                 w = pw;
             } else if (mEnforceSizeCompat) {
                 if(DEBUG_LAYOUT&& testWin) {
                     Slog.v(TAG, "Window " + this +"\n"
-                    		+ "\tmEnforceSizeCompat: " + mEnforceSizeCompat);
+                            + "\tmEnforceSizeCompat: " + mEnforceSizeCompat);
                 }
                 w = (int)(mAttrs.width * mGlobalScale + .5f);
             } else {
@@ -508,14 +508,14 @@ final class WindowState implements WindowManagerPolicy.WindowState {
             if (mAttrs.height < 0) {
                 if(DEBUG_LAYOUT&& testWin) {
                     Slog.v(TAG, "Window " + this +"\n"
-                    		+ "\tmAttrs.height: < 0");
+                            + "\tmAttrs.height: < 0");
                 }
 
                 h = ph;
             } else if (mEnforceSizeCompat) {
                 if(DEBUG_LAYOUT&& testWin) {
                     Slog.v(TAG, "Window " + this +"\n"
-                    		+ "\tmEnforceSizeCompat: " + mEnforceSizeCompat);
+                            + "\tmEnforceSizeCompat: " + mEnforceSizeCompat);
                 }
                 h = (int)(mAttrs.height * mGlobalScale + .5f);
             } else {
@@ -525,40 +525,40 @@ final class WindowState implements WindowManagerPolicy.WindowState {
             if (mAttrs.width == WindowManager.LayoutParams.MATCH_PARENT) {
                 if(DEBUG_LAYOUT&& testWin) {
                     Slog.v(TAG, "Window " + this +"\n"
-                    		+ "\tmAttrs.width==: MATCH_PARENT");
+                            + "\tmAttrs.width==: MATCH_PARENT");
                 }
-            	
+
                 w = pw;
             } else if (mEnforceSizeCompat) {
                 if(DEBUG_LAYOUT&& testWin) {
                     Slog.v(TAG, "Window " + this +"\n"
-                    		+ "\tmEnforceSizeCompat: " + mEnforceSizeCompat);
+                            + "\tmEnforceSizeCompat: " + mEnforceSizeCompat);
                 }
                 w = (int)(mRequestedWidth * mGlobalScale + .5f);
             } else {
                 if(DEBUG_LAYOUT&& testWin) {
                     Slog.v(TAG, "Window " + this +"\n"
-                    		+ "\tSetting w=mRequestedWidth " + mRequestedWidth);
+                            + "\tSetting w=mRequestedWidth " + mRequestedWidth);
                 }
                 w = mRequestedWidth;
             }
             if (mAttrs.height == WindowManager.LayoutParams.MATCH_PARENT) {
                 if(DEBUG_LAYOUT&& testWin) {
                     Slog.v(TAG, "Window " + this +"\n"
-                    		+ "\tmAttrs.height==: MATCH_PARENT");
+                            + "\tmAttrs.height==: MATCH_PARENT");
                 }
 
                 h = ph;
             } else if (mEnforceSizeCompat) {
                 if(DEBUG_LAYOUT&& testWin) {
                     Slog.v(TAG, "Window " + this +"\n"
-                    		+ "\tmEnforceSizeCompat: " + mEnforceSizeCompat);
+                            + "\tmEnforceSizeCompat: " + mEnforceSizeCompat);
                 }
                 h = (int)(mRequestedHeight * mGlobalScale + .5f);
             } else {
                 if(DEBUG_LAYOUT&& testWin) {
                     Slog.v(TAG, "Window " + this +"\n"
-                    		+ "\tSetting h=mRequestedHeight " + mRequestedHeight);
+                            + "\tSetting h=mRequestedHeight " + mRequestedHeight);
                 }
 
                 h = mRequestedHeight;
@@ -576,50 +576,50 @@ final class WindowState implements WindowManagerPolicy.WindowState {
          * then wallpaper window stops animating wallpaper image when
          * user swipes left/right.
          */
-		if (mAttrs.type != TYPE_WALLPAPER) {
+        if (mAttrs.type != TYPE_WALLPAPER) {
            /**
-			* Author: Onskreen
-			* Date: 03/08/2011
-			*
-			* When width(w) and height(h) of the window frame exceeds the
-			* container rect's width(pw) and height(ph), we should set the
-			* width(w) and height(h) of the window frame to the actual
-			* container rect. Ideally, this would be resolved in the measure
-			* pass of the layout, but enforcing it here when that fails to
-			* happen
-			*/
-			if (w > pw) {
-				if (DEBUG_LAYOUT && testWin) {
-					Slog.v(TAG, "Window " + this + "\n" + "\tw>pw -> " + w
-							+ ">" + pw + "\tSetting w, mRequestedWidth =pw");
-				}
-				w = pw;
-				// mAttrs.width=w;
-				if (mAttrs.x < 0) {
-					mAttrs.x = 0;
-					if (DEBUG_LAYOUT && testWin) {
-						Slog.v(TAG, "Window " + this + "\n"
-								+ "\tmattrs.x<0, mAttrs.x=0");
-					}
-				}
-				mRequestedWidth = w;
-			}
-			if (h > ph) {
-				if (DEBUG_LAYOUT && testWin) {
-					Slog.v(TAG, "Window " + this + "\n" + "\th>ph -> " + h
-							+ ">" + ph + "\tSetting h, mRequestedHeight =ph");
-				}
-				h = ph;
-				// mAttrs.height = h;
-				if (mAttrs.y < 0) {
-					if (DEBUG_LAYOUT && testWin) {
-						Slog.v(TAG, "Window " + this + "\n"
-								+ "\tmattrs.y<0, setting mAttrs.y=0");
-					}
-					mAttrs.y = 0;
-				}
-				mRequestedHeight = h;
-			}
+            * Author: Onskreen
+            * Date: 03/08/2011
+            *
+            * When width(w) and height(h) of the window frame exceeds the
+            * container rect's width(pw) and height(ph), we should set the
+            * width(w) and height(h) of the window frame to the actual
+            * container rect. Ideally, this would be resolved in the measure
+            * pass of the layout, but enforcing it here when that fails to
+            * happen
+            */
+            if (w > pw) {
+                if (DEBUG_LAYOUT && testWin) {
+                    Slog.v(TAG, "Window " + this + "\n" + "\tw>pw -> " + w
+                            + ">" + pw + "\tSetting w, mRequestedWidth =pw");
+                }
+                w = pw;
+                // mAttrs.width=w;
+                if (mAttrs.x < 0) {
+                    mAttrs.x = 0;
+                    if (DEBUG_LAYOUT && testWin) {
+                        Slog.v(TAG, "Window " + this + "\n"
+                                + "\tmattrs.x<0, mAttrs.x=0");
+                    }
+                }
+                mRequestedWidth = w;
+            }
+            if (h > ph) {
+                if (DEBUG_LAYOUT && testWin) {
+                    Slog.v(TAG, "Window " + this + "\n" + "\th>ph -> " + h
+                            + ">" + ph + "\tSetting h, mRequestedHeight =ph");
+                }
+                h = ph;
+                // mAttrs.height = h;
+                if (mAttrs.y < 0) {
+                    if (DEBUG_LAYOUT && testWin) {
+                        Slog.v(TAG, "Window " + this + "\n"
+                                + "\tmattrs.y<0, setting mAttrs.y=0");
+                    }
+                    mAttrs.y = 0;
+                }
+                mRequestedHeight = h;
+            }
         }
 
         if (!mParentFrame.equals(pf)) {
@@ -661,7 +661,7 @@ final class WindowState implements WindowManagerPolicy.WindowState {
 
         if(DEBUG_LAYOUT&& testWin) {
             Slog.v(TAG, "Window " + this +"\n"
-            		+ "Before gravity applied. mFrame=" + mFrame);
+                    + "Before gravity applied. mFrame=" + mFrame);
         }
 
         Gravity.apply(mAttrs.gravity, w, h, container,
@@ -674,7 +674,7 @@ final class WindowState implements WindowManagerPolicy.WindowState {
 
         if(DEBUG_LAYOUT&& testWin) {
             Slog.v(TAG, "Window " + this +"\n"
-            		+ "After gravity applied. mFrame=" + mFrame);
+                    + "After gravity applied. mFrame=" + mFrame);
         }
 
         /**
@@ -689,17 +689,17 @@ final class WindowState implements WindowManagerPolicy.WindowState {
          * rect.
          */
         if(this.mAppToken != null) {
-			WindowPanel wp = mService.findWindowPanel(this.mAppToken.token);
-			if(wp!=null) {
-				if(wp.isCornerstonePanel() &&
-					mAttrs.type == WindowManager.LayoutParams.TYPE_APPLICATION_PANEL
-					&& (frame.left > container.left ||					
-						frame.top  > container.bottom)) {				//The top of the frame is below the bottom of the container.
-																		//We see this in action bars in cs panel 0 in portrait orientation 
-																		//Because in those cases the left edges are aligned at 0.
-//						|| frame.bottom < container.bottom)) {			//Old test that was never true and didn't help. Removed.
-					frame.left = container.right - w;
-					frame.right = container.right;
+            WindowPanel wp = mService.findWindowPanel(this.mAppToken.token);
+            if(wp!=null) {
+                if(wp.isCornerstonePanel() &&
+                    mAttrs.type == WindowManager.LayoutParams.TYPE_APPLICATION_PANEL
+                    && (frame.left > container.left ||
+                        frame.top  > container.bottom)) {               //The top of the frame is below the bottom of the container.
+                                                                        //We see this in action bars in cs panel 0 in portrait orientation
+                                                                        //Because in those cases the left edges are aligned at 0.
+//                      || frame.bottom < container.bottom)) {          //Old test that was never true and didn't help. Removed.
+                    frame.left = container.right - w;
+                    frame.right = container.right;
 
                    /**
                     * Author: Onskreen
@@ -708,16 +708,16 @@ final class WindowState implements WindowManagerPolicy.WindowState {
                     * Resetting frame's top and bottom positions
                     * of Action bar window.
                     */
-					if(frame.bottom > container.bottom) {
-						frame.top = container.top + 44;
-						int diff = 0;
-						if(mRequestedHeight > ph) {
-							diff = mRequestedHeight - ph;
-						} else {
-							diff = ph - mRequestedHeight;
-						}
-						frame.bottom = container.bottom + diff + 44;
-					}
+                    if(frame.bottom > container.bottom) {
+                        frame.top = container.top + 44;
+                        int diff = 0;
+                        if(mRequestedHeight > ph) {
+                            diff = mRequestedHeight - ph;
+                        } else {
+                            diff = ph - mRequestedHeight;
+                        }
+                        frame.bottom = container.bottom + diff + 44;
+                    }
                    /**
                     * Author: Onskreen
                     * Date: 04/01/2013
@@ -726,13 +726,13 @@ final class WindowState implements WindowManagerPolicy.WindowState {
                     * of attached windows such as Browser app's
                     * auto-complete PopupWindow.
                     */
-					if(frame.top < container.top) {
-						frame.top = container.top + 50;
-						frame.bottom = mRequestedHeight + container.top + 50;
-					}
-				}
-			}
-		}
+                    if(frame.top < container.top) {
+                        frame.top = container.top + 50;
+                        frame.bottom = mRequestedHeight + container.top + 50;
+                    }
+                }
+            }
+        }
         // Make sure the content and visible frames are inside of the
         // final window frame.
         if (content.left < frame.left) content.left = frame.left;
@@ -1221,11 +1221,11 @@ final class WindowState implements WindowManagerPolicy.WindowState {
      * Returns true if this WindowState is currently focused.
      */
     public boolean isWindowStateFocused() {
-		if(mService.getFocusedWindow() == this) {
-			return true;
-		} else {
-			return false;
-		}
+        if(mService.getFocusedWindow() == this) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -1241,30 +1241,30 @@ final class WindowState implements WindowManagerPolicy.WindowState {
      *
      */
     public boolean isObstructedByKeyboard() {
-		if(this.mAppToken == null) return false;
-		WindowPanel wp = mService.findWindowPanel(mAppToken.groupId);
+        if(this.mAppToken == null) return false;
+        WindowPanel wp = mService.findWindowPanel(mAppToken.groupId);
 
-		if(mConfiguration == null) {
-			return false;
-		}
+        if(mConfiguration == null) {
+            return false;
+        }
 
-		//Landscape logic - Only lower Cornerstone Panel is obstructed
-		if(mConfiguration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-			if(wp.isCornerstonePanel()&& wp.mCornerstonePanelIndex==1)
-				return true;
-			else
-				return false;
+        //Landscape logic - Only lower Cornerstone Panel is obstructed
+        if(mConfiguration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            if(wp.isCornerstonePanel()&& wp.mCornerstonePanelIndex==1)
+                return true;
+            else
+                return false;
 
-		} else if(mConfiguration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-			//Portrait Logic - Both Cornerstone Panels are obstructed
-			if(wp.isCornerstonePanel())
-				return true;
-			else
-				return false;
-		} else {
-			//Unknown configuration
-			return false;
-		}
+        } else if(mConfiguration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            //Portrait Logic - Both Cornerstone Panels are obstructed
+            if(wp.isCornerstonePanel())
+                return true;
+            else
+                return false;
+        } else {
+            //Unknown configuration
+            return false;
+        }
     }
 
     /**
@@ -1276,11 +1276,11 @@ final class WindowState implements WindowManagerPolicy.WindowState {
      *
      */
     public boolean isDialog(){
-		boolean dialog = false;
-		WindowManager.LayoutParams params = mAttrs;
-		int type = params.type;
-		int flags = params.flags;
-		if (params != null) {
+        boolean dialog = false;
+        WindowManager.LayoutParams params = mAttrs;
+        int type = params.type;
+        int flags = params.flags;
+        if (params != null) {
             /**
              * Author: Onskreen
              * Date: 20/12/2011
@@ -1289,8 +1289,8 @@ final class WindowState implements WindowManagerPolicy.WindowState {
              *
              * Commented out entire if block for now.
              */
-			dialog = false;
-			/**dialog = ((type == TYPE_APPLICATION_ATTACHED_DIALOG)
+            dialog = false;
+            /**dialog = ((type == TYPE_APPLICATION_ATTACHED_DIALOG)
                  || (type == TYPE_KEYGUARD_DIALOG)
                  || (type == TYPE_TOAST)
                  || (type == TYPE_SYSTEM_ERROR)
@@ -1300,8 +1300,8 @@ final class WindowState implements WindowManagerPolicy.WindowState {
                  || (type == TYPE_SYSTEM_DIALOG)
                  || (type == TYPE_CHANGED)
                  || (((flags == (FLAG_ALT_FOCUSABLE_IM | FLAG_DIM_BEHIND))) && (type == TYPE_BASE_APPLICATION))) ? true : false; **/
-		}
-		return dialog;
+        }
+        return dialog;
     }
 
     /**

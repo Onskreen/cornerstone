@@ -174,7 +174,7 @@ public class DimLayer {
         if (mLastDimWidth != dw || mLastDimHeight != dh || mLayer != layer) {
             try {
                 //mDimSurface.setPosition(xPos, yPos);
-		/**
+        /**
                  * Author: Onskreen
                  * Date: 30/03/2011
                  *
@@ -198,8 +198,8 @@ public class DimLayer {
             mLastDimHeight = mDimH;
             mLayer = layer;
         } else {
-			mDimSurface.setPosition(mDimX, mDimY);
-			mDimSurface.setSize(mDimW, mDimH);
+            mDimSurface.setPosition(mDimX, mDimY);
+            mDimSurface.setSize(mDimW, mDimH);
         }
 
         long curTime = SystemClock.uptimeMillis();

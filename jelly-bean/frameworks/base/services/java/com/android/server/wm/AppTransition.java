@@ -568,83 +568,83 @@ public class AppTransition implements Dump {
             }*/
                 switch (transit) {
                     case TRANSIT_ACTIVITY_OPEN:
-						if(isLandscapeMode) {
-							if(isMainPanel) {			//Main Panel Transitions
-								animAttr = enter
-								? com.android.internal.R.styleable.WindowAnimation_activityOpenEnterAnimation_reverse
-								: com.android.internal.R.styleable.WindowAnimation_activityOpenExitAnimation;
-							} else {					//Cs Panel Transitions
-								animAttr = enter
-								? com.android.internal.R.styleable.WindowAnimation_activityOpenEnterAnimation
-								: com.android.internal.R.styleable.WindowAnimation_activityOpenExitAnimation_reverse;
-							}
-						} else if(isPortraitMode) {
-							if(isMainPanel) {			//Main Panel Transitions
+                        if(isLandscapeMode) {
+                            if(isMainPanel) {           //Main Panel Transitions
+                                animAttr = enter
+                                ? com.android.internal.R.styleable.WindowAnimation_activityOpenEnterAnimation_reverse
+                                : com.android.internal.R.styleable.WindowAnimation_activityOpenExitAnimation;
+                            } else {                    //Cs Panel Transitions
+                                animAttr = enter
+                                ? com.android.internal.R.styleable.WindowAnimation_activityOpenEnterAnimation
+                                : com.android.internal.R.styleable.WindowAnimation_activityOpenExitAnimation_reverse;
+                            }
+                        } else if(isPortraitMode) {
+                            if(isMainPanel) {           //Main Panel Transitions
                         animAttr = enter
                                 ? com.android.internal.R.styleable.WindowAnimation_activityOpenEnterAnimation
                                 : com.android.internal.R.styleable.WindowAnimation_activityOpenExitAnimation;
-							} else {					//CS Panel Transitions
-								if(isCSPanel0) {
-									animAttr = enter
-									? com.android.internal.R.styleable.WindowAnimation_activityOpenEnterAnimation_reverse
-									: com.android.internal.R.styleable.WindowAnimation_activityOpenExitAnimation;
-								} else if(isCSPanel1) {
-									animAttr = enter
-									? com.android.internal.R.styleable.WindowAnimation_activityOpenEnterAnimation
-									: com.android.internal.R.styleable.WindowAnimation_activityOpenExitAnimation_reverse;
-								}
-							}
-						}
+                            } else {                    //CS Panel Transitions
+                                if(isCSPanel0) {
+                                    animAttr = enter
+                                    ? com.android.internal.R.styleable.WindowAnimation_activityOpenEnterAnimation_reverse
+                                    : com.android.internal.R.styleable.WindowAnimation_activityOpenExitAnimation;
+                                } else if(isCSPanel1) {
+                                    animAttr = enter
+                                    ? com.android.internal.R.styleable.WindowAnimation_activityOpenEnterAnimation
+                                    : com.android.internal.R.styleable.WindowAnimation_activityOpenExitAnimation_reverse;
+                                }
+                            }
+                        }
                         break;
                     case TRANSIT_ACTIVITY_CLOSE:
-						if(isLandscapeMode) {
-							if(isMainPanel) {			//Main Panel Transitions
+                        if(isLandscapeMode) {
+                            if(isMainPanel) {           //Main Panel Transitions
                         animAttr = enter
                                 ? com.android.internal.R.styleable.WindowAnimation_activityCloseEnterAnimation
-								: com.android.internal.R.styleable.WindowAnimation_activityCloseExitAnimation_reverse;
-							} else {					//Cs Panel Transitions
-								animAttr = enter
-								? com.android.internal.R.styleable.WindowAnimation_activityCloseEnterAnimation_reverse
+                                : com.android.internal.R.styleable.WindowAnimation_activityCloseExitAnimation_reverse;
+                            } else {                    //Cs Panel Transitions
+                                animAttr = enter
+                                ? com.android.internal.R.styleable.WindowAnimation_activityCloseEnterAnimation_reverse
                                 : com.android.internal.R.styleable.WindowAnimation_activityCloseExitAnimation;
-							}
-						} else if(isPortraitMode) {
-							if(isMainPanel) {			//Main Panel Transitions
-								animAttr = enter
-								? com.android.internal.R.styleable.WindowAnimation_activityCloseEnterAnimation
-								: com.android.internal.R.styleable.WindowAnimation_activityCloseExitAnimation;
-							} else {					//CS Panel Transitions
-								if(isCSPanel0) {
-									animAttr = enter
-									? com.android.internal.R.styleable.WindowAnimation_activityCloseEnterAnimation
-									: com.android.internal.R.styleable.WindowAnimation_activityCloseExitAnimation_reverse;
-								} else if(isCSPanel1) {
-									animAttr = enter
-									? com.android.internal.R.styleable.WindowAnimation_activityCloseEnterAnimation_reverse
-									: com.android.internal.R.styleable.WindowAnimation_activityCloseExitAnimation;
-								}
-							}
-						}
+                            }
+                        } else if(isPortraitMode) {
+                            if(isMainPanel) {           //Main Panel Transitions
+                                animAttr = enter
+                                ? com.android.internal.R.styleable.WindowAnimation_activityCloseEnterAnimation
+                                : com.android.internal.R.styleable.WindowAnimation_activityCloseExitAnimation;
+                            } else {                    //CS Panel Transitions
+                                if(isCSPanel0) {
+                                    animAttr = enter
+                                    ? com.android.internal.R.styleable.WindowAnimation_activityCloseEnterAnimation
+                                    : com.android.internal.R.styleable.WindowAnimation_activityCloseExitAnimation_reverse;
+                                } else if(isCSPanel1) {
+                                    animAttr = enter
+                                    ? com.android.internal.R.styleable.WindowAnimation_activityCloseEnterAnimation_reverse
+                                    : com.android.internal.R.styleable.WindowAnimation_activityCloseExitAnimation;
+                                }
+                            }
+                        }
                         break;
                     case TRANSIT_TASK_OPEN:
-						if(isLandscapeMode) {
-							if(isMainPanel) {			//Main Panel Transitions
-								animAttr = enter
-								? com.android.internal.R.styleable.WindowAnimation_taskOpenEnterAnimation_reverse
-								: com.android.internal.R.styleable.WindowAnimation_taskOpenExitAnimation;
-							} else {					//Cs Panel Transitions
-								animAttr = enter
-								? com.android.internal.R.styleable.WindowAnimation_taskOpenEnterAnimation
-								: com.android.internal.R.styleable.WindowAnimation_taskOpenExitAnimation_reverse;
-							}
-						} else if(isPortraitMode) {
-							if(isMainPanel) {			//Main Panel Transitions
+                        if(isLandscapeMode) {
+                            if(isMainPanel) {           //Main Panel Transitions
+                                animAttr = enter
+                                ? com.android.internal.R.styleable.WindowAnimation_taskOpenEnterAnimation_reverse
+                                : com.android.internal.R.styleable.WindowAnimation_taskOpenExitAnimation;
+                            } else {                    //Cs Panel Transitions
+                                animAttr = enter
+                                ? com.android.internal.R.styleable.WindowAnimation_taskOpenEnterAnimation
+                                : com.android.internal.R.styleable.WindowAnimation_taskOpenExitAnimation_reverse;
+                            }
+                        } else if(isPortraitMode) {
+                            if(isMainPanel) {           //Main Panel Transitions
                         animAttr = enter
                                 ? com.android.internal.R.styleable.WindowAnimation_taskOpenEnterAnimation
                                 : com.android.internal.R.styleable.WindowAnimation_taskOpenExitAnimation;
-							} else {					//CS Panel Transitions
-								if(isCSPanel0) {
-									animAttr = enter
-									? com.android.internal.R.styleable.WindowAnimation_taskOpenEnterAnimation_reverse
+                            } else {                    //CS Panel Transitions
+                                if(isCSPanel0) {
+                                    animAttr = enter
+                                    ? com.android.internal.R.styleable.WindowAnimation_taskOpenEnterAnimation_reverse
                                     /**
                                      * Author: Onskreen
                                      * Date: 11/01/2013
@@ -654,34 +654,34 @@ public class AppTransition implements Dump {
                                      * open/exit transition is played correct on screen without interrupting
                                      * other panel apps.
                                      */
-									: com.android.internal.R.styleable.WindowAnimation_taskOpenExitAnimation_cornerstone;
-								} else if(isCSPanel1) {
-									animAttr = enter
-									? com.android.internal.R.styleable.WindowAnimation_taskOpenEnterAnimation
-									: com.android.internal.R.styleable.WindowAnimation_taskOpenExitAnimation_reverse;
-								}
-							}
-						}
+                                    : com.android.internal.R.styleable.WindowAnimation_taskOpenExitAnimation_cornerstone;
+                                } else if(isCSPanel1) {
+                                    animAttr = enter
+                                    ? com.android.internal.R.styleable.WindowAnimation_taskOpenEnterAnimation
+                                    : com.android.internal.R.styleable.WindowAnimation_taskOpenExitAnimation_reverse;
+                                }
+                            }
+                        }
                         break;
                     case TRANSIT_TASK_CLOSE:
-						if(isLandscapeMode) {
-							if(isMainPanel) {			//Main Panel Transitions
+                        if(isLandscapeMode) {
+                            if(isMainPanel) {           //Main Panel Transitions
                         animAttr = enter
                                 ? com.android.internal.R.styleable.WindowAnimation_taskCloseEnterAnimation
-								: com.android.internal.R.styleable.WindowAnimation_taskCloseExitAnimation_reverse;
-							} else {					//Cs Panel Transitions
-								animAttr = enter
-								? com.android.internal.R.styleable.WindowAnimation_taskCloseEnterAnimation_reverse
+                                : com.android.internal.R.styleable.WindowAnimation_taskCloseExitAnimation_reverse;
+                            } else {                    //Cs Panel Transitions
+                                animAttr = enter
+                                ? com.android.internal.R.styleable.WindowAnimation_taskCloseEnterAnimation_reverse
                                 : com.android.internal.R.styleable.WindowAnimation_taskCloseExitAnimation;
-							}
-						} else if(isPortraitMode) {
-							if(isMainPanel) {			//Main Panel Transitions
-								animAttr = enter
-								? com.android.internal.R.styleable.WindowAnimation_taskCloseEnterAnimation
-								: com.android.internal.R.styleable.WindowAnimation_taskCloseExitAnimation;
-							} else {					//CS Panel Transitions
-								if(isCSPanel0) {
-									animAttr = enter
+                            }
+                        } else if(isPortraitMode) {
+                            if(isMainPanel) {           //Main Panel Transitions
+                                animAttr = enter
+                                ? com.android.internal.R.styleable.WindowAnimation_taskCloseEnterAnimation
+                                : com.android.internal.R.styleable.WindowAnimation_taskCloseExitAnimation;
+                            } else {                    //CS Panel Transitions
+                                if(isCSPanel0) {
+                                    animAttr = enter
                                     /**
                                      * Author: Onskreen
                                      * Date: 11/01/2013
@@ -691,36 +691,36 @@ public class AppTransition implements Dump {
                                      * open/exit transition is played correct on screen without interrupting
                                      * other panel apps.
                                      */
-									? com.android.internal.R.styleable.WindowAnimation_taskCloseEnterAnimation_cornerstone
-									: com.android.internal.R.styleable.WindowAnimation_taskCloseExitAnimation_reverse;
-								} else if(isCSPanel1) {
-									animAttr = enter
-									? com.android.internal.R.styleable.WindowAnimation_taskCloseEnterAnimation_reverse
-									: com.android.internal.R.styleable.WindowAnimation_taskCloseExitAnimation;
-								}
-							}
-						}
+                                    ? com.android.internal.R.styleable.WindowAnimation_taskCloseEnterAnimation_cornerstone
+                                    : com.android.internal.R.styleable.WindowAnimation_taskCloseExitAnimation_reverse;
+                                } else if(isCSPanel1) {
+                                    animAttr = enter
+                                    ? com.android.internal.R.styleable.WindowAnimation_taskCloseEnterAnimation_reverse
+                                    : com.android.internal.R.styleable.WindowAnimation_taskCloseExitAnimation;
+                                }
+                            }
+                        }
                         break;
                     case TRANSIT_TASK_TO_FRONT:
-						if(isLandscapeMode) {
-							if(isMainPanel) {			//Main Panel Transitions
-								animAttr = enter
-								? com.android.internal.R.styleable.WindowAnimation_taskToFrontEnterAnimation_reverse
-								: com.android.internal.R.styleable.WindowAnimation_taskToFrontExitAnimation;
-							} else {					//Cs Panel Transitions
-									animAttr = enter
-									? com.android.internal.R.styleable.WindowAnimation_taskToFrontEnterAnimation
-									: com.android.internal.R.styleable.WindowAnimation_taskToFrontExitAnimation_reverse;
-							}
-						} else if(isPortraitMode) {
-							if(isMainPanel) {			//Main Panel Transitions
+                        if(isLandscapeMode) {
+                            if(isMainPanel) {           //Main Panel Transitions
+                                animAttr = enter
+                                ? com.android.internal.R.styleable.WindowAnimation_taskToFrontEnterAnimation_reverse
+                                : com.android.internal.R.styleable.WindowAnimation_taskToFrontExitAnimation;
+                            } else {                    //Cs Panel Transitions
+                                    animAttr = enter
+                                    ? com.android.internal.R.styleable.WindowAnimation_taskToFrontEnterAnimation
+                                    : com.android.internal.R.styleable.WindowAnimation_taskToFrontExitAnimation_reverse;
+                            }
+                        } else if(isPortraitMode) {
+                            if(isMainPanel) {           //Main Panel Transitions
                         animAttr = enter
                                 ? com.android.internal.R.styleable.WindowAnimation_taskToFrontEnterAnimation
                                 : com.android.internal.R.styleable.WindowAnimation_taskToFrontExitAnimation;
-							} else {					//CS Panel Transitions
-								if(isCSPanel0) {
-									animAttr = enter
-									? com.android.internal.R.styleable.WindowAnimation_taskToFrontEnterAnimation_reverse
+                            } else {                    //CS Panel Transitions
+                                if(isCSPanel0) {
+                                    animAttr = enter
+                                    ? com.android.internal.R.styleable.WindowAnimation_taskToFrontEnterAnimation_reverse
                                     /**
                                      * Author: Onskreen
                                      * Date: 11/01/2013
@@ -730,34 +730,34 @@ public class AppTransition implements Dump {
                                      * open/exit transition is played correct on screen without interrupting
                                      * other panel apps.
                                      */
-									: com.android.internal.R.styleable.WindowAnimation_taskToFrontExitAnimation_cornerstone;
-								} else if(isCSPanel1) {
-									animAttr = enter
-									? com.android.internal.R.styleable.WindowAnimation_taskToFrontEnterAnimation
-									: com.android.internal.R.styleable.WindowAnimation_taskToFrontExitAnimation_reverse;
-								}
-							}
-						}
+                                    : com.android.internal.R.styleable.WindowAnimation_taskToFrontExitAnimation_cornerstone;
+                                } else if(isCSPanel1) {
+                                    animAttr = enter
+                                    ? com.android.internal.R.styleable.WindowAnimation_taskToFrontEnterAnimation
+                                    : com.android.internal.R.styleable.WindowAnimation_taskToFrontExitAnimation_reverse;
+                                }
+                            }
+                        }
                         break;
                     case TRANSIT_TASK_TO_BACK:
-						if(isLandscapeMode) {
-							if(isMainPanel) {			//Main Panel Transitions
-								animAttr = enter
-								? com.android.internal.R.styleable.WindowAnimation_taskToBackEnterAnimation
-								: com.android.internal.R.styleable.WindowAnimation_taskToBackExitAnimation_reverse;
-							} else {					//Cs Panel Transitions
-								animAttr = enter
-								? com.android.internal.R.styleable.WindowAnimation_taskToBackEnterAnimation_reverse
-								: com.android.internal.R.styleable.WindowAnimation_taskToBackExitAnimation;
-							}
-						} else if(isPortraitMode) {
-							if(isMainPanel) {			//Main Panel Transitions
+                        if(isLandscapeMode) {
+                            if(isMainPanel) {           //Main Panel Transitions
+                                animAttr = enter
+                                ? com.android.internal.R.styleable.WindowAnimation_taskToBackEnterAnimation
+                                : com.android.internal.R.styleable.WindowAnimation_taskToBackExitAnimation_reverse;
+                            } else {                    //Cs Panel Transitions
+                                animAttr = enter
+                                ? com.android.internal.R.styleable.WindowAnimation_taskToBackEnterAnimation_reverse
+                                : com.android.internal.R.styleable.WindowAnimation_taskToBackExitAnimation;
+                            }
+                        } else if(isPortraitMode) {
+                            if(isMainPanel) {           //Main Panel Transitions
                         animAttr = enter
                                 ? com.android.internal.R.styleable.WindowAnimation_taskToBackEnterAnimation
                                 : com.android.internal.R.styleable.WindowAnimation_taskToBackExitAnimation;
-							} else {					//CS Panel Transitions
-								if(isCSPanel0) {
-									animAttr = enter
+                            } else {                    //CS Panel Transitions
+                                if(isCSPanel0) {
+                                    animAttr = enter
                                     /**
                                      * Author: Onskreen
                                      * Date: 11/01/2013
@@ -767,15 +767,15 @@ public class AppTransition implements Dump {
                                      * open/exit transition is played correct on screen without interrupting
                                      * other panel apps.
                                      */
-									? com.android.internal.R.styleable.WindowAnimation_taskToBackEnterAnimation_cornerstone
-									: com.android.internal.R.styleable.WindowAnimation_taskToBackExitAnimation_reverse;
-								} else if(isCSPanel1) {
-									animAttr = enter
-									? com.android.internal.R.styleable.WindowAnimation_taskToBackEnterAnimation_reverse
-									: com.android.internal.R.styleable.WindowAnimation_taskToBackExitAnimation;
-								}
-							}
-						}
+                                    ? com.android.internal.R.styleable.WindowAnimation_taskToBackEnterAnimation_cornerstone
+                                    : com.android.internal.R.styleable.WindowAnimation_taskToBackExitAnimation_reverse;
+                                } else if(isCSPanel1) {
+                                    animAttr = enter
+                                    ? com.android.internal.R.styleable.WindowAnimation_taskToBackEnterAnimation_reverse
+                                    : com.android.internal.R.styleable.WindowAnimation_taskToBackExitAnimation;
+                                }
+                            }
+                        }
                         break;
                     case TRANSIT_WALLPAPER_OPEN:
                         animAttr = enter

@@ -36,7 +36,7 @@
         android:layout_height="0dip"
         android:layout_width="match_parent"
         android:visibility="invisible" />
-		<!-- android:stackFromBottom="true" -->
+        <!-- android:stackFromBottom="true" -->
 
     <!-- Favorites and Recents -->
     <!--<com.onskreen.cornerstone.launcher.ApplicationsStackLayout android:id="@+id/faves_and_recents"

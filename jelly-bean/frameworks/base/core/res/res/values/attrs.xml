@@ -1657,11 +1657,11 @@
         <!-- The animation used when a window is going from VISIBLE to INVISIBLE. -->
         <attr name="windowHideAnimation" format="reference" />
 
-		<!--
-			Author: Onskreen
-			Date: 16/03/2011
-			Cornerstone open/close animation
-		-->
+        <!--
+            Author: Onskreen
+            Date: 16/03/2011
+            Cornerstone open/close animation
+        -->
         <attr name="activityOpenEnterAnimation_reverse" format="reference" />
         <attr name="activityOpenExitAnimation_reverse" format="reference" />
         <attr name="activityCloseEnterAnimation_reverse" format="reference" />
@@ -1675,11 +1675,11 @@
         <attr name="taskToBackEnterAnimation_reverse" format="reference" />
         <attr name="taskToBackExitAnimation_reverse" format="reference" />
 
-		<!--
-			Author: Onskreen
-			Date: 11/01/2013
-			Cornerstone open/close animation
-		-->
+        <!--
+            Author: Onskreen
+            Date: 11/01/2013
+            Cornerstone open/close animation
+        -->
         <attr name="taskOpenEnterAnimation_cornerstone" format="reference" />
         <attr name="taskOpenExitAnimation_cornerstone" format="reference" />
         <attr name="taskCloseEnterAnimation_cornerstone" format="reference" />

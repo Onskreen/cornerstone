@@ -105,12 +105,12 @@ public class CSPanel extends Activity {
      * CornerstoneManager callback method to be notified by WMS whenever user changes the focus
      */
     private final ICornerstoneManager.Stub mBinder = new ICornerstoneManager.Stub() {
-		public void onCornerstonePanelFocusChanged(String pkgName, boolean focus, int index){
-			Message msg = mHandler.obtainMessage();
-			msg.obj = pkgName;
-			msg.what = index;
-			mHandler.sendMessage(msg);
-		}
+        public void onCornerstonePanelFocusChanged(String pkgName, boolean focus, int index){
+            Message msg = mHandler.obtainMessage();
+            msg.obj = pkgName;
+            msg.what = index;
+            mHandler.sendMessage(msg);
+        }
     };
 
     private PackageManager mPkgManager;
@@ -179,7 +179,7 @@ public class CSPanel extends Activity {
             editor.commit();
             //panel0 = "com.android.email";
             //panel0 = "com.android.mms";
-    	    panel0 = "com.android.calendar";
+            panel0 = "com.android.calendar";
             panel1 = "com.android.browser";
         }
 
@@ -272,11 +272,11 @@ public class CSPanel extends Activity {
         * Update the UI controls in UI thread when WMS notifies the cornerstone app
         */
         mHandler = new Handler(){
-		@Override
-		public void handleMessage(Message msg) {
-			super.handleMessage(msg);
-			String pkg = (String)msg.obj;
-			int index = msg.what;
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            String pkg = (String)msg.obj;
+            int index = msg.what;
 
            /**
             * Author: Onskreen
@@ -284,32 +284,32 @@ public class CSPanel extends Activity {
             *
             * Sets the appropriate cs title for the app running in cs panel.
             */
-			CharSequence title = pkg;
-			if(pkg != null){
-				try{
-					ApplicationInfo appInfo = mPkgManager.getApplicationInfo(pkg, 0);
-					if(appInfo != null){
-						title = mPkgManager.getApplicationLabel(appInfo);
-					}
-				} catch (NameNotFoundException e){
-					e.printStackTrace();
-				}
-			}
-			switch(index){
-				case 0:
-					setCornerstoneAppControls(0);
-					csAppTitle1.setText(title);
-					break;
-				case 1:
-					setCornerstoneAppControls(1);
-					csAppTitle2.setText(title);
-					break;
-				default:
-					setCornerstoneAppControls(-1);
-					break;
-			}
-		}
-	};
+            CharSequence title = pkg;
+            if(pkg != null){
+                try{
+                    ApplicationInfo appInfo = mPkgManager.getApplicationInfo(pkg, 0);
+                    if(appInfo != null){
+                        title = mPkgManager.getApplicationLabel(appInfo);
+                    }
+                } catch (NameNotFoundException e){
+                    e.printStackTrace();
+                }
+            }
+            switch(index){
+                case 0:
+                    setCornerstoneAppControls(0);
+                    csAppTitle1.setText(title);
+                    break;
+                case 1:
+                    setCornerstoneAppControls(1);
+                    csAppTitle2.setText(title);
+                    break;
+                default:
+                    setCornerstoneAppControls(-1);
+                    break;
+            }
+        }
+    };
 
        /**
         * Author: Onskreen
@@ -463,8 +463,8 @@ public class CSPanel extends Activity {
     }
 
     public void launchApp(View view) {
-		Context context = getApplicationContext();
-		int index = -1;
+        Context context = getApplicationContext();
+        int index = -1;
 
        /**
         * Author: Onskreen
@@ -472,16 +472,16 @@ public class CSPanel extends Activity {
         *
         * Sets the app launcher click resource to cornerstone app launcher control.
         */
-		switch(view.getId()) {
-			case R.id.launch_0_button:
-				csAppLaunch1.setBackgroundResource(R.drawable.control_applaunch_click);
-				index = 0;
-				break;
-			case R.id.launch_1_button:
-				csAppLaunch2.setBackgroundResource(R.drawable.control_applaunch_click);
-				index = 1;
-				break;
-		}
+        switch(view.getId()) {
+            case R.id.launch_0_button:
+                csAppLaunch1.setBackgroundResource(R.drawable.control_applaunch_click);
+                index = 0;
+                break;
+            case R.id.launch_1_button:
+                csAppLaunch2.setBackgroundResource(R.drawable.control_applaunch_click);
+                index = 1;
+                break;
+        }
 
        /**
         * Author: Onskreen
@@ -489,11 +489,11 @@ public class CSPanel extends Activity {
         *
         * Launches the CSLauncher app to show the list of installed apps in CSPanel view.
         */
-		Intent intent = new Intent();
-		ComponentName cp = new ComponentName(mCSLauncherPkgName, mCSLauncherClassName);
-		intent.setComponent(cp);
-		ActivityLauncher aLauncher = new ActivityLauncher(intent, index);
-		aLauncher.launch();
+        Intent intent = new Intent();
+        ComponentName cp = new ComponentName(mCSLauncherPkgName, mCSLauncherClassName);
+        intent.setComponent(cp);
+        ActivityLauncher aLauncher = new ActivityLauncher(intent, index);
+        aLauncher.launch();
     }
 
     /**
@@ -505,23 +505,23 @@ public class CSPanel extends Activity {
      * expanded mode.
      */
     public void togglePanel(View view) {
-		if((csHandler == (ImageButton)view) && (csState == Cornerstone_State.OPEN)){
-			try {
-				ActivityManagerNative.getDefault().setCornerstoneState(false);
-			} catch (RemoteException e) {
-				e.printStackTrace();
-			}
-			csHandler.setBackgroundResource(R.drawable.cornerstone_panel_controller_collapsed);
-			csState = Cornerstone_State.CLOSED;
-		} else if((csHandler == (ImageButton)view) && (csState == Cornerstone_State.CLOSED)){
-			try {
-				ActivityManagerNative.getDefault().setCornerstoneState(true);
-			} catch (RemoteException e) {
-				e.printStackTrace();
-			}
-			csHandler.setBackgroundResource(R.drawable.cornerstone_panel_controller_expanded);
-			csState = Cornerstone_State.OPEN;
-		}
+        if((csHandler == (ImageButton)view) && (csState == Cornerstone_State.OPEN)){
+            try {
+                ActivityManagerNative.getDefault().setCornerstoneState(false);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+            csHandler.setBackgroundResource(R.drawable.cornerstone_panel_controller_collapsed);
+            csState = Cornerstone_State.CLOSED;
+        } else if((csHandler == (ImageButton)view) && (csState == Cornerstone_State.CLOSED)){
+            try {
+                ActivityManagerNative.getDefault().setCornerstoneState(true);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+            csHandler.setBackgroundResource(R.drawable.cornerstone_panel_controller_expanded);
+            csState = Cornerstone_State.OPEN;
+        }
     }
 
 
@@ -532,22 +532,22 @@ public class CSPanel extends Activity {
      * Handles the focus based on the user input
      */
     public void handleFocus(View view) {
-		Context context = getApplicationContext();
-		int index = -1;
-		int duration = Toast.LENGTH_SHORT;
-		switch(view.getId()) {
-			case R.id.cs_app_header1:
-				index = 0;
-				break;
-			case R.id.cs_app_header2:
-				index = 1;
-				break;
-		}
-		try {
-			ActivityManagerNative.getDefault().setCornerstoneFocusedApp(index);
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		}
+        Context context = getApplicationContext();
+        int index = -1;
+        int duration = Toast.LENGTH_SHORT;
+        switch(view.getId()) {
+            case R.id.cs_app_header1:
+                index = 0;
+                break;
+            case R.id.cs_app_header2:
+                index = 1;
+                break;
+        }
+        try {
+            ActivityManagerNative.getDefault().setCornerstoneFocusedApp(index);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -612,39 +612,39 @@ public class CSPanel extends Activity {
      */
     private void setCornerstoneAppControls(int panelIndex){
         switch(panelIndex){
-		case 0:
-			csAppHeader1.setBackgroundResource(R.drawable.cs_app_header_focused);
-			csAppHeader1.setTag("focused");
-			csAppLaunch1.setBackgroundResource(R.drawable.control_applaunch_focused);
-			csAppTitle1.setTextColor(Color.WHITE);
+        case 0:
+            csAppHeader1.setBackgroundResource(R.drawable.cs_app_header_focused);
+            csAppHeader1.setTag("focused");
+            csAppLaunch1.setBackgroundResource(R.drawable.control_applaunch_focused);
+            csAppTitle1.setTextColor(Color.WHITE);
 
-			csAppHeader2.setBackgroundResource(R.drawable.cs_app_header_unfocused);
-			csAppHeader2.setTag("unfocused");
-			csAppLaunch2.setBackgroundResource(R.drawable.control_applaunch_unfocused);
-			csAppTitle2.setTextColor(Color.LTGRAY);
-			break;
-		case 1:
-			csAppHeader2.setBackgroundResource(R.drawable.cs_app_header_focused);
-			csAppHeader2.setTag("focused");
-			csAppLaunch2.setBackgroundResource(R.drawable.control_applaunch_focused);
-			csAppTitle2.setTextColor(Color.WHITE);
+            csAppHeader2.setBackgroundResource(R.drawable.cs_app_header_unfocused);
+            csAppHeader2.setTag("unfocused");
+            csAppLaunch2.setBackgroundResource(R.drawable.control_applaunch_unfocused);
+            csAppTitle2.setTextColor(Color.LTGRAY);
+            break;
+        case 1:
+            csAppHeader2.setBackgroundResource(R.drawable.cs_app_header_focused);
+            csAppHeader2.setTag("focused");
+            csAppLaunch2.setBackgroundResource(R.drawable.control_applaunch_focused);
+            csAppTitle2.setTextColor(Color.WHITE);
 
-			csAppHeader1.setBackgroundResource(R.drawable.cs_app_header_unfocused);
-			csAppHeader1.setTag("unfocused");
-			csAppLaunch1.setBackgroundResource(R.drawable.control_applaunch_unfocused);
-			csAppTitle1.setTextColor(Color.LTGRAY);
-			break;
-		default:
-			csAppHeader1.setBackgroundResource(R.drawable.cs_app_header_unfocused);
-			csAppHeader1.setTag("unfocused");
-			csAppLaunch1.setBackgroundResource(R.drawable.control_applaunch_unfocused);
-			csAppTitle1.setTextColor(Color.LTGRAY);
+            csAppHeader1.setBackgroundResource(R.drawable.cs_app_header_unfocused);
+            csAppHeader1.setTag("unfocused");
+            csAppLaunch1.setBackgroundResource(R.drawable.control_applaunch_unfocused);
+            csAppTitle1.setTextColor(Color.LTGRAY);
+            break;
+        default:
+            csAppHeader1.setBackgroundResource(R.drawable.cs_app_header_unfocused);
+            csAppHeader1.setTag("unfocused");
+            csAppLaunch1.setBackgroundResource(R.drawable.control_applaunch_unfocused);
+            csAppTitle1.setTextColor(Color.LTGRAY);
 
-			csAppHeader2.setBackgroundResource(R.drawable.cs_app_header_unfocused);
-			csAppHeader2.setTag("unfocused");
-			csAppLaunch2.setBackgroundResource(R.drawable.control_applaunch_unfocused);
-			csAppTitle2.setTextColor(Color.LTGRAY);
-			break;
+            csAppHeader2.setBackgroundResource(R.drawable.cs_app_header_unfocused);
+            csAppHeader2.setTag("unfocused");
+            csAppLaunch2.setBackgroundResource(R.drawable.control_applaunch_unfocused);
+            csAppTitle2.setTextColor(Color.LTGRAY);
+            break;
         }
     }
 
@@ -673,24 +673,24 @@ public class CSPanel extends Activity {
                  * Start CS Launcher if the default startup cs apps don't exist
                  * on device or framework not able to find the intent.
                  */
-				Intent intent = new Intent();
-				ComponentName cp = new ComponentName(mCSLauncherPkgName, mCSLauncherClassName);
-				intent.setComponent(cp);
-				ActivityLauncher aLauncher = new ActivityLauncher(intent, i);
-				aLauncher.launch();
+                Intent intent = new Intent();
+                ComponentName cp = new ComponentName(mCSLauncherPkgName, mCSLauncherClassName);
+                intent.setComponent(cp);
+                ActivityLauncher aLauncher = new ActivityLauncher(intent, i);
+                aLauncher.launch();
 
-				/*CharSequence text = "Cornerstone: The intent " + mCornerstoneApps[i] + " does not exist on this device";
-				Toast toast = Toast.makeText(context, text, duration);
-				toast.show();*/
+                /*CharSequence text = "Cornerstone: The intent " + mCornerstoneApps[i] + " does not exist on this device";
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();*/
             } else {
                 Toast toast = Toast.makeText(context, "Cornerstone Launching. Please wait...", duration);
                 toast.show();
-				ActivityLauncher aLauncher = new ActivityLauncher(currIntent, i);
-				aLauncher.launch();
+                ActivityLauncher aLauncher = new ActivityLauncher(currIntent, i);
+                aLauncher.launch();
             }
 
         }
-	}
+    }
 
     /**
      * Author: Onskreen
@@ -732,19 +732,19 @@ public class CSPanel extends Activity {
      *
      */
     private class ActivityLauncher {
-		private Intent intent;
-		private int index;
+        private Intent intent;
+        private int index;
 
-		public ActivityLauncher(Intent intent, int index) {
-			this.intent = intent;
-			this.index = index;
-			if(DEBUG) {
-				Log.v(TAG, "ActivityLauncher - Preparing to Launch: " + intent + " at Index: " + index);
-			}
-		}
+        public ActivityLauncher(Intent intent, int index) {
+            this.intent = intent;
+            this.index = index;
+            if(DEBUG) {
+                Log.v(TAG, "ActivityLauncher - Preparing to Launch: " + intent + " at Index: " + index);
+            }
+        }
 
-		public void launch() {
-			new Thread(new Runnable() {
+        public void launch() {
+            new Thread(new Runnable() {
                 public void run() {
                     try {
                         if(DEBUG) {
@@ -756,8 +756,8 @@ public class CSPanel extends Activity {
                         e.printStackTrace();
                     }
                 }
-			}).start();
+            }).start();
 
-		}
+        }
     }
 }

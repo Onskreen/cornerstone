@@ -9,8 +9,8 @@
         android:layout_width="100dp"
         android:layout_height="match_parent"
         android:id="@+id/cs_settings_list_fragment"
-		android:layout_marginTop="15dp"
-		android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="20dp"
         android:layout_weight="25">
     </fragment>
     <fragment

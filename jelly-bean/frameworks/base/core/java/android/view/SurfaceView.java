@@ -44,7 +44,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * You can control the format of this surface and, if you like, its size; the
  * SurfaceView takes care of placing the surface at the correct location on the
  * screen
- * 
+ *
  * <p>The surface is Z ordered so that it is behind the window holding its
  * SurfaceView; the SurfaceView punches a hole in its window to allow its
  * surface to be displayed. The view hierarchy will take care of correctly
@@ -53,7 +53,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * buttons on top of the Surface, though note however that it can have an
  * impact on performance since a full alpha-blended composite will be performed
  * each time the Surface changes.
- * 
+ *
  * <p> The transparent region that makes the surface visible is based on the
  * layout positions in the view hierarchy. If the post-layout transform
  * properties are used to draw a sibling view on top of the SurfaceView, the
@@ -61,16 +61,16 @@ import java.util.concurrent.locks.ReentrantLock;
  *
  * <p>Access to the underlying surface is provided via the SurfaceHolder interface,
  * which can be retrieved by calling {@link #getHolder}.
- * 
+ *
  * <p>The Surface will be created for you while the SurfaceView's window is
  * visible; you should implement {@link SurfaceHolder.Callback#surfaceCreated}
  * and {@link SurfaceHolder.Callback#surfaceDestroyed} to discover when the
  * Surface is created and destroyed as the window is shown and hidden.
- * 
+ *
  * <p>One of the purposes of this class is to provide a surface in which a
  * secondary thread can render into the screen. If you are going to use it
  * this way, you need to be aware of some threading semantics:
- * 
+ *
  * <ul>
  * <li> All SurfaceView and
  * {@link SurfaceHolder.Callback SurfaceHolder.Callback} methods will be called
@@ -86,15 +86,15 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class SurfaceView extends View {
 
-	/**
-	 * Author: Onskreen
-	 * Date: 11.13.2013
-	 *
-	 * Cornerstone debug values. Used to make debugging flow easier.
-	 */
-	static int resizeNum = 0;
-	static int onMeasureNum = 0;
-	static int updateWindowNum = 0;
+    /**
+     * Author: Onskreen
+     * Date: 11.13.2013
+     *
+     * Cornerstone debug values. Used to make debugging flow easier.
+     */
+    static int resizeNum = 0;
+    static int onMeasureNum = 0;
+    static int updateWindowNum = 0;
 
     static private final String TAG = "SurfaceView";
     static private final boolean DEBUG = true;
@@ -182,7 +182,7 @@ public class SurfaceView extends View {
             new ViewTreeObserver.OnPreDrawListener() {
                 @Override
                 public boolean onPreDraw() {
-                    // reposition ourselves where the surface is 
+                    // reposition ourselves where the surface is
                     mHaveFrame = getWidth() > 0 && getHeight() > 0;
                     updateWindow(false, false);
                     return true;
@@ -194,7 +194,7 @@ public class SurfaceView extends View {
         super(context);
         init();
     }
-    
+
     public SurfaceView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
@@ -208,11 +208,11 @@ public class SurfaceView extends View {
     private void init() {
         setWillNotDraw(true);
     }
-    
+
     /**
      * Return the SurfaceHolder providing access and control over this
      * SurfaceView's underlying surface.
-     * 
+     *
      * @return SurfaceHolder The holder of the surface.
      */
     public SurfaceHolder getHolder() {
@@ -290,17 +290,17 @@ public class SurfaceView extends View {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-    	/**
-    	 * Author: Onskreen
-    	 * Date: 11.13.2013
-    	 * CS counter to make debugging easier
-    	 */
-    	onMeasureNum++;
-    	if(DEBUG) {
-            android.util.Log.v(TAG, "\n" + this + " SurfaceView.onMeasure() " + " NUMBER: " 
-            		+ onMeasureNum
-            		+ "\n");
-    	}
+        /**
+         * Author: Onskreen
+         * Date: 11.13.2013
+         * CS counter to make debugging easier
+         */
+        onMeasureNum++;
+        if(DEBUG) {
+            android.util.Log.v(TAG, "\n" + this + " SurfaceView.onMeasure() " + " NUMBER: "
+                    + onMeasureNum
+                    + "\n");
+        }
 
         int width = mRequestedWidth >= 0
                 ? resolveSizeAndState(mRequestedWidth, widthMeasureSpec, 0)
@@ -308,57 +308,57 @@ public class SurfaceView extends View {
         int height = mRequestedHeight >= 0
                 ? resolveSizeAndState(mRequestedHeight, heightMeasureSpec, 0)
                 : getDefaultSize(0, heightMeasureSpec);
-                
-    	/**
-    	 * Author: Onskreen
-    	 * Date: 11.13.2013
-    	 * 
-    	 */
+
+        /**
+         * Author: Onskreen
+         * Date: 11.13.2013
+         *
+         */
         if(DEBUG) {
                 android.util.Log.v(TAG, this + " SurfaceView.onMeasure()" +
-               		"calling setMeasuredDimension with:"
-               		+ "\nwidth = " + width + " height=" + height 
-               		+ "\nwidthMeasureSpec" + widthMeasureSpec + " " + MeasureSpec.toString(widthMeasureSpec)
-               		+ "\nheightMeasureSpec" + heightMeasureSpec + " " + MeasureSpec.toString(heightMeasureSpec)
-               		+ "\nmWinFrame=" + mWinFrame
-               		+ "\nmLayout=" + mLayout + " mLayout.x=" + mLayout.x + " mLayout.y=" + mLayout.y + " mLayout.width=" + mLayout.width + " mLayout.height=" + mLayout.height
-               		+ "\nmLeft=" + mLeft + " mTop=" + mTop + " mRight=" + mRight + " mBottom=" + mBottom
-               		+ "\nmRequestedW=" + mRequestedWidth + " mRequestedH=" + mRequestedHeight
-               		+ "\nmSurface=" + mSurface
-               		+ "\nmSurfaceFrame=" + mSurfaceFrame +
-               		" mSurfaceFrame.Coordinates " + mSurfaceFrame.left + "," + mSurfaceFrame.top + "," + mSurfaceFrame.right + "," + mSurfaceFrame.bottom +
-               		" mSurfaceFrame.width=" + mSurfaceFrame.width() + " mSurfaceFrame.height=" + mSurfaceFrame.height()
-               		+ "\nmWidth=" + mWidth + " mHeight=" + mHeight
-            		);
-    	}
-         
-     	//TEST
-     	if(height > mWinFrame.height() && mWinFrame.height()!=0) {
-        	if(DEBUG) {
+                    "calling setMeasuredDimension with:"
+                    + "\nwidth = " + width + " height=" + height
+                    + "\nwidthMeasureSpec" + widthMeasureSpec + " " + MeasureSpec.toString(widthMeasureSpec)
+                    + "\nheightMeasureSpec" + heightMeasureSpec + " " + MeasureSpec.toString(heightMeasureSpec)
+                    + "\nmWinFrame=" + mWinFrame
+                    + "\nmLayout=" + mLayout + " mLayout.x=" + mLayout.x + " mLayout.y=" + mLayout.y + " mLayout.width=" + mLayout.width + " mLayout.height=" + mLayout.height
+                    + "\nmLeft=" + mLeft + " mTop=" + mTop + " mRight=" + mRight + " mBottom=" + mBottom
+                    + "\nmRequestedW=" + mRequestedWidth + " mRequestedH=" + mRequestedHeight
+                    + "\nmSurface=" + mSurface
+                    + "\nmSurfaceFrame=" + mSurfaceFrame +
+                    " mSurfaceFrame.Coordinates " + mSurfaceFrame.left + "," + mSurfaceFrame.top + "," + mSurfaceFrame.right + "," + mSurfaceFrame.bottom +
+                    " mSurfaceFrame.width=" + mSurfaceFrame.width() + " mSurfaceFrame.height=" + mSurfaceFrame.height()
+                    + "\nmWidth=" + mWidth + " mHeight=" + mHeight
+                    );
+        }
+
+        //TEST
+        if(height > mWinFrame.height() && mWinFrame.height()!=0) {
+            if(DEBUG) {
                 android.util.Log.v(TAG, this + " SurfaceView.onMeasure()" +
-                		"\nmWinFrame= " + mWinFrame + 
-                		"height>mWinFrame.height");
-        	}
-     	}
-     	if(width > mWinFrame.width()&& mWinFrame.width()!=0) {
-        	if(DEBUG) {
+                        "\nmWinFrame= " + mWinFrame +
+                        "height>mWinFrame.height");
+            }
+        }
+        if(width > mWinFrame.width()&& mWinFrame.width()!=0) {
+            if(DEBUG) {
                 android.util.Log.v(TAG, this + " SurfaceView.onMeasure()" +
-			    	"\nmWinFrame= " + mWinFrame + 
-			    	"width>mWinFrame.width");
-        	}
-     	}
-     	
-     		
+                    "\nmWinFrame= " + mWinFrame +
+                    "width>mWinFrame.width");
+            }
+        }
+
+
         setMeasuredDimension(width, height);
     }
-    
+
     /** @hide */
     @Override
     protected boolean setFrame(int left, int top, int right, int bottom) {
-      	if(DEBUG) {
+        if(DEBUG) {
             android.util.Log.v(TAG, this + " SurfaceView.setFrame()" +
-               		"l,t,r,b=" + left + "," + top + "," + right + "," + bottom); 
-    	}
+                    "l,t,r,b=" + left + "," + top + "," + right + "," + bottom);
+        }
         boolean result = super.setFrame(left, top, right, bottom);
         updateWindow(false, false);
         return result;
@@ -369,7 +369,7 @@ public class SurfaceView extends View {
         if (mWindowType == WindowManager.LayoutParams.TYPE_APPLICATION_PANEL) {
             return super.gatherTransparentRegion(region);
         }
-        
+
         boolean opaque = true;
         if ((mPrivateFlags & PFLAG_SKIP_DRAW) == 0) {
             // this view draws, remove it from the transparent region
@@ -420,10 +420,10 @@ public class SurfaceView extends View {
      * regular surface view in the window (but still behind the window itself).
      * This is typically used to place overlays on top of an underlying media
      * surface view.
-     * 
+     *
      * <p>Note that this must be set before the surface view's containing
      * window is attached to the window manager.
-     * 
+     *
      * <p>Calling this overrides any previous call to {@link #setZOrderOnTop}.
      */
     public void setZOrderMediaOverlay(boolean isMediaOverlay) {
@@ -431,7 +431,7 @@ public class SurfaceView extends View {
                 ? WindowManager.LayoutParams.TYPE_APPLICATION_MEDIA_OVERLAY
                 : WindowManager.LayoutParams.TYPE_APPLICATION_MEDIA;
     }
-    
+
     /**
      * Control whether the surface view's surface is placed on top of its
      * window.  Normally it is placed behind the window, to allow it to
@@ -439,10 +439,10 @@ public class SurfaceView extends View {
      * hierarchy.  By setting this, you cause it to be placed above the
      * window.  This means that none of the contents of the window this
      * SurfaceView is in will be visible on top of its surface.
-     * 
+     *
      * <p>Note that this must be set before the surface view's containing
      * window is attached to the window manager.
-     * 
+     *
      * <p>Calling this overrides any previous call to {@link #setZOrderMediaOverlay}.
      */
     public void setZOrderOnTop(boolean onTop) {
@@ -486,18 +486,18 @@ public class SurfaceView extends View {
     }
 
     private void updateWindow(boolean force, boolean redrawNeeded) {
-    	
-    	/**
-    	 * Author: Onskreen
-    	 * Date: 11.13.2013
-    	 * CS counter to make debugging easier
-    	 */
-    	updateWindowNum++;
-    	if(DEBUG) {
-            android.util.Log.v(TAG, "\n" + this + " SurfaceView.updateWindow() " + " NUMBER: " 
-            		+ updateWindowNum);
-    	}
-    	
+
+        /**
+         * Author: Onskreen
+         * Date: 11.13.2013
+         * CS counter to make debugging easier
+         */
+        updateWindowNum++;
+        if(DEBUG) {
+            android.util.Log.v(TAG, "\n" + this + " SurfaceView.updateWindow() " + " NUMBER: "
+                    + updateWindowNum);
+        }
+
         if (!mHaveFrame) {
             return;
         }
@@ -509,27 +509,27 @@ public class SurfaceView extends View {
         if (mTranslator != null) {
             mSurface.setCompatibilityTranslator(mTranslator);
         }
-        
+
         int myWidth = mRequestedWidth;
         if (myWidth <= 0) myWidth = getWidth();
         int myHeight = mRequestedHeight;
         if (myHeight <= 0) myHeight = getHeight();
 
-      	if(DEBUG) {
+        if(DEBUG) {
             android.util.Log.v(TAG, this + " SurfaceView.updateWindow()" +
-               		" \nmyWidth:" + myWidth
-               		+ "\nmyHeight:" + myHeight
-               		+ "\nmWidth=" + mWidth + " mHeight=" + mHeight
-            		+ "\nmWinFrame=" + mWinFrame
-               		+ "\nmLayout=" + mLayout + " mLayout.x=" + mLayout.x + " mLayout.y=" + mLayout.y + " mLayout.width=" + mLayout.width + " mLayout.height=" + mLayout.height
-               		+ "\nmLeft=" + mLeft + " mTop=" + mTop + " mRight=" + mRight + " mBottom=" + mBottom
-               		+ "\nmRequestedW=" + mRequestedWidth + " mRequestedH=" + mRequestedHeight
-               		+ "\nmSurface=" + mSurface
-               		+ "\nmSurfaceFrame=" + mSurfaceFrame +
-               		" mSurfaceFrame.Coordinates " + mSurfaceFrame.left + "," + mSurfaceFrame.top + "," + mSurfaceFrame.right + "," + mSurfaceFrame.bottom +
-               		" mSurfaceFrame.width=" + mSurfaceFrame.width() + " mSurfaceFrame.height=" + mSurfaceFrame.height()
-                   ); 
-    	}
+                    " \nmyWidth:" + myWidth
+                    + "\nmyHeight:" + myHeight
+                    + "\nmWidth=" + mWidth + " mHeight=" + mHeight
+                    + "\nmWinFrame=" + mWinFrame
+                    + "\nmLayout=" + mLayout + " mLayout.x=" + mLayout.x + " mLayout.y=" + mLayout.y + " mLayout.width=" + mLayout.width + " mLayout.height=" + mLayout.height
+                    + "\nmLeft=" + mLeft + " mTop=" + mTop + " mRight=" + mRight + " mBottom=" + mBottom
+                    + "\nmRequestedW=" + mRequestedWidth + " mRequestedH=" + mRequestedHeight
+                    + "\nmSurface=" + mSurface
+                    + "\nmSurfaceFrame=" + mSurfaceFrame +
+                    " mSurfaceFrame.Coordinates " + mSurfaceFrame.left + "," + mSurfaceFrame.top + "," + mSurfaceFrame.right + "," + mSurfaceFrame.bottom +
+                    " mSurfaceFrame.width=" + mSurfaceFrame.width() + " mSurfaceFrame.height=" + mSurfaceFrame.height()
+                   );
+        }
 
         getLocationInWindow(mLocation);
         final boolean creating = mWindow == null;
@@ -537,9 +537,9 @@ public class SurfaceView extends View {
         final boolean sizeChanged = mWidth != myWidth || mHeight != myHeight;
         final boolean visibleChanged = mVisible != mRequestedVisible;
 
-      	if(DEBUG) {
+        if(DEBUG) {
             android.util.Log.v(TAG, this + " SurfaceView.updateWindow()" +
-            		 "\nChanges: creating=" + creating
+                     "\nChanges: creating=" + creating
                      + "\n formatChanged=" + formatChanged + " sizeChanged=" + sizeChanged + " visibleChanged=" + visibleChanged
                      + "\n visible=" + visibleChanged
                      + "\n left=" + (mLeft != mLocation[0])
@@ -547,7 +547,7 @@ public class SurfaceView extends View {
                      + "\n mUpdateWindowNeeeded: " + mUpdateWindowNeeded
                      + "\n mReportDrawNeeded: " + mReportDrawNeeded
                      + "\n redrawNeeded: " + redrawNeeded);
-    	}
+        }
 
         if (force || creating || formatChanged || sizeChanged || visibleChanged
             || mLeft != mLocation[0] || mTop != mLocation[1]
@@ -564,32 +564,32 @@ public class SurfaceView extends View {
                 mFormat = mRequestedFormat;
 
                 // Scaling/Translate window's layout here because mLayout is not used elsewhere.
-                
+
                 // Places the window relative
                 mLayout.x = mLeft;
                 mLayout.y = mTop;
                 mLayout.width = getWidth();
                 mLayout.height = getHeight();
-                
-              	if(DEBUG) {
+
+                if(DEBUG) {
                     android.util.Log.v(TAG, this + " SurfaceView.updateWindow() " + " mLayout, mLeft/Top, mWidth/Height, mFormat Updated"
-                      		+ " \nmyWidth:" + myWidth
-                       		+ "\nmyHeight:" + myHeight
-                       		+ "\nmWidth=" + mWidth + " mHeight=" + mHeight
-                    		+ "\nmWinFrame=" + mWinFrame
-                       		+ "\nmLayout=" + mLayout + " mLayout.x=" + mLayout.x + " mLayout.y=" + mLayout.y + " mLayout.width=" + mLayout.width + " mLayout.height=" + mLayout.height
-                       		+ "\nmLeft=" + mLeft + " mTop=" + mTop + " mRight=" + mRight + " mBottom=" + mBottom
-                       		+ "\nmRequestedW=" + mRequestedWidth + " mRequestedH=" + mRequestedHeight
-                       		+ "\nmSurface=" + mSurface
-                       		+ "\nmSurfaceFrame=" + mSurfaceFrame +
-                       		" mSurfaceFrame.Coordinates " + mSurfaceFrame.left + "," + mSurfaceFrame.top + "," + mSurfaceFrame.right + "," + mSurfaceFrame.bottom +
-                       		" mSurfaceFrame.width=" + mSurfaceFrame.width() + " mSurfaceFrame.height=" + mSurfaceFrame.height());
-                    	}
+                            + " \nmyWidth:" + myWidth
+                            + "\nmyHeight:" + myHeight
+                            + "\nmWidth=" + mWidth + " mHeight=" + mHeight
+                            + "\nmWinFrame=" + mWinFrame
+                            + "\nmLayout=" + mLayout + " mLayout.x=" + mLayout.x + " mLayout.y=" + mLayout.y + " mLayout.width=" + mLayout.width + " mLayout.height=" + mLayout.height
+                            + "\nmLeft=" + mLeft + " mTop=" + mTop + " mRight=" + mRight + " mBottom=" + mBottom
+                            + "\nmRequestedW=" + mRequestedWidth + " mRequestedH=" + mRequestedHeight
+                            + "\nmSurface=" + mSurface
+                            + "\nmSurfaceFrame=" + mSurfaceFrame +
+                            " mSurfaceFrame.Coordinates " + mSurfaceFrame.left + "," + mSurfaceFrame.top + "," + mSurfaceFrame.right + "," + mSurfaceFrame.bottom +
+                            " mSurfaceFrame.width=" + mSurfaceFrame.width() + " mSurfaceFrame.height=" + mSurfaceFrame.height());
+                        }
 
                 if (mTranslator != null) {
                     mTranslator.translateLayoutParamsInAppWindowToScreen(mLayout);
                 }
-                
+
                 mLayout.format = mRequestedFormat;
                 mLayout.flags |=WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
                               | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
@@ -612,7 +612,7 @@ public class SurfaceView extends View {
                     mSession.addToDisplayWithoutInputChannel(mWindow, mWindow.mSeq, mLayout,
                             mVisible ? VISIBLE : GONE, display.getDisplayId(), mContentInsets);
                 }
-                
+
                 boolean realSizeChanged;
                 boolean reportDrawNeeded;
 
@@ -624,22 +624,22 @@ public class SurfaceView extends View {
                     reportDrawNeeded = mReportDrawNeeded;
                     mReportDrawNeeded = false;
                     mDrawingStopped = !visible;
-    
-                  	if(DEBUG) {
+
+                    if(DEBUG) {
                         android.util.Log.v(TAG, this + " SurfaceView.updateWindow() before calling mSession.mRelayout" +
-                           		" \nmWidth:" + mWidth
-                           		+ " \nmHeight:" + mHeight
-                        		+ "\nmWinFrame=" + mWinFrame
-                           		+ "\nmLayout=" + mLayout + " mLayout.x=" + mLayout.x + " mLayout.y=" + mLayout.y + " mLayout.width=" + mLayout.width + " mLayout.height=" + mLayout.height
-                           		+ "\nmLeft=" + mLeft + " mTop=" + mTop + " mRight=" + mRight + " mBottom=" + mBottom
-                           		+ "\nmRequestedW=" + mRequestedWidth + " mRequestedH=" + mRequestedHeight
-                           		+ "\nmSurface=" + mSurface
-                           		+ "\nmSurfaceFrame=" + mSurfaceFrame +
-                           		" mSurfaceFrame.Coordinates " + mSurfaceFrame.left + "," + mSurfaceFrame.top + "," + mSurfaceFrame.right + "," + mSurfaceFrame.bottom +
-                           		" mSurfaceFrame.width=" + mSurfaceFrame.width() + " mSurfaceFrame.height=" + mSurfaceFrame.height()
-                           		+ "\nmWidth=" + mWidth + " mHeight=" + mHeight
-                               ); 
-                	}
+                                " \nmWidth:" + mWidth
+                                + " \nmHeight:" + mHeight
+                                + "\nmWinFrame=" + mWinFrame
+                                + "\nmLayout=" + mLayout + " mLayout.x=" + mLayout.x + " mLayout.y=" + mLayout.y + " mLayout.width=" + mLayout.width + " mLayout.height=" + mLayout.height
+                                + "\nmLeft=" + mLeft + " mTop=" + mTop + " mRight=" + mRight + " mBottom=" + mBottom
+                                + "\nmRequestedW=" + mRequestedWidth + " mRequestedH=" + mRequestedHeight
+                                + "\nmSurface=" + mSurface
+                                + "\nmSurfaceFrame=" + mSurfaceFrame +
+                                " mSurfaceFrame.Coordinates " + mSurfaceFrame.left + "," + mSurfaceFrame.top + "," + mSurfaceFrame.right + "," + mSurfaceFrame.bottom +
+                                " mSurfaceFrame.width=" + mSurfaceFrame.width() + " mSurfaceFrame.height=" + mSurfaceFrame.height()
+                                + "\nmWidth=" + mWidth + " mHeight=" + mHeight
+                               );
+                    }
                     relayoutResult = mSession.relayout(
                         mWindow, mWindow.mSeq, mLayout, mWidth, mHeight,
                             visible ? VISIBLE : GONE,
@@ -650,60 +650,60 @@ public class SurfaceView extends View {
                         mReportDrawNeeded = true;
                     }
 
-                  	if(DEBUG) {
+                    if(DEBUG) {
                         android.util.Log.v(TAG, this + " SurfaceView.updateWindow() New Surface"
-                           		+ "\nmSurface=" + mSurface
-                           		+ "\nmSurfaceFrame=" + mSurfaceFrame +
-                           		" mSurfaceFrame.Coordinates " + mSurfaceFrame.left + "," + mSurfaceFrame.top + "," + mSurfaceFrame.right + "," + mSurfaceFrame.bottom +
-                           		" mSurfaceFrame.width=" + mSurfaceFrame.width() + " mSurfaceFrame.height=" + mSurfaceFrame.height()
-                           		+ "\nmWinFrame=" + mWinFrame 
-                           		+ "\n vis=" + visible
-                               ); 
-                	}
+                                + "\nmSurface=" + mSurface
+                                + "\nmSurfaceFrame=" + mSurfaceFrame +
+                                " mSurfaceFrame.Coordinates " + mSurfaceFrame.left + "," + mSurfaceFrame.top + "," + mSurfaceFrame.right + "," + mSurfaceFrame.bottom +
+                                " mSurfaceFrame.width=" + mSurfaceFrame.width() + " mSurfaceFrame.height=" + mSurfaceFrame.height()
+                                + "\nmWinFrame=" + mWinFrame
+                                + "\n vis=" + visible
+                               );
+                    }
 
                     mSurfaceFrame.left = 0;
                     mSurfaceFrame.top = 0;
                     if (mTranslator == null) {
                         mSurfaceFrame.right = mWinFrame.width();
                         mSurfaceFrame.bottom = mWinFrame.height();
-                        
-                      	if(DEBUG) {
+
+                        if(DEBUG) {
                             android.util.Log.v(TAG, this + " SurfaceView.updateWindow() Surface Translated to"
-                               		+ "\nmSurface=" + mSurface
-                               		+ "\nmSurfaceFrame=" + mSurfaceFrame +
-                               		" mSurfaceFrame.Coordinates " + mSurfaceFrame.left + "," + mSurfaceFrame.top + "," + mSurfaceFrame.right + "," + mSurfaceFrame.bottom +
-                               		" mSurfaceFrame.width=" + mSurfaceFrame.width() + " mSurfaceFrame.height=" + mSurfaceFrame.height()
-                               		+ "\nmWinFrame=" + mWinFrame 
-                               		); 
-                    	}
+                                    + "\nmSurface=" + mSurface
+                                    + "\nmSurfaceFrame=" + mSurfaceFrame +
+                                    " mSurfaceFrame.Coordinates " + mSurfaceFrame.left + "," + mSurfaceFrame.top + "," + mSurfaceFrame.right + "," + mSurfaceFrame.bottom +
+                                    " mSurfaceFrame.width=" + mSurfaceFrame.width() + " mSurfaceFrame.height=" + mSurfaceFrame.height()
+                                    + "\nmWinFrame=" + mWinFrame
+                                    );
+                        }
 
                     } else {
                         float appInvertedScale = mTranslator.applicationInvertedScale;
                         mSurfaceFrame.right = (int) (mWinFrame.width() * appInvertedScale + 0.5f);
                         mSurfaceFrame.bottom = (int) (mWinFrame.height() * appInvertedScale + 0.5f);
-                        
-                      	if(DEBUG) {
+
+                        if(DEBUG) {
                             android.util.Log.v(TAG, this + " SurfaceView.updateWindow() Surface appInvertedScale to"
-                               		+ "\nmSurface=" + mSurface
-                               		+ "\nmSurfaceFrame=" + mSurfaceFrame +
-                               		" mSurfaceFrame.Coordinates " + mSurfaceFrame.left + "," + mSurfaceFrame.top + "," + mSurfaceFrame.right + "," + mSurfaceFrame.bottom +
-                               		" mSurfaceFrame.width=" + mSurfaceFrame.width() + " mSurfaceFrame.height=" + mSurfaceFrame.height()
-                               		+ "\nmWinFrame=" + mWinFrame 
-                               		); 
-                    	}
+                                    + "\nmSurface=" + mSurface
+                                    + "\nmSurfaceFrame=" + mSurfaceFrame +
+                                    " mSurfaceFrame.Coordinates " + mSurfaceFrame.left + "," + mSurfaceFrame.top + "," + mSurfaceFrame.right + "," + mSurfaceFrame.bottom +
+                                    " mSurfaceFrame.width=" + mSurfaceFrame.width() + " mSurfaceFrame.height=" + mSurfaceFrame.height()
+                                    + "\nmWinFrame=" + mWinFrame
+                                    );
+                        }
 
                     }
-                    
+
                     final int surfaceWidth = mSurfaceFrame.right;
                     final int surfaceHeight = mSurfaceFrame.bottom;
-               
+
                     realSizeChanged = mLastSurfaceWidth != surfaceWidth
                             || mLastSurfaceHeight != surfaceHeight;
-                    
-                	if(this.toString().contains("Compositor")) {
+
+                    if(this.toString().contains("Compositor")) {
                         android.util.Log.v(TAG, this + " SurfaceView.updateWindow()" +
-                           		"\nrealSizeChanged: " + realSizeChanged); 
-                	}
+                                "\nrealSizeChanged: " + realSizeChanged);
+                    }
 
                     mLastSurfaceWidth = surfaceWidth;
                     mLastSurfaceHeight = surfaceHeight;
@@ -718,20 +718,20 @@ public class SurfaceView extends View {
 
                     final boolean surfaceChanged = (relayoutResult
                             & WindowManagerGlobal.RELAYOUT_RES_SURFACE_CHANGED) != 0;
-                    
-                	if(DEBUG) {
+
+                    if(DEBUG) {
                         android.util.Log.v(TAG, this + " SurfaceView.updateWindow()" +
-                           		" Surface Evaluation " + 
-                        		" \nmSurfaceCreated: " + mSurfaceCreated +
-                        		" \nsurfaceChanged: " + surfaceChanged +
-                        		" \nvisibleChanged: " + visibleChanged
-                        		+ "\nvisible=" + visible
-                        		+ "mSurface.isValid()=" + mSurface.isValid()
-                        		+ "\ncreating=" + creating
-                        		+ "\nformatChanged=" + formatChanged
-                        		+ "\nrealSizeChanged=" + realSizeChanged);
-                       
-                	}
+                                " Surface Evaluation " +
+                                " \nmSurfaceCreated: " + mSurfaceCreated +
+                                " \nsurfaceChanged: " + surfaceChanged +
+                                " \nvisibleChanged: " + visibleChanged
+                                + "\nvisible=" + visible
+                                + "mSurface.isValid()=" + mSurface.isValid()
+                                + "\ncreating=" + creating
+                                + "\nformatChanged=" + formatChanged
+                                + "\nrealSizeChanged=" + realSizeChanged);
+
+                    }
 
                     if (mSurfaceCreated && (surfaceChanged || (!visible && visibleChanged))) {
                         mSurfaceCreated = false;
@@ -749,7 +749,7 @@ public class SurfaceView extends View {
                     if (visible && mSurface.isValid()) {
 
                         if (!mSurfaceCreated && (surfaceChanged || visibleChanged)) {
-                        	mSurfaceCreated = true;
+                            mSurfaceCreated = true;
                             mIsCreating = true;
                             if (DEBUG) Log.i(TAG, "visibleChanged -- surfaceCreated");
                             if (callbacks == null) {
@@ -762,70 +762,70 @@ public class SurfaceView extends View {
                         if (creating || formatChanged || sizeChanged
                                 || visibleChanged || realSizeChanged) {
                             if (DEBUG) Log.i(TAG, "surfaceChanged -- format=" + mFormat);
-                    		if(DEBUG) {
+                            if(DEBUG) {
                                 android.util.Log.v(TAG, this + " SurfaceView.updateWindow()"
-                                   		+ "\nmyWidth = " + myWidth + " myHeight=" + myHeight 
-                                   		+ "\nmWinFrame=" + mWinFrame
-                                   		+ "\nmLayout=" + mLayout + " mLayout.x=" + mLayout.x + " mLayout.y=" + mLayout.y + " mLayout.width=" + mLayout.width + " mLayout.height=" + mLayout.height
-                                   		+ "\nmLeft=" + mLeft + " mTop=" + mTop + " mRight=" + mRight + " mBottom=" + mBottom
-                                   		+ "\nmRequestedW=" + mRequestedWidth + " mRequestedH=" + mRequestedHeight
-                                   		+ "\nmSurface=" + mSurface
-                                   		+ "\nmSurfaceFrame=" + mSurfaceFrame +
-                                   		" mSurfaceFrame.Coordinates " + mSurfaceFrame.left + "," + mSurfaceFrame.top + "," + mSurfaceFrame.right + "," + mSurfaceFrame.bottom +
-                                   		" mSurfaceFrame.width=" + mSurfaceFrame.width() + " mSurfaceFrame.height=" + mSurfaceFrame.height()
-                                   		+ "\nmWidth=" + mWidth + " mHeight=" + mHeight
-                                		);
-                        	}
+                                        + "\nmyWidth = " + myWidth + " myHeight=" + myHeight
+                                        + "\nmWinFrame=" + mWinFrame
+                                        + "\nmLayout=" + mLayout + " mLayout.x=" + mLayout.x + " mLayout.y=" + mLayout.y + " mLayout.width=" + mLayout.width + " mLayout.height=" + mLayout.height
+                                        + "\nmLeft=" + mLeft + " mTop=" + mTop + " mRight=" + mRight + " mBottom=" + mBottom
+                                        + "\nmRequestedW=" + mRequestedWidth + " mRequestedH=" + mRequestedHeight
+                                        + "\nmSurface=" + mSurface
+                                        + "\nmSurfaceFrame=" + mSurfaceFrame +
+                                        " mSurfaceFrame.Coordinates " + mSurfaceFrame.left + "," + mSurfaceFrame.top + "," + mSurfaceFrame.right + "," + mSurfaceFrame.bottom +
+                                        " mSurfaceFrame.width=" + mSurfaceFrame.width() + " mSurfaceFrame.height=" + mSurfaceFrame.height()
+                                        + "\nmWidth=" + mWidth + " mHeight=" + mHeight
+                                        );
+                            }
                             if (callbacks == null) {
                                 callbacks = getSurfaceCallbacks();
                             }
                             for (SurfaceHolder.Callback c : callbacks) {
-                            	
+
                                 /**
                                  * Author: Onskreen
                                  * Date: 11.13.2013
-                                 * 
+                                 *
                                  * The redraw happens in a measure pass, then layout pass. SurfaceViews
                                  * that override onMeasure(), can request to render outside the bounds
                                  * the parent provides them. In this layout pass, ensure that isn't
-                                 * the case. Ideally, we could enforce this in the measure pass 
-                                 * (in SV.onMeasure() or setMeasuredDimension() before the measured 
-                                 * value is recorded.                               
+                                 * the case. Ideally, we could enforce this in the measure pass
+                                 * (in SV.onMeasure() or setMeasuredDimension() before the measured
+                                 * value is recorded.
                                  */
                                 if((myHeight != mWinFrame.height() && mWinFrame.height()!=0) ||
-                                		myWidth!=mWinFrame.width() && mWinFrame.width()!=0) {
-                                	
-                                	myWidth = mWinFrame.width();
-                                	myHeight = mWinFrame.height();
-                                	
-                                	mLayout.width = myWidth;
-                                	mLayout.height = myHeight;
-                                	
-                                	mWidth=myWidth;
-                                	mHeight=myHeight;
-                                	
-                                	super.setFrame(mLeft, mTop, mLeft+mWidth, mTop+mHeight);
-                                	//Make sure a redraw occurs on this pass.
-                                	redrawNeeded = true;
-                                	
-                            		if(DEBUG) {
+                                        myWidth!=mWinFrame.width() && mWinFrame.width()!=0) {
+
+                                    myWidth = mWinFrame.width();
+                                    myHeight = mWinFrame.height();
+
+                                    mLayout.width = myWidth;
+                                    mLayout.height = myHeight;
+
+                                    mWidth=myWidth;
+                                    mHeight=myHeight;
+
+                                    super.setFrame(mLeft, mTop, mLeft+mWidth, mTop+mHeight);
+                                    //Make sure a redraw occurs on this pass.
+                                    redrawNeeded = true;
+
+                                    if(DEBUG) {
                                         android.util.Log.v(TAG, this + " SurfaceView.updateWindow() enforcing parent's bounds on child SurfaceView"
-                                           		+ "\nmyWidth = " + myWidth + " myHeight=" + myHeight 
-                                           		+ "\nmWinFrame=" + mWinFrame
-                                           		+ "\nmLayout=" + mLayout + " mLayout.x=" + mLayout.x + " mLayout.y=" + mLayout.y + " mLayout.width=" + mLayout.width + " mLayout.height=" + mLayout.height
-                                           		+ "\nmLeft=" + mLeft + " mTop=" + mTop + " mRight=" + mRight + " mBottom=" + mBottom
-                                           		+ "\nmRequestedW=" + mRequestedWidth + " mRequestedH=" + mRequestedHeight
-                                           		+ "\nmSurface=" + mSurface
-                                           		+ "\nmSurfaceFrame=" + mSurfaceFrame +
-                                           		" mSurfaceFrame.Coordinates " + mSurfaceFrame.left + "," + mSurfaceFrame.top + "," + mSurfaceFrame.right + "," + mSurfaceFrame.bottom +
-                                           		" mSurfaceFrame.width=" + mSurfaceFrame.width() + " mSurfaceFrame.height=" + mSurfaceFrame.height()
-                                           		+ "\nmWidth=" + mWidth + " mHeight=" + mHeight
-                                        		);
-                                	}
+                                                + "\nmyWidth = " + myWidth + " myHeight=" + myHeight
+                                                + "\nmWinFrame=" + mWinFrame
+                                                + "\nmLayout=" + mLayout + " mLayout.x=" + mLayout.x + " mLayout.y=" + mLayout.y + " mLayout.width=" + mLayout.width + " mLayout.height=" + mLayout.height
+                                                + "\nmLeft=" + mLeft + " mTop=" + mTop + " mRight=" + mRight + " mBottom=" + mBottom
+                                                + "\nmRequestedW=" + mRequestedWidth + " mRequestedH=" + mRequestedHeight
+                                                + "\nmSurface=" + mSurface
+                                                + "\nmSurfaceFrame=" + mSurfaceFrame +
+                                                " mSurfaceFrame.Coordinates " + mSurfaceFrame.left + "," + mSurfaceFrame.top + "," + mSurfaceFrame.right + "," + mSurfaceFrame.bottom +
+                                                " mSurfaceFrame.width=" + mSurfaceFrame.width() + " mSurfaceFrame.height=" + mSurfaceFrame.height()
+                                                + "\nmWidth=" + mWidth + " mHeight=" + mHeight
+                                                );
+                                    }
 
                                 }
                                 c.surfaceChanged(mSurfaceHolder, mFormat, myWidth, myHeight);
-                                
+
                             }
                         }
                         if (redrawNeeded) {
@@ -851,22 +851,22 @@ public class SurfaceView extends View {
                 }
             } catch (RemoteException ex) {
             }
-            
-         	if(DEBUG) {
-                android.util.Log.v(TAG, this + " SurfaceView.updateWindow() all done."
-                		+ "\nmyWidth = " + myWidth + " myHeight=" + myHeight 
-                   		+ "\nmWinFrame=" + mWinFrame
-                   		+ "\nmLayout=" + mLayout + " mLayout.x=" + mLayout.x + " mLayout.y=" + mLayout.y + " mLayout.width=" + mLayout.width + " mLayout.height=" + mLayout.height
-                   		+ "\nmLeft=" + mLeft + " mTop=" + mTop + " mRight=" + mRight + " mBottom=" + mBottom
-                   		+ "\nmRequestedW=" + mRequestedWidth + " mRequestedH=" + mRequestedHeight
-                   		+ "\nmSurface=" + mSurface
-                   		+ "\nmSurfaceFrame=" + mSurfaceFrame +
-                   		" mSurfaceFrame.Coordinates " + mSurfaceFrame.left + "," + mSurfaceFrame.top + "," + mSurfaceFrame.right + "," + mSurfaceFrame.bottom +
-                   		" mSurfaceFrame.width=" + mSurfaceFrame.width() + " mSurfaceFrame.height=" + mSurfaceFrame.height()
-                   		+ "\nmWidth=" + mWidth + " mHeight=" + mHeight
-                		);
 
-        	}
+            if(DEBUG) {
+                android.util.Log.v(TAG, this + " SurfaceView.updateWindow() all done."
+                        + "\nmyWidth = " + myWidth + " myHeight=" + myHeight
+                        + "\nmWinFrame=" + mWinFrame
+                        + "\nmLayout=" + mLayout + " mLayout.x=" + mLayout.x + " mLayout.y=" + mLayout.y + " mLayout.width=" + mLayout.width + " mLayout.height=" + mLayout.height
+                        + "\nmLeft=" + mLeft + " mTop=" + mTop + " mRight=" + mRight + " mBottom=" + mBottom
+                        + "\nmRequestedW=" + mRequestedWidth + " mRequestedH=" + mRequestedHeight
+                        + "\nmSurface=" + mSurface
+                        + "\nmSurfaceFrame=" + mSurfaceFrame +
+                        " mSurfaceFrame.Coordinates " + mSurfaceFrame.left + "," + mSurfaceFrame.top + "," + mSurfaceFrame.right + "," + mSurfaceFrame.bottom +
+                        " mSurfaceFrame.width=" + mSurfaceFrame.width() + " mSurfaceFrame.height=" + mSurfaceFrame.height()
+                        + "\nmWidth=" + mWidth + " mHeight=" + mHeight
+                        );
+
+            }
 
             if (DEBUG) Log.v(
                 TAG, "Layout: x=" + mLayout.x + " y=" + mLayout.y +
@@ -909,36 +909,36 @@ public class SurfaceView extends View {
         @Override
         public void resized(Rect frame, Rect overscanInsets, Rect contentInsets,
                 Rect visibleInsets, boolean reportDraw, Configuration newConfig) {
-               
-        	/**
-        	 * Author: Onskreen
-        	 * Date: 11.13.2013
-        	 * CS counter to make debugging easier
-        	 */
-        	resizeNum++;
-        	if(DEBUG) {
-                android.util.Log.v(TAG, "\n" + this + " SurfaceView.resized() " + " NUMBER: " 
-                		+ resizeNum);
-        	}
+
+            /**
+             * Author: Onskreen
+             * Date: 11.13.2013
+             * CS counter to make debugging easier
+             */
+            resizeNum++;
+            if(DEBUG) {
+                android.util.Log.v(TAG, "\n" + this + " SurfaceView.resized() " + " NUMBER: "
+                        + resizeNum);
+            }
 
             SurfaceView surfaceView = mSurfaceView.get();
-            
-          	if(DEBUG) {
+
+            if(DEBUG) {
                 android.util.Log.v(TAG, this + " SurfaceView.resized()"
-            		+ "\nframe = " + frame 
-               		+ "\ncur w=" + mCurWidth + " h=" + mCurHeight
-               		+ "\nreportDraw=" + reportDraw
-               		+ "\nmWinFrame=" + surfaceView.mWinFrame
-               		+ "\nmLayout=" + surfaceView.mLayout + " mLayout.x=" + surfaceView.mLayout.x + " mLayout.y=" + surfaceView.mLayout.y + " mLayout.width=" + surfaceView.mLayout.width + " mLayout.height=" + surfaceView.mLayout.height
-               		+ "\nmLeft=" + surfaceView.mLeft + " mTop=" +surfaceView.mTop + " mRight=" + surfaceView.mRight + " mBottom=" + surfaceView.mBottom
-               		+ "\nmRequestedW=" + surfaceView.mRequestedWidth + " mRequestedH=" + surfaceView.mRequestedHeight
-               		+ "\nmSurface=" + surfaceView.mSurface
-               		+ "\nmSurfaceFrame=" +  surfaceView.mSurfaceFrame +
-               		" mSurfaceFrame.Coordinates " + surfaceView.mSurfaceFrame.left + "," + surfaceView.mSurfaceFrame.top + "," + surfaceView.mSurfaceFrame.right + "," + surfaceView.mSurfaceFrame.bottom +
-               		" mSurfaceFrame.width=" + surfaceView.mSurfaceFrame.width() + " mSurfaceFrame.height=" + surfaceView.mSurfaceFrame.height()
-               		+ "\nmWidth=" + surfaceView.mWidth + " mHeight=" + surfaceView.mHeight
-            		);
-          	}
+                    + "\nframe = " + frame
+                    + "\ncur w=" + mCurWidth + " h=" + mCurHeight
+                    + "\nreportDraw=" + reportDraw
+                    + "\nmWinFrame=" + surfaceView.mWinFrame
+                    + "\nmLayout=" + surfaceView.mLayout + " mLayout.x=" + surfaceView.mLayout.x + " mLayout.y=" + surfaceView.mLayout.y + " mLayout.width=" + surfaceView.mLayout.width + " mLayout.height=" + surfaceView.mLayout.height
+                    + "\nmLeft=" + surfaceView.mLeft + " mTop=" +surfaceView.mTop + " mRight=" + surfaceView.mRight + " mBottom=" + surfaceView.mBottom
+                    + "\nmRequestedW=" + surfaceView.mRequestedWidth + " mRequestedH=" + surfaceView.mRequestedHeight
+                    + "\nmSurface=" + surfaceView.mSurface
+                    + "\nmSurfaceFrame=" +  surfaceView.mSurfaceFrame +
+                    " mSurfaceFrame.Coordinates " + surfaceView.mSurfaceFrame.left + "," + surfaceView.mSurfaceFrame.top + "," + surfaceView.mSurfaceFrame.right + "," + surfaceView.mSurfaceFrame.bottom +
+                    " mSurfaceFrame.width=" + surfaceView.mSurfaceFrame.width() + " mSurfaceFrame.height=" + surfaceView.mSurfaceFrame.height()
+                    + "\nmWidth=" + surfaceView.mWidth + " mHeight=" + surfaceView.mHeight
+                    );
+            }
 
             if (surfaceView != null) {
                 if (DEBUG) Log.v(
@@ -946,38 +946,38 @@ public class SurfaceView extends View {
                         + " h=" + frame.height() + ", \ncur w=" + mCurWidth + " h=" + mCurHeight);
 
                 surfaceView.mSurfaceLock.lock();
-                
-               	if(DEBUG) {
+
+                if(DEBUG) {
                     android.util.Log.v(TAG, this + " SurfaceView.resized()"
-                    			+ "after acquiring lock");
-              	}
-       
+                                + "after acquiring lock");
+                }
+
                 try {
                     if (reportDraw) {
-                      	if(DEBUG) {
+                        if(DEBUG) {
                             android.util.Log.v(TAG, this + " SurfaceView.resized()"
-                            		+ "\nreportDraw->true" 
-                               		+ "\nSetting mUpdateWindowNeeded=mReportDrawNeeded=true");
-                      	}
+                                    + "\nreportDraw->true"
+                                    + "\nSetting mUpdateWindowNeeded=mReportDrawNeeded=true");
+                        }
                         surfaceView.mUpdateWindowNeeded = true;
                         surfaceView.mReportDrawNeeded = true;
                         surfaceView.mHandler.sendEmptyMessage(UPDATE_WINDOW_MSG);
                     } else if (surfaceView.mWinFrame.width() != frame.width()
                             || surfaceView.mWinFrame.height() != frame.height()) {
-                      	if(DEBUG) {
+                        if(DEBUG) {
                             android.util.Log.v(TAG, this + " SurfaceView.resized()"
-                            		+ "\nSurfaceView.mWinFrame w/h != frame.w/h" 
-                               		+ "\nSetting mUpdateWindowNeeded=true");
-                      	}
+                                    + "\nSurfaceView.mWinFrame w/h != frame.w/h"
+                                    + "\nSetting mUpdateWindowNeeded=true");
+                        }
                         surfaceView.mUpdateWindowNeeded = true;
                         surfaceView.mHandler.sendEmptyMessage(UPDATE_WINDOW_MSG);
                     }
                 } finally {
-                   	if(DEBUG) {
+                    if(DEBUG) {
                         android.util.Log.v(TAG, this + " SurfaceView.resized()"
-                        		+ "\nAbout to unlock");
-                  	}
-           
+                                + "\nAbout to unlock");
+                    }
+
                     surfaceView.mSurfaceLock.unlock();
                 }
             }
@@ -1007,18 +1007,18 @@ public class SurfaceView extends View {
     }
 
     private SurfaceHolder mSurfaceHolder = new SurfaceHolder() {
-        
+
         private static final String LOG_TAG = "SurfaceHolder";
-        
+
         public boolean isCreating() {
             return mIsCreating;
         }
 
         public void addCallback(Callback callback) {
             synchronized (mCallbacks) {
-                // This is a linear search, but in practice we'll 
+                // This is a linear search, but in practice we'll
                 // have only a couple callbacks, so it doesn't matter.
-                if (mCallbacks.contains(callback) == false) {      
+                if (mCallbacks.contains(callback) == false) {
                     mCallbacks.add(callback);
                 }
             }
@@ -1029,7 +1029,7 @@ public class SurfaceView extends View {
                 mCallbacks.remove(callback);
             }
         }
-        
+
         public void setFixedSize(int width, int height) {
             if (mRequestedWidth != width || mRequestedHeight != height) {
                 mRequestedWidth = width;
@@ -1069,7 +1069,7 @@ public class SurfaceView extends View {
             msg.arg1 = screenOn ? 1 : 0;
             mHandler.sendMessage(msg);
         }
-        
+
         /**
          * Gets a {@link Canvas} for drawing into the SurfaceView's Surface
          *
@@ -1130,7 +1130,7 @@ public class SurfaceView extends View {
                 mLastLockTime = SystemClock.uptimeMillis();
                 return c;
             }
-            
+
             // If the Surface is not ready to be drawn, then return null,
             // but throttle calls to this function so it isn't called more
             // than every 100ms.
@@ -1145,7 +1145,7 @@ public class SurfaceView extends View {
             }
             mLastLockTime = now;
             mSurfaceLock.unlock();
-            
+
             return null;
         }
 
